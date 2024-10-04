@@ -16,7 +16,12 @@ const DeleteUser = () => {
   const handelDelete = async () => {
     setLoading(true);
     const { status } = await axios.delete(
-      `http://localhost/back-sef/public/api/users/${id}`
+      `http://localhost/back-sef/public/api/users/${id}`,{
+        Headers: {
+          "Content-Type": "application/json"
+        }
+  
+      }
     );
     if (status === 204) {
       setLoading(false);
