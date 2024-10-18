@@ -28,7 +28,7 @@ export const saveProduct = (data) => {
 export const editProduct = (productData) => {
     const url = `${SERVER_URL}/products/${productData.id}`;
     console.log('in edit product Data =',productData);
-    return axios.put(url,productData);
+    return axios.post(url,productData);
 }
 
 export const removeProduct = (id) => {

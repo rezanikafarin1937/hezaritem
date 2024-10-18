@@ -15,14 +15,18 @@ const DeleteUser = () => {
 
   const handelDelete = async () => {
     setLoading(true);
-    const { status } = await axios.delete(
-      `http://localhost/back-sef/public/api/users/${id}`,{
-        Headers: {
-          "Content-Type": "application/json"
-        }
-  
-      }
-    );
+    // const { status } = await axios
+      // .delete(`http://localhost/back-sef/public/api/users/${id}`)
+      // .then((res) => console.log("res = ", res));
+    const status = axios({
+      url : `http://localhost/back-sef/public/api/users/${id}`,
+      method : 'delete',
+      data : '',
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+
+    }).then((res) => console.log("res = ", res));
     if (status === 204) {
       setLoading(false);
       navigation("/manager");
@@ -34,7 +38,7 @@ const DeleteUser = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <Confirm title="آیا میخواهید این محصول را حذف کنید ؟">
+        <Confirm title="با حذف این کاربر محصولات مربوط به کاربر نیز حذف میشوند">
           <Link className="mybtn mybtn__logo" to={`/show-user/${id}`}>
             انصراف
           </Link>

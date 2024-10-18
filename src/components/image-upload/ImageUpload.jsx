@@ -4,6 +4,7 @@ import "./image-upload.scss";
 
 const ImageUpload = ({ onUpload, PreviousPhotos = [] }) => {
   const [files, setFiles] = useState([]);
+  const [delFiles, setDelFiles] = useState([]);
   const [isPreviousPhotos, setIsPreviousPhotos] = useState(true);
 
   const createObjectUrl = (file) => {
@@ -13,9 +14,7 @@ const ImageUpload = ({ onUpload, PreviousPhotos = [] }) => {
   const handleInput = (e) => {
     let obj = e.target.files;
     setFiles((f) => [...f, ...obj]);
-    console.log("files = ", files);
   };
-
 
   const merge = () => {
     if (PreviousPhotos.length > 0) {
@@ -25,8 +24,9 @@ const ImageUpload = ({ onUpload, PreviousPhotos = [] }) => {
           type: "image/jpeg",
         });
         file.old = true;
+        file.id = pp.id;
+        file.product_id = pp.product_id;
         setFiles((f) => [...f, file]);
-        console.log("file name = ", file);
       });
     }
     setIsPreviousPhotos(false);
@@ -39,8 +39,7 @@ const ImageUpload = ({ onUpload, PreviousPhotos = [] }) => {
   }, []);
 
   useEffect(() => {
-    onUpload(files);
-    console.log("AA files = ", files);
+    onUpload(files, delFiles);
   }, [files]);
 
   return (
@@ -49,24 +48,26 @@ const ImageUpload = ({ onUpload, PreviousPhotos = [] }) => {
         {files.map((file, index) => {
           return (
             <div className="upload__image" key={index}>
-              {console.log(
-                index,
-                " : createObjectUrl = ",
-                createObjectUrl(file)
-              )}
               <img src={file.old ? file.name : createObjectUrl(file)} />
               <div className="upload__overlay">
                 <div
                   className="upload__del-btn"
-                  onClick={() =>
-                    setFiles(() =>
+                  onClick={() => {
+                    setDelFiles(() =>
                       files.filter((f, i) => {
-                        if (index != i) {
+                        if (index === i) {
                           return f;
                         }
                       })
-                    )
-                  }
+                    );
+                    setFiles(() =>
+                      files.filter((f, i) => {
+                        if (index !== i) {
+                          return f;
+                        }
+                      })
+                    );
+                  }}
                 ></div>
               </div>
             </div>

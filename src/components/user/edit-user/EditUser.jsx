@@ -97,6 +97,7 @@ export const EditUser = () => {
         setUser({ ...res.data });
         setLoading(false);
         setTypeUser(res.data.type);
+        console.log("typeUser =", typeUser);
         setUrl(res.data.avatar);
       });
     } catch (err) {
