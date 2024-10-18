@@ -16,7 +16,7 @@ const DeleteProduct = () => {
    const handelDelete = async () => {
       setLoading(true);
       const { status } = await removeProduct(id);
-      if(status === 200) {
+      if(status === 204) {
         setLoading(false);
         navigation("/");
       }

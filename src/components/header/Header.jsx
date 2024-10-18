@@ -21,7 +21,7 @@ const Header = () => {
           onChange={(e) => dispatch(updateSearch(e.target.value))}
         />
       ) : null}
-      <Link to="/addproduct" className="mybtn mybtn__sucsess">
+      <Link to="/insert-product" className="mybtn mybtn__sucsess">
         ثبت محصول
       </Link>
     </div>

@@ -14,7 +14,9 @@ import {
   ProfileUpload,
   ShowUser,
   EditUser,
-  DeleteUser
+  DeleteUser,
+  InfiniteLoadingProducts,
+  InsertProduct
  
 } from "../components";
 import { createBrowserRouter } from "react-router-dom";
@@ -30,9 +32,10 @@ export const router = createBrowserRouter([
 
       {
         path: "/",
-        element: <Home />,
+        element: <InfiniteLoadingProducts />,
         errorElement: <h3>error element</h3>,
       },
+
       {
         path: "/addproduct",
         element: <Getproduct />,
@@ -119,6 +122,13 @@ export const router = createBrowserRouter([
     element: <DeleteUser />,
     errorElement: <h3>error element</h3>,
   },
+
+  {
+    path: "/insert-product",
+    element: <InsertProduct />,
+    errorElement: <h3>error element</h3>,
+  },
+
 
 
 
