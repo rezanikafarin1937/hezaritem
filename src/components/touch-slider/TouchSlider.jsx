@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./touch-slider.scss";
 
-const TouchSlider = ({ children, imageLength }) => {
+const TouchSlider = ({ children, imageLength, twoWay = false }) => {
   const [pressed, setPressed] = useState(false);
   const [startPoint, setStartPoint] = useState(0);
   const [endPoint, setEndPoint] = useState(0);
@@ -64,17 +64,21 @@ const TouchSlider = ({ children, imageLength }) => {
     let slide = document.querySelector(".slide");
     let width = slide.offsetWidth;
 
-    if (indexImage < imageLength - 1) {
+    if (indexImage >= imageLength - 1 && !twoWay) {
+      document.querySelector(".slide__btn-next").style.opacity = "0";
+      setIndexImage(imageLength - 1);
+    } else if (indexImage >= imageLength - 1) {
+      setIndexImage(0);
+      slide.scrollLeft = 0;
+    } else if (indexImage < imageLength - 1) {
       slide.scrollLeft = width * (indexImage + 1);
-      if (indexImage >= imageLength) {
-        setIndexImage(0);
-      } else {
-        setIndexImage(indexImage + 1);
-      }
+      setIndexImage(indexImage + 1);
     } else {
       setIndexImage(() => 0);
       slide.scrollLeft = 0;
     }
+    document.querySelector(".slide__btn-prev").style.opacity = "1";
+
   };
 
   const prevSlide = () => {
@@ -83,10 +87,14 @@ const TouchSlider = ({ children, imageLength }) => {
     if (indexImage > 0) {
       setIndexImage(() => indexImage - 1);
       slide.scrollLeft = (indexImage - 1) * width;
-    } else if (indexImage === 0) {
+    } else if (indexImage === 0 && twoWay) {
       setIndexImage(() => imageLength - 1);
       slide.scrollLeft = (imageLength - 1) * width;
+    } else if (indexImage === 0 && !twoWay) {
+      document.querySelector(".slide__btn-prev").style.opacity = "0";
+      return;
     }
+    document.querySelector(".slide__btn-next").style.opacity = "1";
   };
 
   const shiftIndexImage = (index) => {
@@ -94,6 +102,8 @@ const TouchSlider = ({ children, imageLength }) => {
     let width = slide.offsetWidth;
     slide.scrollLeft = index * width;
     setIndexImage(() => index);
+    document.querySelector(".slide__btn-next").style.opacity = "1";
+    document.querySelector(".slide__btn-prev").style.opacity = "1";
   };
 
   return (
