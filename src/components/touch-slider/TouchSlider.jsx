@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import "./touch-slider.scss";
 
 const TouchSlider = ({ children, imageLength }) => {
-  // const [startX, setStartX] = useState(0);
   const [pressed, setPressed] = useState(false);
   const [startPoint, setStartPoint] = useState(0);
   const [endPoint, setEndPoint] = useState(0);
@@ -67,14 +66,12 @@ const TouchSlider = ({ children, imageLength }) => {
 
     if (indexImage < imageLength - 1) {
       slide.scrollLeft = width * (indexImage + 1);
-      // setStartX(() => width * indexImage);
       if (indexImage >= imageLength) {
         setIndexImage(0);
       } else {
         setIndexImage(indexImage + 1);
       }
     } else {
-      // setStartX(0);
       setIndexImage(() => 0);
       slide.scrollLeft = 0;
     }
@@ -85,11 +82,9 @@ const TouchSlider = ({ children, imageLength }) => {
     let width = slide.offsetWidth;
     if (indexImage > 0) {
       setIndexImage(() => indexImage - 1);
-      // setStartX(() => width * (indexImage - 1));
       slide.scrollLeft = (indexImage - 1) * width;
     } else if (indexImage === 0) {
       setIndexImage(() => imageLength - 1);
-      // setStartX(() => width * (imageLength - 1));
       slide.scrollLeft = (imageLength - 1) * width;
     }
   };
