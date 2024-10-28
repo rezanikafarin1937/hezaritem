@@ -1,22 +1,27 @@
 import { useEffect, useState } from "react";
-import Item from "../item/Item";
+import Slider from "../slider/Slider";
+import TouchSlider from "../touch-slider/TouchSlider";
 import { getProduct } from "../../services/Service";
-import { useParams,Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Spinner from "../spinner/Spinner";
+import ShowInformationProduct from "./ShowInformationProduct";
 import "./product.scss";
 
 const Product = () => {
   const { id: productId } = useParams();
 
   const [getDataProduct, setDataProduct] = useState({});
+  const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const handelGetProduct = async () => {
     setLoading(true);
     try {
       const { data } = await getProduct(productId);
-      console.log("Product data = ", data);
+      console.log("Product data", data);
+      data.images.push({ id: 0, productId: data.id, address: data.image });
       setDataProduct(data);
+      setImages(() => [...data.images]);
       setLoading(false);
     } catch (err) {
       console.log("eeeer = ", err.message);
@@ -34,10 +39,20 @@ const Product = () => {
         <Spinner />
       ) : (
         <div className="wrapper">
-          <Item data={getDataProduct} />
-          <div className="scale">
-            <Link to={`/products/delete/${productId}`} className="mybtn mybtn__delete">حذف</Link>
-            <Link to={`/products/edit/${productId}`} className="mybtn mybtn__denger">ویرایش</Link>
+          <div className="container-product">
+            <ShowInformationProduct data={getDataProduct} />
+            <div className="container-product__slider">
+              <TouchSlider  imageLength={images.length}>
+                {images.map((image, index) => (
+                  <div className="slide__item" key={index}>
+                    <img src={image.address} />
+                  </div>
+                ))}
+              </TouchSlider>
+            </div>
+            {/* <div className="container-product__slider">
+              <Slider images={images}/>
+            </div> */}
           </div>
         </div>
       )}
@@ -45,3 +60,6 @@ const Product = () => {
   );
 };
 export default Product;
+
+
+
