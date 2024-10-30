@@ -7,7 +7,11 @@ const TouchSlider = ({ children, imageLength, twoWay = false }) => {
   const [endPoint, setEndPoint] = useState(0);
   const [compare, setCompare] = useState(0);
   const [indexImage, setIndexImage] = useState(0);
+  const [space, setSpace] = useState(0);
+  const [moveRight, setMoveRight] = useState(false);
+
   useEffect(() => {
+    setSpace(() => startPoint - endPoint);
     if (startPoint > endPoint) {
       setCompare(() => 1);
     } else if (startPoint < endPoint) {
@@ -37,18 +41,19 @@ const TouchSlider = ({ children, imageLength, twoWay = false }) => {
       return;
     }
     setPressed(false);
+
     if (e.type === "touchmove") {
       setEndPoint(() => e.touches[0].clientX);
     } else {
       setEndPoint(() => e.clientX);
     }
 
-    if (compare === 1) {
-      nextSlide();
-    } else if (compare === -1) {
-      prevSlide();
-    } else if (compare === 0) {
-      return;
+    const slide = document.querySelector(".slide");
+    let width = slide.offsetWidth;
+    if (moveRight) {
+      slide.scrollLeft += space;
+    } else {
+      slide.scrollLeft -= width - space;
     }
   };
 
@@ -58,7 +63,22 @@ const TouchSlider = ({ children, imageLength, twoWay = false }) => {
       const wrapper = document.querySelector(".wrapper-slide");
       wrapper.style.cursor = "grab";
     }
+    setMoveRight(() => startPoint > endPoint);
+    
+
+    if (compare === 1) {
+      nextSlide();
+    } else if (compare === -1) {
+      prevSlide();
+    } 
+    else if (compare === 0) {
+      return;
+    }
+    // setStartPoint(0);
+    // setEndPoint(0);
   };
+
+
 
   const nextSlide = () => {
     let slide = document.querySelector(".slide");
@@ -78,7 +98,6 @@ const TouchSlider = ({ children, imageLength, twoWay = false }) => {
       slide.scrollLeft = 0;
     }
     document.querySelector(".slide__btn-prev").style.opacity = "1";
-
   };
 
   const prevSlide = () => {
@@ -100,7 +119,7 @@ const TouchSlider = ({ children, imageLength, twoWay = false }) => {
   const shiftIndexImage = (index) => {
     let slide = document.querySelector(".slide");
     let width = slide.offsetWidth;
-    slide.scrollLeft = index * width;
+    slide.scrollLeft = index * width - (startPoint - endPoint);
     setIndexImage(() => index);
     document.querySelector(".slide__btn-next").style.opacity = "1";
     document.querySelector(".slide__btn-prev").style.opacity = "1";
@@ -108,12 +127,13 @@ const TouchSlider = ({ children, imageLength, twoWay = false }) => {
 
   return (
     <>
+      {<div>Space : {space}</div>}
       <div
         className="wrapper-slide"
         onMouseDown={dragStart}
         onMouseMove={dragMove}
-        onMouseLeave={dragEnd}
         onMouseUp={dragEnd}
+        // onMouseLeave={dragEnd}
         onDragStart={dragStart}
         onDragEnd={dragEnd}
         onTouchStart={dragStart}

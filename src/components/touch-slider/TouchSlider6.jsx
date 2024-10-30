@@ -5,17 +5,9 @@ const TouchSlider = ({ children, imageLength, twoWay = false }) => {
   const [pressed, setPressed] = useState(false);
   const [startPoint, setStartPoint] = useState(0);
   const [endPoint, setEndPoint] = useState(0);
-  const [compare, setCompare] = useState(0);
   const [indexImage, setIndexImage] = useState(0);
-  useEffect(() => {
-    if (startPoint > endPoint) {
-      setCompare(() => 1);
-    } else if (startPoint < endPoint) {
-      setCompare(() => -1);
-    } else {
-      setCompare(() => 0);
-    }
-  }, [startPoint, endPoint]);
+  const [space, setSpace] = useState(0);
+
 
   window.addEventListener("mouseup", () => {
     setPressed(false);
@@ -37,18 +29,19 @@ const TouchSlider = ({ children, imageLength, twoWay = false }) => {
       return;
     }
     setPressed(false);
+
     if (e.type === "touchmove") {
       setEndPoint(() => e.touches[0].clientX);
     } else {
       setEndPoint(() => e.clientX);
     }
-
-    if (compare === 1) {
-      nextSlide();
-    } else if (compare === -1) {
-      prevSlide();
-    } else if (compare === 0) {
-      return;
+    setSpace(() => startPoint - endPoint);
+    const slide = document.querySelector(".slide");
+    let width = slide.offsetWidth;
+    if (startPoint > endPoint) {
+      slide.scrollLeft += space;
+    } else {
+      slide.scrollLeft -= width + space;
     }
   };
 
@@ -57,6 +50,14 @@ const TouchSlider = ({ children, imageLength, twoWay = false }) => {
     if (e.type !== "touchmove") {
       const wrapper = document.querySelector(".wrapper-slide");
       wrapper.style.cursor = "grab";
+    }
+
+    if (startPoint > endPoint) {
+      nextSlide();
+    } else if (startPoint < endPoint) {
+      prevSlide();
+    } else if (startPoint === endPoint) {
+      return;
     }
   };
 
@@ -78,7 +79,6 @@ const TouchSlider = ({ children, imageLength, twoWay = false }) => {
       slide.scrollLeft = 0;
     }
     document.querySelector(".slide__btn-prev").style.opacity = "1";
-
   };
 
   const prevSlide = () => {
@@ -100,7 +100,7 @@ const TouchSlider = ({ children, imageLength, twoWay = false }) => {
   const shiftIndexImage = (index) => {
     let slide = document.querySelector(".slide");
     let width = slide.offsetWidth;
-    slide.scrollLeft = index * width;
+    slide.scrollLeft = index * width - (startPoint - endPoint);
     setIndexImage(() => index);
     document.querySelector(".slide__btn-next").style.opacity = "1";
     document.querySelector(".slide__btn-prev").style.opacity = "1";
@@ -108,14 +108,13 @@ const TouchSlider = ({ children, imageLength, twoWay = false }) => {
 
   return (
     <>
+      {<div>Space : {space}</div>}
       <div
         className="wrapper-slide"
         onMouseDown={dragStart}
         onMouseMove={dragMove}
         onMouseLeave={dragEnd}
         onMouseUp={dragEnd}
-        onDragStart={dragStart}
-        onDragEnd={dragEnd}
         onTouchStart={dragStart}
         onTouchEnd={dragEnd}
         onTouchMove={dragMove}
