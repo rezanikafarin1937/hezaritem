@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Slider from "../slider/Slider";
-import TouchSlider from "../touch-slider/TouchSlider";
+// import TouchSlider from "../touch-slider/TouchSlider";
+import CarouselTouchSlider from "../touch-slider/carousel-touch-slider/CarouselTouchSlider";
 import { getProduct } from "../../services/Service";
 import { useParams } from "react-router-dom";
 import Spinner from "../spinner/Spinner";
@@ -42,13 +43,13 @@ const Product = () => {
           <div className="container-product">
             <ShowInformationProduct data={getDataProduct} />
             <div className="container-product__slider">
-              <TouchSlider  imageLength={images.length} >
+              <CarouselTouchSlider  imageLength={images.length} >
                 {images.map((image, index) => (
                   <div className="slide__item" key={index}>
                     <img src={image.address} />
                   </div>
                 ))}
-              </TouchSlider>
+              </CarouselTouchSlider>
             </div>
             {/* <div className="container-product__slider">
               <Slider images={images}/>
