@@ -43,7 +43,7 @@ const Product = () => {
           <div className="container-product">
             <ShowInformationProduct data={getDataProduct} />
             <div className="container-product__slider">
-              <CarouselTouchSlider  imageLength={images.length} >
+              <CarouselTouchSlider  imageLength={images.length} webStyle={true} twoWay={true}>
                 {images.map((image, index) => (
                   <div className="slide__item" key={index}>
                     <img src={image.address} />

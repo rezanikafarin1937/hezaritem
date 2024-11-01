@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import "./carousel-touch-slider.scss";
 
-const CarouselTouchSlider = ({ children, imageLength, twoWay = false }) => {
+const CarouselTouchSlider = ({
+  children,
+  imageLength,
+  twoWay = false,
+  webStyle = true,
+}) => {
   const [pressed, setPressed] = useState(false);
   const [startPoint, setStartPoint] = useState(0);
   const [endPoint, setEndPoint] = useState(0);
@@ -24,7 +29,7 @@ const CarouselTouchSlider = ({ children, imageLength, twoWay = false }) => {
   });
 
   const dragStart = (e) => {
-    console.log('dragStart');
+    console.log("dragStart");
     setPressed(true);
     if (e.type === "touchstart") {
       setStartPoint(() => e.touches[0].clientX);
@@ -39,25 +44,25 @@ const CarouselTouchSlider = ({ children, imageLength, twoWay = false }) => {
     if (!pressed) {
       return;
     }
-    
   };
 
   const dragEnd = (e) => {
     const slide = document.querySelector(".slide");
     const width = slide.offsetWidth;
-  if (e.type !== "touchend") {
+    if (e.type !== "touchend") {
       const wrapper = document.querySelector(".wrapper-slide");
       wrapper.style.cursor = "grab";
       setEndPoint(e.clientX);
     } else if (e.type === "touchend") {
       setEndPoint(() => e.changedTouches[0].clientX);
-    }
-    if ((compare === 1) && ( Math.abs(dragLength) >= (width / 2))) {
-      nextSlide();
-    } else if ((compare === -1) && (Math.abs(dragLength) >= (width / 2))) {
-      prevSlide();
-    } else {
-      slide.scrollLeft = indexImage * width;
+
+      if (compare === 1 && Math.abs(dragLength) >= width / 3) {
+        nextSlide();
+      } else if (compare === -1 && Math.abs(dragLength) >= width / 3) {
+        prevSlide();
+      } else {
+        slide.scrollLeft = indexImage * width;
+      }
     }
     setPressed(false);
   };
@@ -65,35 +70,84 @@ const CarouselTouchSlider = ({ children, imageLength, twoWay = false }) => {
   const nextSlide = () => {
     let slide = document.querySelector(".slide");
     const width = slide.offsetWidth;
-  if (indexImage >= imageLength - 1 && !twoWay) {
-      document.querySelector(".slide__btn-next").style.opacity = "0";
-      setIndexImage(imageLength - 1);
-    } else if (indexImage >= imageLength - 1) {
-      setIndexImage(0);
-      slide.scrollLeft = 0;
-    } else if (indexImage < imageLength - 1) {
-      slide.scrollLeft = width * (indexImage + 1);
-      setIndexImage(indexImage + 1);
-    } else {
-      setIndexImage(() => 0);
-      slide.scrollLeft = 0;
+    if (twoWay) {
+      if (indexImage < imageLength - 1) {
+        setIndexImage(() => indexImage + 1);
+        slide.scrollLeft = (indexImage + 1) * width;
+      } else if (indexImage >= imageLength - 1) {
+        setIndexImage(() => 0);
+        slide.scrollLeft = 0;
+      } else if (indexImage === 0) {
+        setIndexImage(() => imageLength - 1);
+        slide.scrollLeft = (indexImage + 1) * width;
+        document.querySelector(".slide__btn-prev").style.opacity = "0";
+      }
+    } else if (!twoWay) {
+      if (indexImage < imageLength - 1) {
+        setIndexImage(() => indexImage + 1);
+        slide.scrollLeft = (indexImage + 1) * width;
+      } else if (indexImage >= imageLength - 1) {
+        setIndexImage(() => imageLength - 1);
+        slide.scrollLeft = (indexImage + 1) * width;
+        document.querySelector(".slide__btn-next").style.opacity = "0";
+      } else if (indexImage === 0) {
+        setIndexImage(() => 0);
+        slide.scrollLeft = (indexImage + 1) * width;
+        document.querySelector(".slide__btn-prev").style.opacity = "0";
+      }
     }
+
+    //   if (indexImage >= imageLength - 1 && !twoWay) {
+    //     document.querySelector(".slide__btn-next").style.opacity = "0";
+    //     setIndexImage(() => imageLength - 1);
+    //   } else if (indexImage >= imageLength - 1) {
+    //     setIndexImage(() => 0);
+    //     slide.scrollLeft = 0;
+    //   } else if (indexImage < imageLength - 1) {
+    //     slide.scrollLeft = width * (indexImage + 1);
+    //     setIndexImage(indexImage + 1);
+    //   } else {
+    //     setIndexImage(() => 0);
+    //     slide.scrollLeft = 0;
+    //   }
     document.querySelector(".slide__btn-prev").style.opacity = "1";
   };
 
   const prevSlide = () => {
     let slide = document.querySelector(".slide");
     const width = slide.offsetWidth;
-  if (indexImage > 0) {
-      setIndexImage(() => indexImage - 1);
-      slide.scrollLeft = (indexImage - 1) * width;
-    } else if (indexImage === 0 && twoWay) {
-      setIndexImage(() => imageLength - 1);
-      slide.scrollLeft = (imageLength - 1) * width;
-    } else if (indexImage === 0 && !twoWay) {
-      document.querySelector(".slide__btn-prev").style.opacity = "0";
-      return;
+
+    if (twoWay) {
+      console.log("twoWay");
+      if (indexImage > 0) {
+        setIndexImage(() => indexImage - 1);
+        slide.scrollLeft = (indexImage + 1) * width;
+      } else if (indexImage <= 0) {
+        setIndexImage(() => imageLength - 1);
+        slide.scrollLeft = (imageLength) * width;
+      }
+    } else if (!twoWay) {
+      console.log("not twoWay");
+      if (indexImage > 0) {
+        setIndexImage(() => indexImage - 1);
+        slide.scrollLeft = (indexImage + 1) * width;
+      } else if (indexImage <= 0) {
+        document.querySelector(".slide__btn-prev").style.opacity = "0";
+        indexImage(() => 0);
+        slide.scrollLeft = 0;
+      }
     }
+
+    // if (indexImage > 0) {
+    //   setIndexImage(() => indexImage - 1);
+    //   slide.scrollLeft = (indexImage - 1) * width;
+    // } else if (indexImage === 0 && twoWay) {
+    //   setIndexImage(() => imageLength - 1);
+    //   slide.scrollLeft = (imageLength - 1) * width;
+    // } else if (indexImage === 0 && !twoWay) {
+    //   document.querySelector(".slide__btn-prev").style.opacity = "0";
+    //   return;
+    // }
     document.querySelector(".slide__btn-next").style.opacity = "1";
   };
 
@@ -108,6 +162,8 @@ const CarouselTouchSlider = ({ children, imageLength, twoWay = false }) => {
 
   return (
     <>
+      {<div>indexImage : {indexImage}</div>}
+      {<div>scrollLeft : {indexImage * 400}</div>}
       <div
         className="wrapper-slide"
         onMouseDown={dragStart}
@@ -122,10 +178,18 @@ const CarouselTouchSlider = ({ children, imageLength, twoWay = false }) => {
       >
         <div className="slide">
           {children}
-          <div className="slide__btn-next" onClick={nextSlide}>
+          <div
+            style={!webStyle ? { display: "none" } : {}}
+            className="slide__btn-next"
+            onClick={nextSlide}
+          >
             <span className="arrow-next"></span>
           </div>
-          <div className="slide__btn-prev" onClick={prevSlide}>
+          <div
+            style={!webStyle ? { display: "none" } : {}}
+            className="slide__btn-prev"
+            onClick={prevSlide}
+          >
             <span className="arrow-prev"></span>
           </div>
         </div>
