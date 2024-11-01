@@ -84,6 +84,7 @@ const TouchSlider = ({ children, imageLength, twoWay = false }) => {
   const prevSlide = () => {
     let slide = document.querySelector(".slide");
     let width = slide.offsetWidth;
+    
     if (indexImage > 0) {
       setIndexImage(() => indexImage - 1);
       slide.scrollLeft = (indexImage - 1) * width;

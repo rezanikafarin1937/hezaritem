@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import './carousel-touch-slider.scss';
+import "./carousel-touch-slider.scss";
 
 const CarouselTouchSlider = ({ children, imageLength, twoWay = false }) => {
   const [pressed, setPressed] = useState(false);
   const [startPoint, setStartPoint] = useState(0);
   const [endPoint, setEndPoint] = useState(0);
+  const [dragLength, setDragLength] = useState(0);
   const [compare, setCompare] = useState(0);
   const [indexImage, setIndexImage] = useState(0);
   useEffect(() => {
@@ -15,6 +16,7 @@ const CarouselTouchSlider = ({ children, imageLength, twoWay = false }) => {
     } else {
       setCompare(() => 0);
     }
+    setDragLength(() => startPoint - endPoint);
   }, [startPoint, endPoint]);
 
   window.addEventListener("mouseup", () => {
@@ -22,6 +24,7 @@ const CarouselTouchSlider = ({ children, imageLength, twoWay = false }) => {
   });
 
   const dragStart = (e) => {
+    console.log('dragStart');
     setPressed(true);
     if (e.type === "touchstart") {
       setStartPoint(() => e.touches[0].clientX);
@@ -36,35 +39,33 @@ const CarouselTouchSlider = ({ children, imageLength, twoWay = false }) => {
     if (!pressed) {
       return;
     }
-    setPressed(false);
-    if (e.type === "touchmove") {
-      setEndPoint(() => e.touches[0].clientX);
-    } else {
-      setEndPoint(() => e.clientX);
-    }
-
-    if (compare === 1) {
-      nextSlide();
-    } else if (compare === -1) {
-      prevSlide();
-    } else if (compare === 0) {
-      return;
-    }
+    
   };
 
   const dragEnd = (e) => {
-    setPressed(false);
-    if (e.type !== "touchmove") {
+    const slide = document.querySelector(".slide");
+    const width = slide.offsetWidth;
+  if (e.type !== "touchend") {
       const wrapper = document.querySelector(".wrapper-slide");
       wrapper.style.cursor = "grab";
+      setEndPoint(e.clientX);
+    } else if (e.type === "touchend") {
+      setEndPoint(() => e.changedTouches[0].clientX);
     }
+    if ((compare === 1) && ( Math.abs(dragLength) >= (width / 2))) {
+      nextSlide();
+    } else if ((compare === -1) && (Math.abs(dragLength) >= (width / 2))) {
+      prevSlide();
+    } else {
+      slide.scrollLeft = indexImage * width;
+    }
+    setPressed(false);
   };
 
   const nextSlide = () => {
     let slide = document.querySelector(".slide");
-    let width = slide.offsetWidth;
-
-    if (indexImage >= imageLength - 1 && !twoWay) {
+    const width = slide.offsetWidth;
+  if (indexImage >= imageLength - 1 && !twoWay) {
       document.querySelector(".slide__btn-next").style.opacity = "0";
       setIndexImage(imageLength - 1);
     } else if (indexImage >= imageLength - 1) {
@@ -78,13 +79,12 @@ const CarouselTouchSlider = ({ children, imageLength, twoWay = false }) => {
       slide.scrollLeft = 0;
     }
     document.querySelector(".slide__btn-prev").style.opacity = "1";
-
   };
 
   const prevSlide = () => {
     let slide = document.querySelector(".slide");
-    let width = slide.offsetWidth;
-    if (indexImage > 0) {
+    const width = slide.offsetWidth;
+  if (indexImage > 0) {
       setIndexImage(() => indexImage - 1);
       slide.scrollLeft = (indexImage - 1) * width;
     } else if (indexImage === 0 && twoWay) {
