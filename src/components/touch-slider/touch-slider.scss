@@ -1,0 +1,124 @@
+.wrapper-slide {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  user-select: none;
+  transition: all 1s;
+
+  .slide {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex: 1 1 auto;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    transition: all 3s;
+
+    &__item {
+      min-width: 100%;
+      min-height: 100%;
+
+      img {
+        object-fit: cover;
+        object-position: center;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &__btn-next {
+      height: 100%;
+      width: 2rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      position: absolute;
+      right: 0;
+      top: 0;
+      background-color: transparent;
+      cursor: pointer;
+      transition: all .5s;
+
+      &:hover {
+        background-color: rgba(0,0,0,.3);
+        .arrow-next {
+          border-left-color: #fff;
+
+        }
+      }
+    }
+    &__btn-prev {
+      height: 100%;
+      width: 2rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: transparent;
+      cursor: pointer;
+      transition: all .5s;
+
+      &:hover{
+        background-color: rgba(0,0,0,.3);
+        .arrow-prev{
+          border-right-color: #fff;;
+        }
+
+      }
+    }
+  }
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  // justify-content: space-between;
+  width: 100%;
+  padding: 2rem 0;
+
+  &__card {
+    width: calc(25% - .5rem);
+    border-radius: 4px;
+    padding: 0;
+    cursor: pointer;
+    transition: all .1s;
+    margin: 0 .5rem .5rem 0;
+
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 4px;
+    }
+  }
+  &__select{
+    outline: 3px solid orangered;
+    border-radius: 4px;
+  }
+}
+
+.arrow-next{
+  width: 0;
+  height: 0;
+  border : 12px solid transparent;
+  border-left-width: 12px;
+  border-left-color: #444;
+  transition: all .5s;
+
+}
+.arrow-prev{
+  width: 0;
+  height: 0;
+  border : 12px solid transparent;
+  border-right-width: 12px;
+  border-right-color: #444;
+  transition: all .5s;
+
+}

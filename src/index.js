@@ -11,9 +11,9 @@ import "./index.css";
 const root = createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <StrictMode>
+    {/* <StrictMode> */}
       <RouterProvider router={router} />
-    </StrictMode>
+    {/* </StrictMode> */}
   </Provider>
 );
 

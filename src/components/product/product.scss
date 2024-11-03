@@ -1,0 +1,19 @@
+.container-product {
+  display: flex;
+  flex-direction: row-reverse;
+
+  @media (max-width: 426px) {
+    flex-direction: column-reverse;
+  }
+
+  &__slider {
+    width: 400px;
+    height: 400px;
+    padding-top: 1rem;
+    @media (max-width: 426px) {
+      padding: 0;
+      width: 100%;
+      border: 0;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+// @import '../../../public/sass/colorpullet';
+@import '../../../../public/sass/colorpullet';
+.page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: linear-gradient(250deg, #fff, #eee , #9999);
+
+    &__box{
+        direction: rtl;
+
+    }
+}

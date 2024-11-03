@@ -12,7 +12,7 @@ const Header = () => {
 
   return (
     <div className="header">
-      <div className="mybtn mybtn__logo">لوگو</div>
+      <Link to="/register" className="mybtn mybtn__logo">لوگو</Link>
       {location.pathname === "/" ? (
         <input
           value={text}
@@ -21,7 +21,7 @@ const Header = () => {
           onChange={(e) => dispatch(updateSearch(e.target.value))}
         />
       ) : null}
-      <Link to="/addproduct" className="mybtn mybtn__sucsess">
+      <Link to="/insert-product" className="mybtn mybtn__sucsess">
         ثبت محصول
       </Link>
     </div>

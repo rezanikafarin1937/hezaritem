@@ -254,6 +254,28 @@
       "email": "beheshtehikafarin100@gmail.com",
       "job": "برنامه نویس",
       "group": "2"
+    },
+    {
+      "id": "69f0",
+      "name": "بهشته",
+      "mobile": "0918181920",
+      "type": "ADMIN",
+      "city": "اراک",
+      "address": "شهرصنعتی",
+      "email": "",
+      "password": "",
+      "avatar": ""
+    },
+    {
+      "id": "b811",
+      "name": "سارا",
+      "mobile": "0198171615",
+      "type": "ADMIN",
+      "city": "تهران",
+      "address": "تهران مطهری",
+      "email": "",
+      "password": "",
+      "avatar": ""
     }
   ],
   "groups": [

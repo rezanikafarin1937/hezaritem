@@ -1,0 +1,46 @@
+@import '../../../public/sass/colorpullet';
+
+.page{
+    background-color: #eee;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color : #9999;
+
+
+    &__box{
+        background-color: $header;
+        border-radius: 4px;
+        width: 100%;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        direction: rtl;
+
+        @media (min-width: 768px) {
+            width: 50%;
+        }
+    }
+
+    &__btns{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+    &__input{
+        width: 100%;
+        height: 40px;
+        border-radius: 4px;
+        outline: none;
+        border: none;
+        background-color: $item;
+        margin : 1rem 0;
+    }
+    &__textarea{
+        @extend .page__input;
+        height: 100px;
+    }
+}

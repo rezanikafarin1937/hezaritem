@@ -8,41 +8,63 @@
   background: $background;
 }
 
-.wrapper{
-  margin: 0 1rem;
+.wrapper {
+  margin: 0 2rem;
+
+  @media (max-width : 426px) {
+    margin: 0;
+
+  }
 }
 
-.scale{
+.scale {
   display: flex;
   justify-content: space-between;
 }
 
 .mybtn {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.5rem;
   border-radius: 4px;
   text-align: center;
   border: none;
-  font-size: medium;
+  font-size: 1rem;
   cursor: pointer;
   text-decoration: none;
   color: $color-btn;
+  transition: all .2s;
 
   &__sucsess {
-    background-color: $footer;
+    background-color: #9999;
   }
   &__delete {
     background-color: $delete;
   }
   &__denger {
-    background-color: $denger;
+    background-color: #9999;
   }
   &__logo {
     background-color: $background;
     color: $text;
   }
+  &__active {
+    background-color: #a62626;
+    color: white;
+    &:hover{
+      background-color: #be3737;
+    }
+  }
+  &__inactive {
+    background-color: white;
+    color: rgba(0, 0, 0, 0.56);
+    border: 1px solid rgba(0, 0, 0, 0.56);
+    &:hover {
+      background-color: #eee;
+    }
+  }
+
 }
 
-.input-box{
+.input-box {
   border: none;
   outline: none;
   background-color: $background;

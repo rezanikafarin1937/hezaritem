@@ -1,0 +1,22 @@
+.manager{
+    min-height: 1000px;
+
+    &__add-user{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: none;
+        background-color: #009879;
+        color : #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top : 4rem;
+        left: 2rem;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+    }
+}  

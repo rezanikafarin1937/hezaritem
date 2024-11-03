@@ -1,11 +1,13 @@
 @import '../../../public/sass/colorpullet';
 
 .page{
-    background-color: $sidebar;
+    background-color: #eee;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    color : #9999;
+
 
     &__box{
         background-color: $header;
@@ -50,5 +52,10 @@
         border: none;
         background-color: $item;
         margin : 1rem 0;
+    }
+
+    &__textarea{
+        @extend .page__input;
+        height: 100px;
     }
 }

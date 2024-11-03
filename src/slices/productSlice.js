@@ -18,7 +18,7 @@ const productSlice = createSlice({
   initialState: {
     data: [],
     loading: false,
-    errorMssage: "",
+    errorMessage: "",
   },
   extraReducers: (builder) => {
     builder
@@ -30,7 +30,7 @@ const productSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchProducts.rejected, (state) => {
-        state.errorMssage = "error in fetch data";
+        state.errorMessage = "error in fetch data";
         state.loading = false;
       });
 
