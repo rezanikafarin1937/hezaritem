@@ -5,6 +5,10 @@
   flex: 1 1 auto;
   min-height: 400px;
 
+  @media (max-width : 426px) {
+    padding: 1rem;
+  }
+
   &__small-title {
     color: rgba(0, 0, 0, 0.56);
     font-weight: 400;

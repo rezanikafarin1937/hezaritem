@@ -9,7 +9,12 @@
 }
 
 .wrapper {
-  margin: 0 1rem;
+  margin: 0 2rem;
+
+  @media (max-width : 426px) {
+    margin: 0;
+
+  }
 }
 
 .scale {

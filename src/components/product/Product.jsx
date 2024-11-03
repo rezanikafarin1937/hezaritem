@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import Slider from "../slider/Slider";
-// import TouchSlider from "../touch-slider/TouchSlider";
 import CarouselTouchSlider from "../touch-slider/carousel-touch-slider/CarouselTouchSlider";
 import { getProduct } from "../../services/Service";
 import { useParams } from "react-router-dom";
@@ -43,7 +41,12 @@ const Product = () => {
           <div className="container-product">
             <ShowInformationProduct data={getDataProduct} />
             <div className="container-product__slider">
-              <CarouselTouchSlider  imageLength={images.length} webStyle={true} twoWay={true}>
+              <CarouselTouchSlider
+                imageLength={images.length}
+                webStyle={true}
+                twoWay={true}
+                dots={true}
+              >
                 {images.map((image, index) => (
                   <div className="slide__item" key={index}>
                     <img src={image.address} />
@@ -51,9 +54,6 @@ const Product = () => {
                 ))}
               </CarouselTouchSlider>
             </div>
-            {/* <div className="container-product__slider">
-              <Slider images={images}/>
-            </div> */}
           </div>
         </div>
       )}
@@ -61,6 +61,3 @@ const Product = () => {
   );
 };
 export default Product;
-
-
-

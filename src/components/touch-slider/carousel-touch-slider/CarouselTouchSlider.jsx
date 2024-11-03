@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import "./carousel-touch-slider.scss";
 
-const CarouselTouchSlider = ({ children, imageLength, webStyle = true }) => {
+const CarouselTouchSlider = ({
+  children,
+  imageLength,
+  webStyle = true,
+  dots = false,
+}) => {
   const [pressed, setPressed] = useState(false);
   const [startPoint, setStartPoint] = useState(0);
   const [endPoint, setEndPoint] = useState(0);
@@ -45,7 +50,7 @@ const CarouselTouchSlider = ({ children, imageLength, webStyle = true }) => {
         setEndPoint(() => e.touches[0].clientX);
         document.querySelector(".slide").style.transform = `translateX(100px)`;
         document.querySelector(".wrapper-slide").style.overflow = "hidden";
-      } else if (indexImage >= (imageLength - 1) && compare === 1) {
+      } else if (indexImage >= imageLength - 1 && compare === 1) {
         setEndPoint(() => e.touches[0].clientX);
         document.querySelector(".slide").style.transform = `translateX(-100px)`;
         document.querySelector(".wrapper-slide").style.overflow = "hidden";
@@ -61,10 +66,7 @@ const CarouselTouchSlider = ({ children, imageLength, webStyle = true }) => {
     const slide = document.querySelector(".slide");
     const width = slide.offsetWidth;
     if (dragLength <= width / 2) {
-      slide.style.transform = `translateX(${
-        e.clientX - startPoint
-      }px) scale(.9) rotateY(20deg)`;
-
+      slide.style.transform = `translateX(${startPoint - e.clientX}px)`;
       document.querySelector(".wrapper-slide").style.overflow = "hidden";
     }
   };
@@ -72,24 +74,15 @@ const CarouselTouchSlider = ({ children, imageLength, webStyle = true }) => {
   const dragEndTouch = (e) => {
     const slide = document.querySelector(".slide");
     const width = slide.offsetWidth;
-    slide.style.transform = `translateX(${0}px) scale(1) rotateY(0)`;
     document.querySelector(".wrapper-slide").style.overflow = "visible";
-
-    if (e.type !== "touchend") {
-      setEndPoint(e.clientX);
-    } else if (e.type === "touchend") {
-      setEndPoint(() => e.changedTouches[0].clientX);
-
-      if (e.type === "touchend") {
-        document.querySelector(".slide").style.transform = `translate(0)`;
-        if (compare === 1 && Math.abs(dragLength) >= width / 3) {
-          nextSlide();
-        } else if (compare === -1 && Math.abs(dragLength) >= width / 3) {
-          prevSlide();
-        } else {
-          slide.scrollLeft = indexImage * width;
-        }
-      }
+    document.querySelector(".slide").style.transform = `translateX(0)`;
+    setEndPoint(() => e.changedTouches[0].clientX);
+    if (compare === 1 && Math.abs(dragLength) >= (width / 4)) {
+      nextSlide();
+    } else if (compare === -1 && Math.abs(dragLength) >= (width / 4)) {
+      prevSlide();
+    } else {
+      slide.scrollLeft = indexImage * width;
     }
     setPressed(false);
   };
@@ -100,10 +93,11 @@ const CarouselTouchSlider = ({ children, imageLength, webStyle = true }) => {
     const width = slide.offsetWidth;
     slide.style.transform = `translateX(${0}px) scale(1) rotateY(0)`;
     document.querySelector(".wrapper-slide").style.overflow = "visible";
+    document.querySelector(".slide").style.transform = `translateX(0)`;
 
-    if (compare === 1 && Math.abs(dragLength) >= width / 3) {
+    if (compare === 1 && Math.abs(dragLength) >= (width / 3)) {
       nextSlide();
-    } else if (compare === -1 && Math.abs(dragLength) >= width / 3) {
+    } else if (compare === -1 && Math.abs(dragLength) >= (width / 3)) {
       prevSlide();
     } else {
       slide.scrollLeft = indexImage * width;
@@ -145,8 +139,6 @@ const CarouselTouchSlider = ({ children, imageLength, webStyle = true }) => {
         className="wrapper-slide"
         onMouseDown={dragStart}
         onMouseMove={dragMove}
-        // onMouseLeave={dragEnd}
-        // onMouseUp={dragEnd}
         onDragStart={dragStart}
         onDragOver={dragOver}
         onDragEnd={dragEnd}
@@ -154,6 +146,21 @@ const CarouselTouchSlider = ({ children, imageLength, webStyle = true }) => {
         onTouchEnd={dragEndTouch}
         onTouchMove={dragMove}
       >
+        <div
+          style={dots ? {} : { display: "none" }}
+          className="wrapper-slide__dots"
+        >
+          {children.map((child, index) => (
+            <div
+              key={index}
+              className={
+                index === indexImage
+                  ? "wrapper-slide__dot-bold"
+                  : "wrapper-slide__dot"
+              }
+            ></div>
+          ))}
+        </div>
         <div
           style={!webStyle ? { display: "none" } : {}}
           className="wrapper-slide__right-btn"

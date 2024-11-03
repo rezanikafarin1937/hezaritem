@@ -41,11 +41,6 @@ export const router = createBrowserRouter([
         element: <Getproduct />,
         errorElement: <h3>error element</h3>,
       },
-      {
-        path: "/products/:id",
-        element: <Product />,
-        errorElement: <h3>error element</h3>,
-      },
 
       {
         path: "/products/edit/:id",
@@ -93,6 +88,13 @@ export const router = createBrowserRouter([
     
     
   },
+
+  {
+    path: "/products/:id",
+    element: <Product />,
+    errorElement: <h3>error element</h3>,
+  },
+
 
   {
     path: "/manager",
