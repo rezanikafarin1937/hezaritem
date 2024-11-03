@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 import "./carousel-touch-slider.scss";
 
-const CarouselTouchSlider = ({
-  children,
-  imageLength,
-  twoWay = false,
-  webStyle = true,
-}) => {
+const CarouselTouchSlider = ({ children, imageLength, webStyle = true }) => {
   const [pressed, setPressed] = useState(false);
   const [startPoint, setStartPoint] = useState(0);
   const [endPoint, setEndPoint] = useState(0);
@@ -29,14 +24,13 @@ const CarouselTouchSlider = ({
   });
 
   const dragStart = (e) => {
-    console.log("dragStart");
     setPressed(true);
     if (e.type === "touchstart") {
       setStartPoint(() => e.touches[0].clientX);
     } else {
       setStartPoint(() => e.clientX);
-      const wrapper = document.querySelector(".wrapper-slide");
-      wrapper.style.cursor = "grabbing";
+      // const wrapper = document.querySelector(".wrapper-slide");
+      // wrapper.style.cursor = "grabbing";
     }
   };
 
@@ -44,111 +38,96 @@ const CarouselTouchSlider = ({
     if (!pressed) {
       return;
     }
+    setPressed(false);
+    if (e.type === "touchmove") {
+      console.log(e.type, " indexImage = ", indexImage);
+      if (indexImage === 0 && compare === -1) {
+        setEndPoint(() => e.touches[0].clientX);
+        document.querySelector(".slide").style.transform = `translateX(100px)`;
+        document.querySelector(".wrapper-slide").style.overflow = "hidden";
+      } else if (indexImage >= (imageLength - 1) && compare === 1) {
+        setEndPoint(() => e.touches[0].clientX);
+        document.querySelector(".slide").style.transform = `translateX(-100px)`;
+        document.querySelector(".wrapper-slide").style.overflow = "hidden";
+      }
+    }
   };
 
-  const dragEnd = (e) => {
+  const dragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setEndPoint(() => e.clientX);
     const slide = document.querySelector(".slide");
     const width = slide.offsetWidth;
+    if (dragLength <= width / 2) {
+      slide.style.transform = `translateX(${
+        e.clientX - startPoint
+      }px) scale(.9) rotateY(20deg)`;
+
+      document.querySelector(".wrapper-slide").style.overflow = "hidden";
+    }
+  };
+
+  const dragEndTouch = (e) => {
+    const slide = document.querySelector(".slide");
+    const width = slide.offsetWidth;
+    slide.style.transform = `translateX(${0}px) scale(1) rotateY(0)`;
+    document.querySelector(".wrapper-slide").style.overflow = "visible";
+
     if (e.type !== "touchend") {
-      const wrapper = document.querySelector(".wrapper-slide");
-      wrapper.style.cursor = "grab";
       setEndPoint(e.clientX);
     } else if (e.type === "touchend") {
       setEndPoint(() => e.changedTouches[0].clientX);
 
-      if (compare === 1 && Math.abs(dragLength) >= width / 3) {
-        nextSlide();
-      } else if (compare === -1 && Math.abs(dragLength) >= width / 3) {
-        prevSlide();
-      } else {
-        slide.scrollLeft = indexImage * width;
+      if (e.type === "touchend") {
+        document.querySelector(".slide").style.transform = `translate(0)`;
+        if (compare === 1 && Math.abs(dragLength) >= width / 3) {
+          nextSlide();
+        } else if (compare === -1 && Math.abs(dragLength) >= width / 3) {
+          prevSlide();
+        } else {
+          slide.scrollLeft = indexImage * width;
+        }
       }
     }
     setPressed(false);
   };
 
-  const nextSlide = () => {
-    let slide = document.querySelector(".slide");
+  const dragEnd = (e) => {
+    setEndPoint(() => e.clientX);
+    const slide = document.querySelector(".slide");
     const width = slide.offsetWidth;
-    if (twoWay) {
-      if (indexImage < imageLength - 1) {
-        setIndexImage(() => indexImage + 1);
-        slide.scrollLeft = (indexImage + 1) * width;
-      } else if (indexImage >= imageLength - 1) {
-        setIndexImage(() => 0);
-        slide.scrollLeft = 0;
-      } else if (indexImage === 0) {
-        setIndexImage(() => imageLength - 1);
-        slide.scrollLeft = (indexImage + 1) * width;
-        document.querySelector(".slide__btn-prev").style.opacity = "0";
-      }
-    } else if (!twoWay) {
-      if (indexImage < imageLength - 1) {
-        setIndexImage(() => indexImage + 1);
-        slide.scrollLeft = (indexImage + 1) * width;
-      } else if (indexImage >= imageLength - 1) {
-        setIndexImage(() => imageLength - 1);
-        slide.scrollLeft = (indexImage + 1) * width;
-        document.querySelector(".slide__btn-next").style.opacity = "0";
-      } else if (indexImage === 0) {
-        setIndexImage(() => 0);
-        slide.scrollLeft = (indexImage + 1) * width;
-        document.querySelector(".slide__btn-prev").style.opacity = "0";
-      }
-    }
+    slide.style.transform = `translateX(${0}px) scale(1) rotateY(0)`;
+    document.querySelector(".wrapper-slide").style.overflow = "visible";
 
-    //   if (indexImage >= imageLength - 1 && !twoWay) {
-    //     document.querySelector(".slide__btn-next").style.opacity = "0";
-    //     setIndexImage(() => imageLength - 1);
-    //   } else if (indexImage >= imageLength - 1) {
-    //     setIndexImage(() => 0);
-    //     slide.scrollLeft = 0;
-    //   } else if (indexImage < imageLength - 1) {
-    //     slide.scrollLeft = width * (indexImage + 1);
-    //     setIndexImage(indexImage + 1);
-    //   } else {
-    //     setIndexImage(() => 0);
-    //     slide.scrollLeft = 0;
-    //   }
-    document.querySelector(".slide__btn-prev").style.opacity = "1";
+    if (compare === 1 && Math.abs(dragLength) >= width / 3) {
+      nextSlide();
+    } else if (compare === -1 && Math.abs(dragLength) >= width / 3) {
+      prevSlide();
+    } else {
+      slide.scrollLeft = indexImage * width;
+    }
+    document.querySelector(".wrapper-slide__right-btn").style.opacity = "1";
+    document.querySelector(".wrapper-slide__left-btn").style.opacity = "1";
+  };
+
+  const nextSlide = () => {
+    if (indexImage < imageLength - 1) {
+      shiftIndexImage(indexImage + 1);
+    } else if (indexImage >= imageLength - 1) {
+      shiftIndexImage(imageLength - 1);
+      document.querySelector(".wrapper-slide__left-btn").style.opacity = "0";
+    }
   };
 
   const prevSlide = () => {
-    let slide = document.querySelector(".slide");
-    const width = slide.offsetWidth;
-
-    if (twoWay) {
-      console.log("twoWay");
-      if (indexImage > 0) {
-        setIndexImage(() => indexImage - 1);
-        slide.scrollLeft = (indexImage + 1) * width;
-      } else if (indexImage <= 0) {
-        setIndexImage(() => imageLength - 1);
-        slide.scrollLeft = (imageLength) * width;
-      }
-    } else if (!twoWay) {
-      console.log("not twoWay");
-      if (indexImage > 0) {
-        setIndexImage(() => indexImage - 1);
-        slide.scrollLeft = (indexImage + 1) * width;
-      } else if (indexImage <= 0) {
-        document.querySelector(".slide__btn-prev").style.opacity = "0";
-        indexImage(() => 0);
-        slide.scrollLeft = 0;
-      }
+    if (indexImage > 0) {
+      shiftIndexImage(indexImage - 1);
+    } else if (indexImage <= 0) {
+      shiftIndexImage(0);
+      document.querySelector(".wrapper-slide__right-btn").style.opacity = "0";
     }
-
-    // if (indexImage > 0) {
-    //   setIndexImage(() => indexImage - 1);
-    //   slide.scrollLeft = (indexImage - 1) * width;
-    // } else if (indexImage === 0 && twoWay) {
-    //   setIndexImage(() => imageLength - 1);
-    //   slide.scrollLeft = (imageLength - 1) * width;
-    // } else if (indexImage === 0 && !twoWay) {
-    //   document.querySelector(".slide__btn-prev").style.opacity = "0";
-    //   return;
-    // }
-    document.querySelector(".slide__btn-next").style.opacity = "1";
   };
 
   const shiftIndexImage = (index) => {
@@ -156,43 +135,41 @@ const CarouselTouchSlider = ({
     let width = slide.offsetWidth;
     slide.scrollLeft = index * width;
     setIndexImage(() => index);
-    document.querySelector(".slide__btn-next").style.opacity = "1";
-    document.querySelector(".slide__btn-prev").style.opacity = "1";
+    document.querySelector(".wrapper-slide__right-btn").style.opacity = "1";
+    document.querySelector(".wrapper-slide__left-btn").style.opacity = "1";
   };
 
   return (
     <>
-      {<div>indexImage : {indexImage}</div>}
-      {<div>scrollLeft : {indexImage * 400}</div>}
       <div
         className="wrapper-slide"
         onMouseDown={dragStart}
         onMouseMove={dragMove}
-        onMouseLeave={dragEnd}
-        onMouseUp={dragEnd}
+        // onMouseLeave={dragEnd}
+        // onMouseUp={dragEnd}
         onDragStart={dragStart}
+        onDragOver={dragOver}
         onDragEnd={dragEnd}
         onTouchStart={dragStart}
-        onTouchEnd={dragEnd}
+        onTouchEnd={dragEndTouch}
         onTouchMove={dragMove}
       >
-        <div className="slide">
-          {children}
-          <div
-            style={!webStyle ? { display: "none" } : {}}
-            className="slide__btn-next"
-            onClick={nextSlide}
-          >
-            <span className="arrow-next"></span>
-          </div>
-          <div
-            style={!webStyle ? { display: "none" } : {}}
-            className="slide__btn-prev"
-            onClick={prevSlide}
-          >
-            <span className="arrow-prev"></span>
-          </div>
+        <div
+          style={!webStyle ? { display: "none" } : {}}
+          className="wrapper-slide__right-btn"
+          onClick={prevSlide}
+        >
+          <span className="arrow-next"></span>
         </div>
+        <div
+          style={!webStyle ? { display: "none" } : {}}
+          className="wrapper-slide__left-btn"
+          onClick={nextSlide}
+        >
+          <span className="arrow-prev"></span>
+        </div>
+
+        <div className="slide">{children}</div>
       </div>
       <div className="cards">
         {children.map((child, index) => {
