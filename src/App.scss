@@ -45,6 +45,8 @@
   &__logo {
     background-color: $background;
     color: $text;
+    border-left: 2px solid  $border;
+
   }
   &__active {
     background-color: #a62626;
