@@ -32,7 +32,16 @@ const Header = () => {
         ) : null}
       </nav>
       <nav className="header__section">
-        <button>مابقی دکمه ها</button>
+      <span to="/register" className="header__btn-nav header__space">
+           تولید من
+        </span>
+        <span to="/register" className="header__btn-nav header__space">
+           چت
+        </span>
+        <span to="/register" className="header__btn-nav header__space">
+           پشتیبانی
+        </span>
+
         <Link to="/insert-product" className="mybtn mybtn__active">
           ثبت محصول
         </Link>

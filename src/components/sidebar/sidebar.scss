@@ -2,5 +2,12 @@ ul{
     margin: 0;
 }
 .sidebar{
-    text-align: center;
+    text-align: right;
+    direction: rtl;
+    padding: 1rem;
+    background-color: #fff;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scrollbar-color: transparent;
+
 }
