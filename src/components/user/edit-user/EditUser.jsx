@@ -3,10 +3,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Spinner, NewAvatarUpload } from "../../../components";
 import { useSelector,useDispatch } from "react-redux";
 import { updateForceRender } from "../../../slices/forceRenderSlice";
-
 import axios from "axios";
 
-import "./edit-user.scss";
+// import '../../user/register/register.scss'
+// import "./edit-user.scss";
+import "../../sass/global-box.scss";
+
 
 export const EditUser = () => {
   const { id: userId } = useParams();

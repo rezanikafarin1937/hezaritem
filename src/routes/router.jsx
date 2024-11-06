@@ -29,7 +29,19 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     errorElement: <h3>Error element</h3>,
     children: [
-
+      {
+        path: "/products/:id",
+        element: <Product />,
+        errorElement: <h3>error element</h3>,
+      },
+    
+      {
+        path: "/insert-product",
+        element: <InsertProduct />,
+        errorElement: <h3>error element</h3>,
+      },
+    
+    
       {
         path: "/",
         element: <InfiniteLoadingProducts />,
@@ -89,11 +101,6 @@ export const router = createBrowserRouter([
     
   },
 
-  {
-    path: "/products/:id",
-    element: <Product />,
-    errorElement: <h3>error element</h3>,
-  },
 
 
   {
@@ -122,12 +129,6 @@ export const router = createBrowserRouter([
   {
     path: "/delete-user/:id",
     element: <DeleteUser />,
-    errorElement: <h3>error element</h3>,
-  },
-
-  {
-    path: "/insert-product",
-    element: <InsertProduct />,
     errorElement: <h3>error element</h3>,
   },
 

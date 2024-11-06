@@ -23,7 +23,7 @@ const DeleteProduct = () => {
    }
 
     return(
-        <div className="page">
+        <div className="page-del">
             <Confirm title="آیا میخواهید این محصول را حذف کنید ؟">
                 <Link className='mybtn mybtn__logo' to={`/products/${id}`}>انصراف</Link>
                 <button onClick={handelDelete} className='mybtn mybtn__delete'>پاک شود</button>

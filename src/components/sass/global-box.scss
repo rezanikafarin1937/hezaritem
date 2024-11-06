@@ -1,10 +1,10 @@
-// @import "../../../../public/sass/colorpullet";
+@import "../../../public/sass/colorpullet";
 
 .page {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
+  background-color: $background;
 
   &__box {
     width: 100%;
@@ -22,7 +22,7 @@
   &__btns {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row-reverse;
     margin-top: 1rem;
   }
 
@@ -32,9 +32,36 @@
     border-radius: 4px;
     outline: none;
     border: none;
-    background-color: #fff;
     padding: 0 1rem;
-    color : #9999;
+    border: 1px solid $border;
+    font-size: 12px;
+    color : $description;
+  }
+  &__textarea{
+    @extend .page__input;
+    height: 100px;
+    scrollbar-width: thin;
+    resize: none;
+}
+
+
+  &__title {
+    font-size: 1.25rem;
+    line-height: 2;
+    color : $title;
+  }
+
+  &__help-title{
+    font-size: 1rem;
+    line-height: 2;
+    color : $title;
+  }
+
+  &__description{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 2;
+    color : $description;
   }
 
   &__container-avatar {
@@ -46,11 +73,33 @@
     flex-direction: column;
     font-style: italic;
     font-weight: bold;
-    color : #999;
+    color: #999;
     display: flex;
     justify-content: center;
     position: relative;
   }
+
+  &__container-select {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    select {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 2;
+      color : $placeholder;
+      
+   }
+
+
+  }
+
+
 
   &__container-radio {
     display: block;
@@ -58,10 +107,16 @@
     padding: 0 1.5rem;
     padding: 0 2rem;
     cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+    // -webkit-user-select: none;
+    // -moz-user-select: none;
+    // -ms-user-select: none;
     user-select: none;
+
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 2;
+    color : $description;
+
   }
 
   /* Hide the browser's default checkbox */
@@ -110,19 +165,40 @@
   }
 
   /* Style the checkmark/indicator */
-    &__checkmark:after {
-      width: 0.5rem;
-      height: 0.5rem;
-      background-color: #999;
-      border-radius: 50%;
-      -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      transform: rotate(45deg);
-    }
-    &__err {
-        color: red;
-        font-size: 14px;
-        font-weight: 100;
-        margin: 0;
-      }
+  &__checkmark:after {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: #999;
+    border-radius: 50%;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  &__err {
+    color: red;
+    font-size: 14px;
+    font-weight: 100;
+    margin: 0;
+  }
 }
+
+::placeholder {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 2;
+  color : $placeholder;
+
+}
+
+option {
+  scrollbar-width: thin;
+ }
+
+ select{
+  scrollbar-width: thin;
+
+ }
+ *{
+  scrollbar-width: thin;
+
+ }

@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { getProduct } from "../../services/Service";
 import { Spinner, ImageUpload } from "../../components";
 import axios from "axios";
-import "../../components/getinfo/getproduct.scss";
+import "../sass/global-box.scss";
 
 export const EditProduct = () => {
   const navigate = useNavigate();
@@ -11,6 +11,7 @@ export const EditProduct = () => {
   const URL = `http://localhost/back-sef/public/api/products/${userId}`;
 
   const [inputErrorList, setInputErrorList] = useState({});
+  const [categories, setCategories] = useState([]);
 
   const [product, setProduct] = useState({
     id: null,
@@ -19,6 +20,7 @@ export const EditProduct = () => {
     return: "",
     description: "",
     price: "",
+    // category: 0,
     image: {},
     images: [],
     idDeleteImages: [],
@@ -62,31 +64,39 @@ export const EditProduct = () => {
     setReturnProduct(() => e.target.value);
   };
 
+  const featchData = async () => {
+    try {
+      setLoading(true);
+      const { data: productData } = await getProduct(id);
+      setReturnProduct(() => productData.return);
+      setProduct(() => {
+        if (productData.image) {
+          productData.images.unshift({
+            id: 0,
+            product_id: productData.id,
+            address: productData.image,
+          });
+          console.log("product images = ", productData.images);
+        }
+        let newState = { ...productData };
+        return newState;
+      });
+      setLoading(false);
+    } catch (err) {
+      console.log(err.message);
+      setLoading(false);
+    }
+  };
+
+  const fetchCategories = () => {
+    axios.get("http://localhost/back-sef/public/api/categories").then((res) => {
+      setCategories([...res.data]);
+    });
+  };
   useEffect(() => {
-    const featchData = async () => {
-      try {
-        setLoading(true);
-        const { data: productData } = await getProduct(id);
-        setReturnProduct(() => productData.return);
-        setProduct(() => {
-          if (productData.image) {
-            productData.images.unshift({
-              id: 0,
-              product_id: productData.id,
-              address: productData.image,
-            });
-            console.log("product images = ", productData.images);
-          }
-          let newState = { ...productData };
-          return newState;
-        });
-        setLoading(false);
-      } catch (err) {
-        console.log(err.message);
-        setLoading(false);
-      }
-    };
     featchData();
+    fetchCategories();
+    console.log('CCCCCategory = ',product.category)
   }, []);
 
   const handelInput = (event) => {
@@ -104,6 +114,7 @@ export const EditProduct = () => {
       fd.append("user_id", 1);
       fd.append("title", product.title);
       fd.append("price", product.price);
+      fd.append("category", product.category);
       fd.append("discount", product.discount);
       fd.append("shipping_cost", product.shipping_cost);
       fd.append("return", returnProduct ? returnProduct : product.return);
@@ -158,11 +169,47 @@ export const EditProduct = () => {
         <Spinner />
       ) : (
         <form className="page__box" onSubmit={handelSubmit}>
+          <span className="page__title">ویرایش محصول</span>
+          <br/>
+         <br/> 
+          <label id="type-admin" className="page__container-select">
+            <span className="page__description">
+              محصول شما در کدام دسته بندی قرار دارد
+            </span>
+            <br />
+            <select
+              className="page__input"
+              name="category"
+              value={product.category}
+              onChange={handelInput}
+             
+
+            >
+              <option value={product.category_id}>{product.category}</option>
+              {categories.map((cat, index) => (
+                <option key={index} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+            {console.log("category id = ", product.category_id)}
+            <span className="page__err">{inputErrorList.category}</span>
+          </label>
+          <br />
+          <br />
           <ImageUpload onUpload={getImage} PreviousPhotos={product.images} />
+          <span className="page__description">
+            تعداد عکس‌های انتخاب شده نباید بیشتر از ۲۰ باشد.
+          </span>
+          <br />
+          <br />
+          <span className="page__help-title">وضعیت مرجوعی</span>
           <div className="page__container-avatar">
             <div className="page__type-user">
               <label id="type-admin" className="page__container-radio">
-                مرجوعی محصول مورد قبول است
+                <span className="page__description">
+                  مرجوعی محصول مورد قبول است
+                </span>
                 <input
                   className="page__input"
                   name="return"
@@ -173,9 +220,10 @@ export const EditProduct = () => {
                 />
                 <span className="page__checkmark"></span>
               </label>
-              <br />
               <label id="type-admin" className="page__container-radio">
-                مرجوعی محصول مورد قبول نیست
+                <span className="page__description">
+                  مرجوعی محصول مورد قبول نیست{" "}
+                </span>
                 <input
                   className="page__input"
                   name="return"
@@ -190,7 +238,9 @@ export const EditProduct = () => {
               <span className="page__err">{inputErrorList.return}</span>
             </div>
           </div>
-
+          <br />
+          <br />
+          <span className="page__help-title">عنوان محصول</span>
           <input
             className="page__input"
             name="title"
@@ -199,6 +249,10 @@ export const EditProduct = () => {
             placeholder="عنوان"
             required={true}
           />
+
+          <br />
+          <br />
+          <span className="page__help-title">هزینه ارسال</span>
           <input
             className="page__input"
             name="shipping_cost"
@@ -207,6 +261,10 @@ export const EditProduct = () => {
             placeholder="هزینه ارسال"
             required={true}
           />
+
+          <br />
+          <br />
+          <span className="page__help-title">قیمت محصول</span>
           <input
             className="page__input"
             name="price"
@@ -215,21 +273,25 @@ export const EditProduct = () => {
             placeholder="قیمت"
             required={true}
           />
+          <br />
+          <br />
+          <span className="page__help-title">توضیحات</span>
           <textarea
             className="page__textarea"
             name="description"
             value={product.description}
             onChange={handelInput}
-            placeholder="توضیحات"
+            placeholder=""
             required={true}
           />
           <div className="page__btns">
             <input
               type="submit"
-              className="mybtn mybtn__sucsess"
+              className="mybtn mybtn__active"
               value="ویرایش محصول"
             />
-            <Link to="/" className="mybtn mybtn__denger">
+            <span className="mybtn__space"></span>
+            <Link to="/" className="mybtn mybtn__inactive">
               بازگشت
             </Link>
           </div>

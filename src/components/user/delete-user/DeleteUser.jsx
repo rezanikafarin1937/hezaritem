@@ -34,7 +34,7 @@ const DeleteUser = () => {
   };
 
   return (
-    <div className="page">
+    <div className="page-del-user">
       {loading ? (
         <Spinner />
       ) : (

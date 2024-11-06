@@ -16,8 +16,8 @@ const ShowInformationProduct = ({ data }) => {
       <br />
       <div className="info__hr"></div>
       <br/>
-      <div>تخصص‌ها</div>
-      <div>سایر پیشه و مهارت</div>
+      <div>دسته بندی</div>
+      <div>{data.category}</div>
       <hr />
       <div>توضیحات</div>
       <div>{data.description}</div>

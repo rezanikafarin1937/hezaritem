@@ -1,17 +1,12 @@
-@import '../../../public/sass/colorpullet';
-
-.page{
-    background-color: #eee;
+.page-insert{
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    color : #9999;
+    background-color: #fff;
 
 
     &__box{
-        background-color: $header;
-        border-radius: 4px;
         width: 100%;
         padding: 2rem;
         display: flex;
@@ -36,7 +31,7 @@
         border-radius: 4px;
         outline: none;
         border: none;
-        background-color: $item;
+        background-color: #eee;
         margin : 1rem 0;
     }
     &__textarea{
