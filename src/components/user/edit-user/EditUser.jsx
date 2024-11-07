@@ -5,8 +5,6 @@ import { useSelector,useDispatch } from "react-redux";
 import { updateForceRender } from "../../../slices/forceRenderSlice";
 import axios from "axios";
 
-// import '../../user/register/register.scss'
-// import "./edit-user.scss";
 import "../../sass/global-box.scss";
 
 
@@ -114,10 +112,19 @@ export const EditUser = () => {
         <Spinner />
       ) : (
         <form className="page__box" onSubmit={handelSubmit}>
-          <div className="page__container-avatar">
+          <span className="page__title">ویرایش اطلاعات کاربر</span>
+          <br/>
+          <br/>
+          <NewAvatarUpload
+              fileImage={image}
+              currentImage={url}
+              onUpload={getImage}
+            />
+          <br/>
+          <br/>
             <div className="page__type-user">
               <label id="type-admin" className="page__container-radio">
-                تولید کننده هستم
+                <span className="page__description">تولید کننده هستم</span>
                 <input
                   className=""
                   name="type"
@@ -127,13 +134,11 @@ export const EditUser = () => {
                   onChange={changeTypeUser}
                   checked={typeUser === "ADMIN"}
 
-                  // required={true}
                 />
                 <span className="page__checkmark"></span>
               </label>
-              <br />
               <label id="type-admin" className="page__container-radio">
-                خریدار هستم
+                <span className="page__description">خریدار هستم</span>
                 <input
                   className=""
                   name="type"
@@ -142,86 +147,78 @@ export const EditUser = () => {
                   value="USER"
                   checked={typeUser === "USER"}
                   onChange={changeTypeUser}
-                  // required={true}
                 />
                 <span className="page__checkmark"></span>
               </label>
 
               <span className="page__err">{inputErrorList.type}</span>
             </div>
-            {/* <AvatarUpload currentImage={user.avatar} onUpload={getImage}/> */}
-            <NewAvatarUpload
-              fileImage={image}
-              currentImage={url}
-              onUpload={getImage}
-            />
-          </div>
+          <br/>
+          <br/>
+          <span className="page__help-title">نام و نام خانوادگی</span>
           <input
             className="page__input"
             name="name"
             value={user.name}
             onChange={handelInput}
             placeholder="نام و نام خانوادگی"
-            // required={true}
           />
           <span className="page__err">{inputErrorList.name}</span>
+          <br/>
+          <br/>
+
+          <span className="page__help-title">ایمیل</span>
           <input
             className="page__input"
             name="email"
             value={user.email}
             onChange={handelInput}
             placeholder="ایمیل"
-            // required={true}
           />
           <span className="page__err">{inputErrorList.email}</span>
-
+          <br/>
+          <br/>
+          <span className="page__help-title">مبایل</span>
           <input
             className="page__input"
             name="mobile"
             value={user.mobile}
             onChange={handelInput}
             placeholder="مبایل"
-            // required={true}
           />
           <span className="page__err">{inputErrorList.mobile}</span>
-
+          <br/>
+          <br/>
+          <span className="page__help__title">شهر</span>
           <input
             className="page__input"
             name="city"
             value={user.city}
             onChange={handelInput}
             placeholder="شهر"
-            // required={true}
           />
           <span className="page__err">{inputErrorList.city}</span>
-
+          <br/>
+          <br/>
+          <span className="page__help__title">آدرس</span>
           <input
             className="page__input"
             name="address"
             value={user.address}
             onChange={handelInput}
             placeholder="آدرس"
-            // required={true}
           />
           <span className="page__err">{inputErrorList.address}</span>
 
-          {/* <input
-            className="page__input"
-            name="avatar"
-            value={user.avatar}
-            onChange={handelInput}
-            placeholder="لینک عکس"
-            // required={true}
-          />
-          <span className="err">{inputErrorList.avatar}</span> */}
 
           <div className="page__btns">
             <input
               type="submit"
-              className="mybtn mybtn__sucsess"
+              className="mybtn mybtn__active"
               value="ویرایش"
             />
-            <Link to="/manager" className="mybtn mybtn__denger">
+            <span className="mybtn__space"></span>
+            <Link to="/manager" className="mybtn mybtn__inactive">
               بازگشت
             </Link>
           </div>

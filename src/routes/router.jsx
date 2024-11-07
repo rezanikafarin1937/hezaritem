@@ -65,6 +65,11 @@ export const router = createBrowserRouter([
         errorElement: <h3>error element</h3>,
       },
       {
+        path: "/register",
+        element: <Register />,
+        errorElement: <h3>error element</h3>,
+      },
+          {
         path: "/users",
         element: <Users userId={10}/>,
         errorElement: <h3>error element</h3>,
@@ -106,11 +111,6 @@ export const router = createBrowserRouter([
   {
     path: "/manager",
     element: <Manager />,
-    errorElement: <h3>error element</h3>,
-  },
-  {
-    path: "/register",
-    element: <Register />,
     errorElement: <h3>error element</h3>,
   },
 

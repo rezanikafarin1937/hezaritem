@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Spinner from "../../spinner/Spinner";
 import axios from "axios";
+import "../../sass/global-box.scss";
 
 import "./show-user.scss";
 
@@ -41,32 +42,41 @@ const ShowUser = () => {
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="parent-user">
-          <div
-            className="image"
-            style={{
-              ...(user.avatar
-                ? { backgroundImage: `url(${user.avatar})` }
+        <div className="page">
+          <div  className="image" style={{...(user.avatar ? { backgroundImage: `url(${user.avatar})` }
                 : {}),
             }}
           >
             <div className="ratio"></div>
           </div>
-          <div className="user">
-            <div className="user__title">{user.name}</div>
-            <div className="user__text">
-              سلام من <span className="user__mark"> {user.name} </span>
-              از شهر <span className="user__mark"> {user.city} </span>
-              هستم و در این اپلیکیشن به عنوان یک{" "}
-              <span className="user__mark">
-                {user.type === "ADMIN" ? " یک تولید کننده " : "یک خریدار "}
-              </span>
-              فعالیت دارم
-            </div>
+          <div className="page__box">
+            <div className="">
+              <div className="">{user.name}</div>
+              <div className="">
+                سلام من <span className=""> {user.name} </span>
+                از شهر <span className=""> {user.city} </span>
+                هستم و در این اپلیکیشن به عنوان یک{" "}
+                <span className="">
+                  {user.type === "ADMIN" ? " یک تولید کننده " : "یک خریدار "}
+                </span>
+                فعالیت دارم
+              </div>
 
-            <div className="user__wrapper-btns">
-              <Link to={`/edit-user/${user.id}`} className="mybtn mybtn__sucsess">ویرایش</Link>
-              <Link to={`/delete-user/${user.id}`} className="mybtn mybtn__denger">حذف</Link>
+              <div className="">
+                <Link
+                  to={`/edit-user/${user.id}`}
+                  className="mybtn mybtn__active"
+                >
+                  ویرایش
+                </Link>
+                <span className="btn__space"></span>
+                <Link
+                  to={`/delete-user/${user.id}`}
+                  className="mybtn mybtn__inactive"
+                >
+                  حذف
+                </Link>
+              </div>
             </div>
           </div>
         </div>

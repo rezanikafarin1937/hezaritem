@@ -19,6 +19,7 @@
     }
   }
 
+
   &__btns {
     width: 100%;
     display: flex;
@@ -36,7 +37,20 @@
     border: 1px solid $border;
     font-size: 12px;
     color : $description;
+
+  //   // &:focus{
+  //   //   border: 1px solid $active;
+  //   // }
+  // }
   }
+    input[type="text"]::focus{
+      border: 1px solid $active-hover;
+    }
+
+  &__ltr{
+    direction: ltr;
+  }
+
   &__textarea{
     @extend .page__input;
     height: 100px;

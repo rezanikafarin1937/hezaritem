@@ -22,6 +22,11 @@
   justify-content: space-between;
 }
 
+.center-element{
+  margin: 0 auto;
+  background-color: yellow;
+}
+
 .mybtn {
   padding: 0.5rem 1rem; 
   border-radius: 4px;
@@ -49,10 +54,10 @@
 
   }
   &__active {
-    background-color: #a62626;
+    background-color: $active;
     color: white;
     &:hover{
-      background-color: #be3737;
+      background-color: $active-hover;
     }
   }
   &__inactive {

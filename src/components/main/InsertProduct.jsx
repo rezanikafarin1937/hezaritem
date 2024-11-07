@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Spinner, ImageUpload } from "../../components";
 import axios from "axios";
-
+import PN from "persian-number";
 import "../sass/global-box.scss";
 
 export const InsertProduct = () => {
@@ -187,6 +187,7 @@ export const InsertProduct = () => {
             onChange={handelInput}
             placeholder="قیمت"
           />
+          <span className="page__description">{PN.convert(product.price)} تومان</span>
           <span className="page__err">{inputErrorList.price}</span>
             <br/>
           <span className="page__help-title">تخفیف</span>  
@@ -197,6 +198,7 @@ export const InsertProduct = () => {
             onChange={handelInput}
             placeholder="چند درصد امکان تخفیف وجود دارد"
           />
+          <span className="page__description">{PN.convert(product.discount)} درصد</span>
           <span className="page__err">{inputErrorList.discount}</span>
 
           <br/>
@@ -207,8 +209,8 @@ export const InsertProduct = () => {
             value={product.shipping_cost}
             onChange={handelInput}
             placeholder="هزینه ارسال"
-            // required={true}
           />
+          <span className="page__description">{PN.convert(product.shipping_cost)} تومان</span>
           <span className="page__err">{inputErrorList.shipping_cost}</span>
 
           <br/>

@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { getProduct } from "../../services/Service";
 import { Spinner, ImageUpload } from "../../components";
 import axios from "axios";
+import PN from "persian-number";
 import "../sass/global-box.scss";
 
 export const EditProduct = () => {
@@ -96,7 +97,6 @@ export const EditProduct = () => {
   useEffect(() => {
     featchData();
     fetchCategories();
-    console.log('CCCCCategory = ',product.category)
   }, []);
 
   const handelInput = (event) => {
@@ -169,6 +169,7 @@ export const EditProduct = () => {
         <Spinner />
       ) : (
         <form className="page__box" onSubmit={handelSubmit}>
+          {console.log('PPProduct = ',product)}
           <span className="page__title">ویرایش محصول</span>
           <br/>
          <br/> 
@@ -249,18 +250,7 @@ export const EditProduct = () => {
             placeholder="عنوان"
             required={true}
           />
-
-          <br />
-          <br />
-          <span className="page__help-title">هزینه ارسال</span>
-          <input
-            className="page__input"
-            name="shipping_cost"
-            value={product.shipping_cost}
-            onChange={handelInput}
-            placeholder="هزینه ارسال"
-            required={true}
-          />
+          <span className="page__err">{inputErrorList.title}</span>
 
           <br />
           <br />
@@ -273,13 +263,42 @@ export const EditProduct = () => {
             placeholder="قیمت"
             required={true}
           />
+          <span className="page__description">{PN.convert(product.price)} تومان</span>
+          <span className="page__err">{inputErrorList.price}</span>
+
           <br />
           <br />
+          <span className="page__help-title">تخفیف</span>  
+          <input
+            className="page__input"
+            name="discount"
+            value={product.discount}
+            onChange={handelInput}
+            placeholder="چند درصد امکان تخفیف وجود دارد"
+          />
+          <span className="page__description">{PN.convert(product.discount)} درصد</span>
+          <span className="page__err">{inputErrorList.discount}</span>
+          <br/>
+          <br/>
+          <span className="page__help-title">هزینه ارسال</span>
+          <input
+            className="page__input"
+            name="shipping_cost"
+            value={product.shipping_cost}
+            onChange={handelInput}
+            placeholder="هزینه ارسال"
+            required={true}
+          />
+          <span className="page__description">{PN.convert(product.shipping_cost)} تومان</span>
+          <span className="page__err">{inputErrorList.shipping_cost}</span>
+          <br />
+          <br />
+
           <span className="page__help-title">توضیحات</span>
           <textarea
             className="page__textarea"
             name="description"
-            value={product.description}
+            value={product.description ? product.description : ""}
             onChange={handelInput}
             placeholder=""
             required={true}
