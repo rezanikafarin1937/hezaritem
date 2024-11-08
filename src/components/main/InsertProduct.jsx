@@ -109,7 +109,7 @@ export const InsertProduct = () => {
             </span>
             <br />
             <select
-              className="page__input"
+              className="page__select"
               name="category"
               value={product.category}
               onChange={handelInput}

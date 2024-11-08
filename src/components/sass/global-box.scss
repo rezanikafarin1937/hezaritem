@@ -27,7 +27,7 @@
     margin-top: 1rem;
   }
 
-  &__input {
+  &__select {
     width: 100%;
     height: 40px;
     border-radius: 4px;
@@ -37,15 +37,18 @@
     border: 1px solid $border;
     font-size: 12px;
     color : $description;
+    transition: all .3s;
 
-  //   // &:focus{
-  //   //   border: 1px solid $active;
-  //   // }
-  // }
   }
-    input[type="text"]::focus{
+
+  &__input{
+    @extend .page__select;
+
+    &:focus{
       border: 1px solid $active-hover;
     }
+
+  }
 
   &__ltr{
     direction: ltr;
@@ -121,9 +124,9 @@
     padding: 0 1.5rem;
     padding: 0 2rem;
     cursor: pointer;
-    // -webkit-user-select: none;
-    // -moz-user-select: none;
-    // -ms-user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
 
     font-size: 12px;

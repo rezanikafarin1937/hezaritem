@@ -169,7 +169,6 @@ export const EditProduct = () => {
         <Spinner />
       ) : (
         <form className="page__box" onSubmit={handelSubmit}>
-          {console.log('PPProduct = ',product)}
           <span className="page__title">ویرایش محصول</span>
           <br/>
          <br/> 
@@ -179,7 +178,7 @@ export const EditProduct = () => {
             </span>
             <br />
             <select
-              className="page__input"
+              className="page__select"
               name="category"
               value={product.category}
               onChange={handelInput}

@@ -51,6 +51,11 @@
       cursor: pointer;
       border-radius: $border-radius;
 
+      @media (max-width : 426px)  {
+        width: calc(50% - 10px);
+        
+      }
+
   
       &--ratio {
         position: relative;
