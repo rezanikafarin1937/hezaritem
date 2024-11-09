@@ -2,9 +2,7 @@ import { useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import { saveProduct } from "../../services/Service";
 import { Spinner} from '../../components';
-// import "./getproduct.scss";
-import "../sass/global-box.scss";
-
+import "../../Global/sass/global-box.scss";
 export const Getproduct = () => {
 
   const navigate = useNavigate();

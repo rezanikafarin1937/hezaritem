@@ -3,8 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Spinner, AvatarUpload } from "../../../components";
 import { BaseURL,headers } from "../../../Global/BaseUrl";
 import axios from "axios";
-
-import "../../sass/global-box.scss";
+import "../../../Global/sass/global-box.scss";
 
 export const Register = () => {
   const navigate = useNavigate();

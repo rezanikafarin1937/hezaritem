@@ -5,8 +5,7 @@ import Spinner from "../../spinner/Spinner";
 import axios from "axios";
 import AvatarUpload from "../../avatar-upload/AvatarUpload";
 import { BaseURL,config } from "../../../Global/BaseUrl";
-import "../../sass/global-box.scss";
-
+import "../../../Global/sass/global-box.scss";
 const ShowUser = () => {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);

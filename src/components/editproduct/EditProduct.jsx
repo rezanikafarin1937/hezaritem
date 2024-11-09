@@ -5,12 +5,10 @@ import { Spinner, ImageUpload } from "../../components";
 import axios from "axios";
 import PN from "persian-number";
 import { BaseURL,headers } from "../../Global/BaseUrl";
-import "../sass/global-box.scss";
-
+import "../../Global/sass/global-box.scss";
 export const EditProduct = () => {
   const navigate = useNavigate();
   const { id: userId } = useParams();
-  // const URL = `http://localhost/back-sef/public/api/products/${userId}`;
 
   const [inputErrorList, setInputErrorList] = useState({});
   const [categories, setCategories] = useState([]);
@@ -115,7 +113,7 @@ export const EditProduct = () => {
       fd.append("user_id", 1);
       fd.append("title", product.title);
       fd.append("price", product.price);
-      fd.append("category", product.category);
+      fd.append("category", product.category_id);
       fd.append("discount", product.discount);
       fd.append("shipping_cost", product.shipping_cost);
       fd.append("return", returnProduct ? returnProduct : product.return);
@@ -181,7 +179,7 @@ export const EditProduct = () => {
              
 
             >
-              <option value={product.category_id}>{product.category}</option>
+              <option value={parseInt(product.category_id)}>{product.category}</option>
               {categories.map((cat, index) => (
                 <option key={index} value={cat.id}>
                   {cat.name}
