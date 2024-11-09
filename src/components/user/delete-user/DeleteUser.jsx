@@ -4,6 +4,7 @@ import Confirm from "../../confirm/Confirm";
 // import { removeProduct } from "../../services/Service";
 import axios from "axios";
 import Spinner from "../../spinner/Spinner";
+import { BaseURL,headers } from "../../../Global/BaseUrl";
 import "./deleteuser.scss";
 
 const DeleteUser = () => {
@@ -19,12 +20,10 @@ const DeleteUser = () => {
       // .delete(`http://localhost/back-sef/public/api/users/${id}`)
       // .then((res) => console.log("res = ", res));
     const status = axios({
-      url : `http://localhost/back-sef/public/api/users/${id}`,
+      url : `${BaseURL}/users/${id}`,
       method : 'delete',
       data : '',
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      headers: headers
 
     }).then((res) => console.log("res = ", res));
     if (status === 204) {

@@ -1,17 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import { BaseURL,config } from "../../Global/BaseUrl";
 
 const Users = ({ userId }) => {
-  const URL = `http://localhost/back-sef/public/api/users/${userId}`;
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization:
-        "Bearer hL3mLquFhdkhpj6qEfIBfjyOioIMLe34lr6kmQ9S4R5G77zR0sEzQpfL1zC6ZQaveBRK21K1amv4lBz5x3Gu5wySwvuY15ZqRCvV",
-    },
-  };
+  // const URL = `http://localhost/back-sef/public/api/users/${userId}`;
+  // const config = {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Accept: "application/json",
+  //     Authorization:
+  //       "Bearer hL3mLquFhdkhpj6qEfIBfjyOioIMLe34lr6kmQ9S4R5G77zR0sEzQpfL1zC6ZQaveBRK21K1amv4lBz5x3Gu5wySwvuY15ZqRCvV",
+  //   },
+  // };
   const [getUser, setUser] = useState({
     userData: [],
     loading: true,
@@ -26,7 +27,7 @@ const Users = ({ userId }) => {
     try {
       // myUser();
       axios
-        .get(URL, config)
+        .get(`${BaseURL}/users/${userId}`, config)
         .then((res) => res.data)
         .then((data) => setUser({ userData: data, full: false }))
         .catch((err) => console.log(err));

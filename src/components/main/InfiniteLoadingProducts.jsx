@@ -3,6 +3,7 @@ import axios from "axios";
 import Spinner from "../spinner/Spinner";
 import Sidebar from "../sidebar/Sidebar";
 import Item from "../item/Item";
+import { BaseURL,config } from "../../Global/BaseUrl";
 import "./infint-loading-products.scss";
 
 const InfiniteLoadingProducts = () => {
@@ -12,18 +13,11 @@ const InfiniteLoadingProducts = () => {
   const [visible, setVisible] = useState(0);
   const [numberOfData, setNumberOfData] = useState(0);
 
-  const BaseURL = "http://localhost/back-sef/public/api/products";
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  };
 
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      let response = await axios.get(BaseURL + `?page=${page}`, config);
+      let response = await axios.get(BaseURL+ '/products' + `?page=${page}`, config);
       setTotalData((oldData) => [...oldData, ...response.data.data]);
       setVisible((prev) => prev + response.data.per_page);
       setNumberOfData(response.data.total);

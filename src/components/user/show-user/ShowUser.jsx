@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Spinner from "../../spinner/Spinner";
 import axios from "axios";
 import AvatarUpload from "../../avatar-upload/AvatarUpload";
+import { BaseURL,config } from "../../../Global/BaseUrl";
 import "../../sass/global-box.scss";
 
 const ShowUser = () => {
@@ -11,20 +12,11 @@ const ShowUser = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const { id: userId } = useParams();
-  const URL = `http://localhost/back-sef/public/api/users/${userId}`;
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization:
-        "Bearer hL3mLquFhdkhpj6qEfIBfjyOioIMLe34lr6kmQ9S4R5G77zR0sEzQpfL1zC6ZQaveBRK21K1amv4lBz5x3Gu5wySwvuY15ZqRCvV",
-    },
-  };
 
   useEffect(() => {
     try {
       axios
-        .get(URL, config)
+        .get(`${BaseURL}/users/${userId}`, config)
         .then((res) => {
           setUser({ ...res.data });
           setIsLoading(false);

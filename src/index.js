@@ -5,8 +5,10 @@ import { router } from "./routes/router";
 import { createRoot } from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider } from "react-router-dom";
-
+import { BaseURL } from "./Global/BaseUrl";
 import "./index.css";
+
+
 
 const root = createRoot(document.getElementById("root"));
 root.render(

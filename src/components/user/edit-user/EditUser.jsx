@@ -4,20 +4,13 @@ import { Spinner, AvatarUpload } from "../../../components";
 import { useSelector,useDispatch } from "react-redux";
 import { updateForceRender } from "../../../slices/forceRenderSlice";
 import axios from "axios";
-
-import "../../sass/global-box.scss";
+import { BaseURL,config } from "../../../Global/BaseUrl";
+import "../../../Global/sass/global-box.scss";
 
 
 export const EditUser = () => {
   const { id: userId } = useParams();
   const navigate = useNavigate();
-  const URL = `http://localhost/back-sef/public/api/users`;
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  };
   const [inputErrorList, setInputErrorList] = useState({});
 
   const [user, setUser] = useState({});
@@ -55,7 +48,7 @@ export const EditUser = () => {
 
       axios({
         method: "post",
-        url: URL + `/update/${userId}`,
+        url: BaseURL + `/users/update/${userId}`,
         data: fd,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -75,7 +68,7 @@ export const EditUser = () => {
       setUser({});
       setLoading(false);
       dispatch(updateForceRender(true));
-      // navigate("/manager");
+      navigate("/manager");
     } catch (err) {
       console.log(err.message);
       setLoading(false);
@@ -93,7 +86,7 @@ export const EditUser = () => {
 
   useEffect(() => {
     try {
-      axios.get(URL + `/${userId}`, config).then((res) => {
+      axios.get(BaseURL  + `/users/${userId}`, config).then((res) => {
         setUser({ ...res.data });
         setLoading(false);
         setTypeUser(res.data.type);

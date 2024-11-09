@@ -3,20 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { Spinner, ImageUpload } from "../../components";
 import axios from "axios";
 import PN from "persian-number";
-import "../sass/global-box.scss";
+import { BaseURL } from "../../Global/BaseUrl";
+import "../../Global/sass/global-box.scss";
 
 export const InsertProduct = () => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
-  const URL = "http://localhost/back-sef/public/api/";
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization:
-        "Bearer hL3mLquFhdkhpj6qEfIBfjyOioIMLe34lr6kmQ9S4R5G77zR0sEzQpfL1zC6ZQaveBRK21K1amv4lBz5x3Gu5wySwvuY15ZqRCvV",
-    },
-  };
   const [inputErrorList, setInputErrorList] = useState({});
 
   const [product, setProduct] = useState({
@@ -57,7 +49,7 @@ export const InsertProduct = () => {
       console.log("All Images = ", images);
       axios({
         method: "post",
-        url: URL + "products",
+        url: BaseURL + "/products",
         data: fd,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -76,7 +68,7 @@ export const InsertProduct = () => {
         });
       setProduct({});
       setLoading(false);
-      // navigate("/");
+      navigate("/");
     } catch (err) {
       console.log(err.message);
       setLoading(false);
@@ -89,7 +81,7 @@ export const InsertProduct = () => {
   };
 
   useEffect(() => {
-    axios.get(URL + "categories").then((res) => {
+    axios.get(BaseURL + "/categories").then((res) => {
       setCategories([...res.data]);
     });
   }, []);

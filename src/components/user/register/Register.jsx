@@ -1,19 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Spinner, AvatarUpload } from "../../../components";
+import { BaseURL,headers } from "../../../Global/BaseUrl";
 import axios from "axios";
 
 import "../../sass/global-box.scss";
 
 export const Register = () => {
   const navigate = useNavigate();
-  const URL = "http://localhost/back-sef/public/api/users";
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  };
   const [inputErrorList, setInputErrorList] = useState({});
 
   const [getUser, setUser] = useState({
@@ -50,11 +44,9 @@ export const Register = () => {
       fd.append("avatar", image);
       axios({
         method: "post",
-        url: URL,
+        url: `${BaseURL}/users`,
         data: fd,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: headers
       })
         .then((res) => console.log("response = ", res))
         .catch((err) => {

@@ -4,12 +4,13 @@ import { getProduct } from "../../services/Service";
 import { Spinner, ImageUpload } from "../../components";
 import axios from "axios";
 import PN from "persian-number";
+import { BaseURL,headers } from "../../Global/BaseUrl";
 import "../sass/global-box.scss";
 
 export const EditProduct = () => {
   const navigate = useNavigate();
   const { id: userId } = useParams();
-  const URL = `http://localhost/back-sef/public/api/products/${userId}`;
+  // const URL = `http://localhost/back-sef/public/api/products/${userId}`;
 
   const [inputErrorList, setInputErrorList] = useState({});
   const [categories, setCategories] = useState([]);
@@ -90,7 +91,7 @@ export const EditProduct = () => {
   };
 
   const fetchCategories = () => {
-    axios.get("http://localhost/back-sef/public/api/categories").then((res) => {
+    axios.get(BaseURL + "/categories").then((res) => {
       setCategories([...res.data]);
     });
   };
@@ -134,14 +135,9 @@ export const EditProduct = () => {
       console.log("All deleteImages = ", idDeleteImages);
       axios({
         method: "post",
-        url: URL,
+        url: BaseURL + `/products/${userId}`,
         data: fd,
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data",
-          Authorization:
-            "Bearer hL3mLquFhdkhpj6qEfIBfjyOioIMLe34lr6kmQ9S4R5G77zR0sEzQpfL1zC6ZQaveBRK21K1amv4lBz5x3Gu5wySwvuY15ZqRCvV",
-        },
+        headers: headers
       })
         .then((res) => console.log("response = ", res))
         .catch((err) => {
