@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Spinner, NewAvatarUpload } from "../../../components";
+import { Spinner, AvatarUpload } from "../../../components";
 import { useSelector,useDispatch } from "react-redux";
 import { updateForceRender } from "../../../slices/forceRenderSlice";
 import axios from "axios";
@@ -75,7 +75,7 @@ export const EditUser = () => {
       setUser({});
       setLoading(false);
       dispatch(updateForceRender(true));
-      navigate("/manager");
+      // navigate("/manager");
     } catch (err) {
       console.log(err.message);
       setLoading(false);
@@ -115,7 +115,7 @@ export const EditUser = () => {
           <span className="page__title">ویرایش اطلاعات کاربر</span>
           <br/>
           <br/>
-          <NewAvatarUpload
+          <AvatarUpload
               fileImage={image}
               currentImage={url}
               onUpload={getImage}
@@ -162,6 +162,7 @@ export const EditUser = () => {
             value={user.name}
             onChange={handelInput}
             placeholder="نام و نام خانوادگی"
+            
           />
           <span className="page__err">{inputErrorList.name}</span>
           <br/>

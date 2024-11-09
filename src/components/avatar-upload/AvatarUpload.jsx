@@ -1,7 +1,12 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./avatar-upload.scss";
 
-const AvatarUpload = ({currentImage = `./avatar.png`,onUpload,title = "عکس پروفایل"}) => {
+const AvatarUpload = ({
+  currentImage = `./avatar.png`,
+  onUpload = null,
+  title = "عکس پروفایل",
+  edit = true,
+}) => {
   const [file, setFile] = useState(null);
 
   const createObjectUrl = (file) => {
@@ -9,27 +14,41 @@ const AvatarUpload = ({currentImage = `./avatar.png`,onUpload,title = "عکس پ
   };
   const handleInput = (e) => {
     let obj = e.target.files[0];
-    console.log('file = ',obj);
+    console.log("file = ", obj);
     setFile(() => obj);
-    
   };
 
-  const delImage = () =>{
-    setFile(()=> null)
-  }
+  const delImage = () => {
+    setFile(() => null);
+  };
 
-  useEffect(()=>{
-    console.log('currentImage = ',currentImage)
-  },[]);
+  useEffect(() => {
+    console.log("currentImage = ", currentImage);
+  }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
+    if(edit === true){
     onUpload(file);
-  },[file]);
+    }else{
+      return;
+    }
+  }, [file]);
 
   return (
-    <div className="avatar" style={{...currentImage ? {backgroundImage : `url(${currentImage})`} : {}}}>
+    <div
+      className="avatar"
+      style={{
+        ...(currentImage ? { backgroundImage: `url(${currentImage})` } : {}),
+      }}
+    >
       <div className="avatar__ratio"></div>
-      <input type="file" title={title} onChange={handleInput} className="avatar__input" />
+      <input
+        type={edit ? "file" : ""}
+        title={title}
+        onChange={handleInput}
+        className="avatar__input"
+        style={!edit ? { cursor: "default" } : { cursor: "pointer" }}
+      />
       {file ? (
         <>
           {" "}
@@ -40,7 +59,7 @@ const AvatarUpload = ({currentImage = `./avatar.png`,onUpload,title = "عکس پ
           />{" "}
           <div className="avatar__overlay">
             <div className="avatar__del-btn" onClick={delImage}></div>
-            </div>{" "}
+          </div>{" "}
         </>
       ) : (
         ""

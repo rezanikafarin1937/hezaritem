@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Spinner from "../../spinner/Spinner";
 import axios from "axios";
+import AvatarUpload from "../../avatar-upload/AvatarUpload";
 import "../../sass/global-box.scss";
-
-import "./show-user.scss";
 
 const ShowUser = () => {
   const [user, setUser] = useState({});
@@ -43,17 +42,13 @@ const ShowUser = () => {
         <Spinner />
       ) : (
         <div className="page">
-          <div  className="image" style={{...(user.avatar ? { backgroundImage: `url(${user.avatar})` }
-                : {}),
-            }}
-          >
-            <div className="ratio"></div>
-          </div>
           <div className="page__box">
+            <AvatarUpload currentImage={user.avatar} edit={false}/>
+            <br />
             <div className="">
-              <div className="">{user.name}</div>
+              <div className="page__title">{user.name}</div>
               <div className="">
-                سلام من <span className=""> {user.name} </span>
+                سلام من <span className="page__help-title"> {user.name} </span>
                 از شهر <span className=""> {user.city} </span>
                 هستم و در این اپلیکیشن به عنوان یک{" "}
                 <span className="">
@@ -62,14 +57,14 @@ const ShowUser = () => {
                 فعالیت دارم
               </div>
 
-              <div className="">
+              <div className="page__btns">
                 <Link
                   to={`/edit-user/${user.id}`}
                   className="mybtn mybtn__active"
                 >
                   ویرایش
                 </Link>
-                <span className="btn__space"></span>
+                <span className="mybtn__space"></span>
                 <Link
                   to={`/delete-user/${user.id}`}
                   className="mybtn mybtn__inactive"
