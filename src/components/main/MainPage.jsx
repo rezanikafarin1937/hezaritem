@@ -19,7 +19,7 @@ const MainPage = () => {
       </div>
 
       <div className="main__items">
-        <InfiniteLoadingProducts/>
+        <InfiniteLoadingProducts categoryId={categoryId}/>
       </div>
     </div>
   );
