@@ -5,13 +5,13 @@ import Item from "../item/Item";
 import { BaseURL, config } from "../../Global/BaseUrl";
 import "./infint-loading-products.scss";
 
-const InfiniteLoadingProducts = ({categoryId}) => {
+const InfiniteLoadingProducts = ({ categoryId }) => {
   const [totalData, setTotalData] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(0);
   const [numberOfData, setNumberOfData] = useState(0);
-  
+
   const fetchData = async () => {
     try {
       setIsLoading(true);
@@ -39,7 +39,6 @@ const InfiniteLoadingProducts = ({categoryId}) => {
     }
   };
 
-
   useEffect(() => {
     setTotalData([]);
     fetchData();
@@ -60,15 +59,17 @@ const InfiniteLoadingProducts = ({categoryId}) => {
 
   return (
     <div className="infinite">
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <>
-          {totalData.map((data, index) => (
-            <Item key={index} data={data} />
-          ))}
-        </>
-      )}
+      <div className="infinite__items">
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            {totalData.map((data, index) => (
+              <Item key={index} data={data} />
+            ))}
+          </>
+        )}
+      </div>
     </div>
   );
 };

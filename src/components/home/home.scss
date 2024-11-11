@@ -1,41 +1,41 @@
-@import "../../../public/sass/colorpullet.scss";
+// @import "../../../public/sass/colorpullet.scss";
 
-.main {
-  display: flex;
-  flex-direction: row-reverse;
-  text-align: right;
+// .main {
+//   display: flex;
+//   flex-direction: row-reverse;
+//   text-align: right;
 
-  &__sidebar {
-    max-height: 100vh;
-    flex: 0 0 25%;
-    position: sticky;
-    top: 0;
-    overflow-y: auto;
-    scrollbar-width: none;
-    display: none;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 1rem;
-    background-color: #fff;
+//   &__sidebar {
+//     max-height: 100vh;
+//     flex: 0 0 25%;
+//     position: sticky;
+//     top: 0;
+//     overflow-y: auto;
+//     scrollbar-width: none;
+//     display: none;
+//     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+//     margin-top: 1rem;
+//     background-color: #fff;
 
-    @media (min-width: 768px) {
-        display: block;
-    }
-  }
+//     @media (min-width: 768px) {
+//         display: block;
+//     }
+//   }
 
-  &__items {
-    flex: 1 1 auto;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row-reverse;
-  }
+//   &__items {
+//     flex: 1 1 auto;
+//     display: flex;
+//     flex-wrap: wrap;
+//     flex-direction: row-reverse;
+//   }
 
-  &__item {
-    width: calc(33.333% - 2rem);
-    margin: 1rem;
+//   &__item {
+//     width: calc(33.333% - 2rem);
+//     margin: 1rem;
 
-    &--ratio {
-      padding-top: 100%;
-      position: relative;
-    }
-  }
-}
+//     &--ratio {
+//       padding-top: 100%;
+//       position: relative;
+//     }
+//   }
+// }
