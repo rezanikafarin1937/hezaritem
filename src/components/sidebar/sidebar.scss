@@ -1,13 +1,38 @@
-ul{
-    margin: 0;
+@import "../../Global/sass/global-box.scss";
+ul {
+  margin: 0;
 }
-.sidebar{
-    text-align: right;
-    direction: rtl;
-    padding: 1rem;
-    background-color: #fff;
-    overflow-y: scroll;
-    scrollbar-width: none;
-    scrollbar-color: transparent;
+.sidebar {
+  text-align: right;
+  direction: rtl;
+  background-color: $background;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  scrollbar-color: transparent;
+  padding: 1rem;
 
+  &__title {
+    font-size: 1.25rem;
+    line-height: 2;
+    color: #999;
+    text-shadow: 1px 1px 1px $title;
+  }
+
+  ul {
+    li {
+      text-shadow: 1px 1px 1px $title;
+      font-size: 0.875rem;
+      font-weight: 100;
+      list-style: none;
+      line-height: 2;
+      padding: 6px 0;
+      cursor: pointer;
+      transition: color .36s ease;      
+      color : rgba(0,0,0,.1);
+
+      &:hover {
+        color: $color-description;
+      }
+    }
+  }
 }

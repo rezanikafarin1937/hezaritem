@@ -23,8 +23,9 @@
 }
 
 .center-element{
-  margin: 0 auto;
-  background-color: yellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .mybtn {

@@ -3,29 +3,36 @@ import axios from "axios";
 import { BaseURL } from "../../Global/BaseUrl";
 import "./sidebar.scss";
 
-const Sidebar = () => {
+const Sidebar = ({onChangeCategory}) => {
   const [categories, setCategories] = useState([]);
+  const [products,setProducts] = useState([]);
 
   const getCategories = () => {
     axios.get(`${BaseURL}/categories`).then((res) => {
-      setCategories([...res.data]);
+      setCategories([{id : 0, name : "همه محصولات"},...res.data]);
     });
   };
+
+  const emitCategory = (catId) =>{
+    onChangeCategory(catId);
+  }
 
   useEffect(() => {
     getCategories();
     console.log("Categories = ", categories);
   }, []);
 
-  return <div className="sidebar">
-    <ul>
-        {categories.map((cat,index) => (
-            <>
-                <li key={index}>{cat.name}</li>
-            </>
+  return (
+    <div className="sidebar">
+        {console.log('cat = ',categories)}
+      <ul>
+        <div className="sidebar__title">دسته ها</div>
+        {categories.map((cat, index) => (
+            <li onClick={()=> emitCategory(cat.id)} key={index}>{cat.name}</li>
         ))}
-    </ul>
-  </div>;
+      </ul>
+    </div>
+  );
 };
 
 export default Sidebar;

@@ -12,12 +12,13 @@ const InfiniteLoadingProducts = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(0);
   const [numberOfData, setNumberOfData] = useState(0);
+  const [categoryId,setCategoryId] = useState(0);
 
 
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      let response = await axios.get(BaseURL+ '/products' + `?page=${page}`, config);
+      let response = await axios.get(BaseURL+ '/products/' + `${categoryId}` + `?page=${page}` , config);
       setTotalData((oldData) => [...oldData, ...response.data.data]);
       setVisible((prev) => prev + response.data.per_page);
       setNumberOfData(response.data.total);
@@ -38,9 +39,15 @@ const InfiniteLoadingProducts = () => {
     }
   };
 
+  const changeCategory = (catId) => {
+    console.log('categoryId = ',catId)
+    setCategoryId(() => catId);
+  }
+
   useEffect(() => {
+    setTotalData([]);
     fetchData();
-  }, [page]);
+  }, [page,categoryId]);
 
   useEffect(() => {
     if (numberOfData === undefined) {
@@ -57,8 +64,8 @@ const InfiniteLoadingProducts = () => {
 
   return (
     <div className="main">
-      <div className="main__sidebar">
-        <Sidebar />
+        <div className="main__sidebar">
+        <Sidebar onChangeCategory={changeCategory}/>
       </div>
 
       <div className="main__items">

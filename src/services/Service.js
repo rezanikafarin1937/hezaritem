@@ -8,7 +8,7 @@ export const getAllProducts = async () => {
 }
 
 export const getProduct = (id) => {
-    return axios.get(`${BaseURL}/products/${id}`);
+    return axios.get(`${BaseURL}/products/show/${id}`);
 }
 
 export const saveProduct = (data) => {

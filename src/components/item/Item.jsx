@@ -5,7 +5,7 @@ import './item.scss';
 class Item extends PureComponent{
     render(){
         return(
-            <Link to={`/products/${this.props.data.id}`} className='item'>
+            <Link to={`/products/show/${this.props.data.id}`} className='item'>
                 <div className='item__ratio'></div>
                 <div className='item__text'>
                     <div className='item__text--title'>{this.props.data.title}</div>

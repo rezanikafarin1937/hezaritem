@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
     errorElement: <h3>Error element</h3>,
     children: [
       {
-        path: "/products/:id",
+        path: "/products/show/:id",
         element: <Product />,
         errorElement: <h3>error element</h3>,
       },

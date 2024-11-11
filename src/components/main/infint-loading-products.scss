@@ -6,13 +6,14 @@
   text-align: right;
 
   &__sidebar {
-    max-height: 100vh;
+    min-height: 100vh;
     background-color: $sidebar;
     flex: 0 0 25%;
     position: sticky;
     top: 0;
     overflow-y: auto;
     display: none;
+    padding-top: 2rem;
 
     @media (min-width: 768px) {
         display: block;
