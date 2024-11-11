@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BaseURL } from "../../Global/BaseUrl";
+import { Link } from 'react-router-dom';
 import "./sidebar.scss";
 
 const Sidebar = ({onChangeCategory}) => {
@@ -28,8 +29,11 @@ const Sidebar = ({onChangeCategory}) => {
       <ul>
         <div className="sidebar__title">دسته ها</div>
         {categories.map((cat, index) => (
-            <li onClick={()=> emitCategory(cat.id)} key={index}>{cat.name}</li>
-        ))}
+            <div key={index}>
+            <li onClick={()=> emitCategory(cat.id)}>{cat.name}</li>
+
+            </div>
+))}
       </ul>
     </div>
   );
