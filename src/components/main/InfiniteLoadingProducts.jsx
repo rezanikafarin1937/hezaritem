@@ -1,24 +1,24 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Spinner from "../spinner/Spinner";
-import Sidebar from "../sidebar/Sidebar";
 import Item from "../item/Item";
-import { BaseURL,config } from "../../Global/BaseUrl";
+import { BaseURL, config } from "../../Global/BaseUrl";
 import "./infint-loading-products.scss";
 
-const InfiniteLoadingProducts = () => {
+const InfiniteLoadingProducts = ({categoryId}) => {
   const [totalData, setTotalData] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(0);
   const [numberOfData, setNumberOfData] = useState(0);
-  const [categoryId,setCategoryId] = useState(0);
-
-
+  
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      let response = await axios.get(BaseURL+ '/products/' + `${categoryId}` + `?page=${page}` , config);
+      let response = await axios.get(
+        BaseURL + "/products/" + `${categoryId}` + `?page=${page}`,
+        config
+      );
       setTotalData((oldData) => [...oldData, ...response.data.data]);
       setVisible((prev) => prev + response.data.per_page);
       setNumberOfData(response.data.total);
@@ -39,15 +39,11 @@ const InfiniteLoadingProducts = () => {
     }
   };
 
-  const changeCategory = (catId) => {
-    console.log('categoryId = ',catId)
-    setCategoryId(() => catId);
-  }
 
   useEffect(() => {
     setTotalData([]);
     fetchData();
-  }, [page,categoryId]);
+  }, [page, categoryId]);
 
   useEffect(() => {
     if (numberOfData === undefined) {
@@ -63,30 +59,16 @@ const InfiniteLoadingProducts = () => {
   }, [visible]);
 
   return (
-    <div className="main">
-        <div className="main__sidebar">
-        <Sidebar onChangeCategory={changeCategory}/>
-      </div>
-
-      <div className="main__items">
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          <>
-              {totalData.map((data, index) => (
-                <Item  key={index} data={data} />
-))}
-            {/* <button
-              onClick={() => {
-                window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-              }}
-            >
-              scroll top
-            </button> */}
-
-          </>
-        )}
-      </div>
+    <div className="infinite">
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          {totalData.map((data, index) => (
+            <Item key={index} data={data} />
+          ))}
+        </>
+      )}
     </div>
   );
 };

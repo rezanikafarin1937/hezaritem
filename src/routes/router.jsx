@@ -16,7 +16,8 @@ import {
   EditUser,
   DeleteUser,
   InfiniteLoadingProducts,
-  InsertProduct
+  InsertProduct,
+  MainPage
  
 } from "../components";
 import { createBrowserRouter } from "react-router-dom";
@@ -41,7 +42,14 @@ export const router = createBrowserRouter([
         errorElement: <h3>error element</h3>,
       },
     
-    
+
+      {
+        path: "/",
+        element: <MainPage />,
+        errorElement: <h3>error element</h3>,
+      },
+      
+
       {
         path: "/",
         element: <InfiniteLoadingProducts />,
