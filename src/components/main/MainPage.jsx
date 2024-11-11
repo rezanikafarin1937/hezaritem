@@ -14,7 +14,7 @@ const MainPage = () => {
     
     return (
     <div className="main">
-      <div className="main__sidebar">
+      <div className="sidebar">
         <Sidebar onChangeCategory={changeCategory} />
       </div>
 

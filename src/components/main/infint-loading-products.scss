@@ -1,10 +1,9 @@
 @import "../../../public/sass/colorpullet.scss";
 
-.infinte {
+.infinite {
   display: flex;
   flex-direction: row-reverse;
   text-align: right;
-  border : 5px solid pink;
 
 
   &__items {
