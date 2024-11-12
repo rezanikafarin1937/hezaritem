@@ -1,22 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BaseURL } from "../../Global/BaseUrl";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./sidebar.scss";
 
 const Sidebar = () => {
   const [categories, setCategories] = useState([]);
-  const [products,setProducts] = useState([]);
 
   const getCategories = () => {
     axios.get(`${BaseURL}/categories`).then((res) => {
-      setCategories([{id : 0, name : "همه محصولات"},...res.data]);
+      setCategories([{ id: 0, name: "همه محصولات" }, ...res.data]);
     });
   };
-
-//   const emitCategory = (catId) =>{
-//     onChangeCategory(catId);
-//   }
 
   useEffect(() => {
     getCategories();
@@ -25,15 +20,19 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
-        {console.log('cat = ',categories)}
+      {console.log("cat = ", categories)}
       <ul>
-        <div className="sidebar__title">دسته ها</div>
+        <span className="sidebar__title">دسته ها</span>
         {categories.map((cat, index) => (
-            <div key={index}>
-            <Link to={`/${cat.id}`}>{cat.name}</Link>
-
-            </div>
-))}
+          <li key={index}>
+            <Link
+              className="sidebar__cat"
+              to={cat.id == 0 ? "/" : `/${cat.id}`}
+            >
+              {cat.name}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   );
