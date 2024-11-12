@@ -41,9 +41,14 @@ export const router = createBrowserRouter([
         errorElement: <h3>error element</h3>,
       },
     
-    
       {
         path: "/",
+        element: <InfiniteLoadingProducts />,
+        errorElement: <h3>error element</h3>,
+      },
+    
+      {
+        path: "/:catId",
         element: <InfiniteLoadingProducts />,
         errorElement: <h3>error element</h3>,
       },

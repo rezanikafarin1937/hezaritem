@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import Spinner from "../spinner/Spinner";
 import Sidebar from "../sidebar/Sidebar";
 import Item from "../item/Item";
@@ -7,18 +8,20 @@ import { BaseURL,config } from "../../Global/BaseUrl";
 import "./infint-loading-products.scss";
 
 const InfiniteLoadingProducts = () => {
+  const { catId = 0} = useParams();
+
   const [totalData, setTotalData] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(0);
   const [numberOfData, setNumberOfData] = useState(0);
-  const [categoryId,setCategoryId] = useState(0);
+  // const [categoryId,setCategoryId] = useState(0);
 
 
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      let response = await axios.get(BaseURL+ '/products/' + `${categoryId}` + `?page=${page}` , config);
+      let response = await axios.get(BaseURL+ '/products/' + `${catId}` + `?page=${page}` , config);
       setTotalData((oldData) => [...oldData, ...response.data.data]);
       setVisible((prev) => prev + response.data.per_page);
       setNumberOfData(response.data.total);
@@ -39,15 +42,15 @@ const InfiniteLoadingProducts = () => {
     }
   };
 
-  const changeCategory = (catId) => {
-    console.log('categoryId = ',catId)
-    setCategoryId(() => catId);
-  }
+  // const changeCategory = (catId) => {
+  //   console.log('categoryId = ',catId)
+  //   setCategoryId(() => catId);
+  // }
 
   useEffect(() => {
     setTotalData([]);
     fetchData();
-  }, [page,categoryId]);
+  }, [page,catId]);
 
   useEffect(() => {
     if (numberOfData === undefined) {
@@ -65,7 +68,7 @@ const InfiniteLoadingProducts = () => {
   return (
     <div className="main">
         <div className="main__sidebar">
-        <Sidebar onChangeCategory={changeCategory}/>
+        <Sidebar/>
       </div>
 
       <div className="main__items">

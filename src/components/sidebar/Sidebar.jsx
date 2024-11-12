@@ -4,7 +4,7 @@ import { BaseURL } from "../../Global/BaseUrl";
 import { Link } from 'react-router-dom';
 import "./sidebar.scss";
 
-const Sidebar = ({onChangeCategory}) => {
+const Sidebar = () => {
   const [categories, setCategories] = useState([]);
   const [products,setProducts] = useState([]);
 
@@ -14,9 +14,9 @@ const Sidebar = ({onChangeCategory}) => {
     });
   };
 
-  const emitCategory = (catId) =>{
-    onChangeCategory(catId);
-  }
+//   const emitCategory = (catId) =>{
+//     onChangeCategory(catId);
+//   }
 
   useEffect(() => {
     getCategories();
@@ -30,7 +30,7 @@ const Sidebar = ({onChangeCategory}) => {
         <div className="sidebar__title">دسته ها</div>
         {categories.map((cat, index) => (
             <div key={index}>
-            <li onClick={()=> emitCategory(cat.id)}>{cat.name}</li>
+            <Link to={`/${cat.id}`}>{cat.name}</Link>
 
             </div>
 ))}
