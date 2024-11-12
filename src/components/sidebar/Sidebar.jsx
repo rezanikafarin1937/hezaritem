@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BaseURL } from "../../Global/BaseUrl";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./sidebar.scss";
 
 const Sidebar = () => {
   const [categories, setCategories] = useState([]);
+  const [categoryId, setCategoryId] = useState(0);
 
   const getCategories = () => {
     axios.get(`${BaseURL}/categories`).then((res) => {
       setCategories([{ id: 0, name: "همه محصولات" }, ...res.data]);
     });
+  };
+
+  const handleCategoryId = (catId) => {
+    setCategoryId(() => catId);
+    console.log(catId)
   };
 
   useEffect(() => {
@@ -19,22 +25,23 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <div className="sidebar">
+    <nav className="sidebar">
       {console.log("cat = ", categories)}
       <ul>
         <span className="sidebar__title">دسته ها</span>
         {categories.map((cat, index) => (
-          <li key={index}>
-            <Link
+          <li key={index} className={cat.id == categoryId ? "active" : "" } onClick={() => handleCategoryId(cat.id)}>
+            {    console.log('handleCategoryId = ',categoryId)}
+            <NavLink
               className="sidebar__cat"
               to={cat.id == 0 ? "/" : `/${cat.id}`}
             >
               {cat.name}
-            </Link>
+            </NavLink>
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
   );
 };
 
