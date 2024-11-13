@@ -6,7 +6,6 @@ import {
   Register,
   Manager,
   UseInfiniteLoading,
-  TestInfinitLoading,
   ImageUpload,
   AvatarUpload,
   ProfileUpload,
@@ -75,11 +74,6 @@ export const router = createBrowserRouter([
       {
         path: "/use-infinite",
         element: <UseInfiniteLoading />,
-        errorElement: <h3>error element</h3>,
-      },
-      {
-        path: "/test-infinite",
-        element: <TestInfinitLoading />,
         errorElement: <h3>error element</h3>,
       },
       {

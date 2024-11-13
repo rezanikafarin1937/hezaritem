@@ -23,4 +23,3 @@ export { default as InfiniteLoadingProducts} from "./main/InfiniteLoadingProduct
 export { default as InfiniteLoadingManager } from "./user/manager/InfiniteLoadingManager";
 export { default as InfinitLoading } from "./infinit-loading-component/InfinitLoading";
 export { default as UseInfiniteLoading } from "./use-infinite-loading/UseInfiniteLoading";
-export { default as TestInfinitLoading } from "./test-infinit-loading/TestInfinitLoading";
