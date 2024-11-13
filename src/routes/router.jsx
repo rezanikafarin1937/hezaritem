@@ -1,11 +1,9 @@
 import {
-  Home,
   Getproduct,
   Product,
   EditProduct,
   DeleteProduct,
   Register,
-  Users,
   Manager,
   UseInfiniteLoading,
   TestInfinitLoading,
@@ -72,11 +70,6 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
-        errorElement: <h3>error element</h3>,
-      },
-          {
-        path: "/users",
-        element: <Users userId={10}/>,
         errorElement: <h3>error element</h3>,
       },
       {

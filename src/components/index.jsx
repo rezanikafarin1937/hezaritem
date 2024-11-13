@@ -1,6 +1,4 @@
-export { default as Home } from "./home/Home";
 export { default as Item } from "./item/Item";
-export { default as Users } from "./users/Users";
 export { default as Header } from "./header/Header";
 export { default as Footer } from "./footer/Footer";
 export { default as Confirm } from "./confirm/Confirm";
