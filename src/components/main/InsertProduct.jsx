@@ -46,7 +46,6 @@ export const InsertProduct = () => {
       for (let i = 0; i < images.length; i++) {
         fd.append("images[" + i + "]", images[i]);
       }
-      console.log("All Images = ", images);
       axios({
         method: "post",
         url: BaseURL + "/products",
@@ -54,18 +53,16 @@ export const InsertProduct = () => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      })
-        .then((res) => console.log("response = ", res))
-        .catch((err) => {
-          if (err.response) {
-            if (err.response.status === 422) {
-              setInputErrorList(err.response.data.errors);
-            }
-            if (err.response.status === 500) {
-              alert(err.response.data);
-            }
+      }).catch((err) => {
+        if (err.response) {
+          if (err.response.status === 422) {
+            setInputErrorList(err.response.data.errors);
           }
-        });
+          if (err.response.status === 500) {
+            alert(err.response.data);
+          }
+        }
+      });
       setProduct({});
       setLoading(false);
       navigate("/");
@@ -77,7 +74,6 @@ export const InsertProduct = () => {
 
   const getImage = (img) => {
     setImages(() => [...img]);
-    console.log("images products = ", images);
   };
 
   useEffect(() => {
@@ -93,7 +89,7 @@ export const InsertProduct = () => {
       ) : (
         <form className="page__box" onSubmit={handelSubmit}>
           <span className="page__title">ثبت محصول</span>
-          <hr/>
+          <hr />
           <br />
           <label id="type-admin" className="page__container-select">
             <span className="page__description">
@@ -113,7 +109,6 @@ export const InsertProduct = () => {
                 </option>
               ))}
             </select>
-            {console.log("category id = ", product.category)}
             <span className="page__err">{inputErrorList.category}</span>
           </label>
           <br />
@@ -127,11 +122,11 @@ export const InsertProduct = () => {
           <br />
           <span className="page__help-title">وضعیت مرجوعی</span>
           <div className="page__container-avatar">
-
             <div className="page__type-user">
               <label id="type-admin" className="page__container-radio">
-                
-                <span className="page__discription">مرجوعی محصول مورد قبول است</span> 
+                <span className="page__discription">
+                  مرجوعی محصول مورد قبول است
+                </span>
 
                 <input
                   className="page__input"
@@ -143,7 +138,9 @@ export const InsertProduct = () => {
                 <span className="page__checkmark"></span>
               </label>
               <label id="type-admin" className="page__container-radio">
-                <span className="page__discription">مرجوعی محصول مورد قبول نیست</span> 
+                <span className="page__discription">
+                  مرجوعی محصول مورد قبول نیست
+                </span>
                 <input
                   className="page__input"
                   name="return"
@@ -168,8 +165,7 @@ export const InsertProduct = () => {
             placeholder="عنوان محصول"
           />
           <span className="page__err">{inputErrorList.title}</span>
-          <br/>    
-
+          <br />
 
           <span className="page__help-title">قیمت محصول</span>
           <input
@@ -179,10 +175,12 @@ export const InsertProduct = () => {
             onChange={handelInput}
             placeholder="قیمت"
           />
-          <span className="page__description">{PN.convert(product.price)} تومان</span>
+          <span className="page__description">
+            {PN.convert(product.price)} تومان
+          </span>
           <span className="page__err">{inputErrorList.price}</span>
-            <br/>
-          <span className="page__help-title">تخفیف</span>  
+          <br />
+          <span className="page__help-title">تخفیف</span>
           <input
             className="page__input"
             name="discount"
@@ -190,10 +188,12 @@ export const InsertProduct = () => {
             onChange={handelInput}
             placeholder="چند درصد امکان تخفیف وجود دارد"
           />
-          <span className="page__description">{PN.convert(product.discount)} درصد</span>
+          <span className="page__description">
+            {PN.convert(product.discount)} درصد
+          </span>
           <span className="page__err">{inputErrorList.discount}</span>
 
-          <br/>
+          <br />
           <span className="page__help-title">هزینه ارسال</span>
           <input
             className="page__input"
@@ -202,10 +202,12 @@ export const InsertProduct = () => {
             onChange={handelInput}
             placeholder="هزینه ارسال"
           />
-          <span className="page__description">{PN.convert(product.shipping_cost)} تومان</span>
+          <span className="page__description">
+            {PN.convert(product.shipping_cost)} تومان
+          </span>
           <span className="page__err">{inputErrorList.shipping_cost}</span>
 
-          <br/>
+          <br />
           <span className="page__help-title">توضیحات محصول</span>
           <textarea
             name="description"

@@ -17,19 +17,16 @@ const Product = () => {
     setLoading(true);
     try {
       const { data } = await getProduct(productId);
-      console.log("Product data", data);
       data.images.push({ id: 0, productId: data.id, address: data.image });
       setDataProduct(data);
       setImages(() => [...data.images]);
       setLoading(false);
     } catch (err) {
-      console.log("eeeer = ", err.message);
     }
   };
 
   useEffect(() => {
     handelGetProduct();
-    console.log("in Product Component = ", getDataProduct);
   }, []);
 
   return (
