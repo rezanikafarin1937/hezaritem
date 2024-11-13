@@ -15,7 +15,6 @@ const InfiniteLoadingProducts = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(0);
   const [numberOfData, setNumberOfData] = useState(0);
-  // const [categoryId,setCategoryId] = useState(0);
 
 
   const fetchData = async () => {
@@ -42,11 +41,7 @@ const InfiniteLoadingProducts = () => {
     }
   };
 
-  // const changeCategory = (catId) => {
-  //   console.log('categoryId = ',catId)
-  //   setCategoryId(() => catId);
-  // }
-
+  
   useEffect(() => {
     setTotalData([]);
     fetchData();
@@ -79,13 +74,6 @@ const InfiniteLoadingProducts = () => {
               {totalData.map((data, index) => (
                 <Item  key={index} data={data} />
 ))}
-            {/* <button
-              onClick={() => {
-                window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-              }}
-            >
-              scroll top
-            </button> */}
 
           </>
         )}
