@@ -5,8 +5,6 @@ import {
   DeleteProduct,
   Register,
   Manager,
-  ImageUpload,
-  AvatarUpload,
   ShowUser,
   EditUser,
   DeleteUser,
@@ -67,16 +65,6 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
-        errorElement: <h3>error element</h3>,
-      },
-      {
-        path: "/upload",
-        element: <ImageUpload />,
-        errorElement: <h3>error element</h3>,
-      },
-      {
-        path: "/avatar",
-        element: <AvatarUpload />,
         errorElement: <h3>error element</h3>,
       },
 
