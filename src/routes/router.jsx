@@ -7,7 +7,6 @@ import {
   Manager,
   ImageUpload,
   AvatarUpload,
-  ProfileUpload,
   ShowUser,
   EditUser,
   DeleteUser,
@@ -80,12 +79,6 @@ export const router = createBrowserRouter([
         element: <AvatarUpload />,
         errorElement: <h3>error element</h3>,
       },
-      {
-        path: "/profile",
-        element: <ProfileUpload />,
-        errorElement: <h3>error element</h3>,
-      },
-      
 
     ],
     

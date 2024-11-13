@@ -15,7 +15,6 @@ export { default as ImageUpload } from "./image-upload/ImageUpload";
 export { default as EditProduct } from "./editproduct/EditProduct";
 export { default as DeleteUser}  from "./user/delete-user/DeleteUser";
 export { default as AvatarUpload } from "./avatar-upload/AvatarUpload";
-export { default as ProfileUpload } from "./profile-upload/ProfileUpload";
 export { default as ImageUploadSvg } from "./image-upload/ImageUploadSvg";
 export { default as DeleteProduct } from "./deleteproduct/DeleteProduct";
 export { default as InfiniteLoadingProducts} from "./main/InfiniteLoadingProducts";
