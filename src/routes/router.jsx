@@ -5,7 +5,6 @@ import {
   DeleteProduct,
   Register,
   Manager,
-  UseInfiniteLoading,
   ImageUpload,
   AvatarUpload,
   ProfileUpload,
@@ -69,11 +68,6 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
-        errorElement: <h3>error element</h3>,
-      },
-      {
-        path: "/use-infinite",
-        element: <UseInfiniteLoading />,
         errorElement: <h3>error element</h3>,
       },
       {

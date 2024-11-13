@@ -22,4 +22,3 @@ export { default as NewAvatarUpload } from './new-avatar-upload/NewAvatarUpload'
 export { default as InfiniteLoadingProducts} from "./main/InfiniteLoadingProducts";
 export { default as InfiniteLoadingManager } from "./user/manager/InfiniteLoadingManager";
 export { default as InfinitLoading } from "./infinit-loading-component/InfinitLoading";
-export { default as UseInfiniteLoading } from "./use-infinite-loading/UseInfiniteLoading";
