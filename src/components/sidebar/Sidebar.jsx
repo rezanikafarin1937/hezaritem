@@ -16,22 +16,18 @@ const Sidebar = () => {
 
   const handleCategoryId = (catId) => {
     setCategoryId(() => catId);
-    console.log(catId)
   };
 
   useEffect(() => {
     getCategories();
-    console.log("Categories = ", categories);
   }, []);
 
   return (
     <nav className="sidebar">
-      {console.log("cat = ", categories)}
       <ul>
         <span className="sidebar__title">دسته ها</span>
         {categories.map((cat, index) => (
           <li key={index} className={cat.id == categoryId ? "active" : "" } onClick={() => handleCategoryId(cat.id)}>
-            {    console.log('handleCategoryId = ',categoryId)}
             <NavLink
               className="sidebar__cat"
               to={cat.id == 0 ? "/" : `/${cat.id}`}
