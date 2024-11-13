@@ -14,7 +14,6 @@ const AvatarUpload = ({
   };
   const handleInput = (e) => {
     let obj = e.target.files[0];
-    console.log("file = ", obj);
     setFile(() => obj);
   };
 
@@ -22,9 +21,6 @@ const AvatarUpload = ({
     setFile(() => null);
   };
 
-  useEffect(() => {
-    console.log("currentImage = ", currentImage);
-  }, []);
 
   useEffect(() => {
     if(edit === true){
