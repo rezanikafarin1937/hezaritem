@@ -4,7 +4,7 @@ import { getProduct } from "../../services/Service";
 import { Spinner, ImageUpload } from "../../components";
 import axios from "axios";
 import PN from "persian-number";
-import { BaseURL,headers } from "../../Global/BaseUrl";
+import { BaseURL, headers } from "../../Global/BaseUrl";
 import "../../Global/sass/global-box.scss";
 export const EditProduct = () => {
   const navigate = useNavigate();
@@ -37,12 +37,10 @@ export const EditProduct = () => {
 
   const getImage = (addImages, delImage) => {
     setImages(() => [...addImages]);
-    console.log("files = ", addImages);
     delImage.map((img) => {
       if (img.old) {
         setIdDeleteImages((d) => [...d, img.id]);
         setNameDeleteImages((n) => [...n, giveNameToOldImage(img)]);
-        console.log("delete Files = ", nameDeleteImages);
       }
     });
   };
@@ -60,7 +58,6 @@ export const EditProduct = () => {
   };
 
   const changeReturnProduct = (e) => {
-    console.log("e.target.value = ", e.target.value);
     setReturnProduct(() => e.target.value);
   };
 
@@ -76,7 +73,6 @@ export const EditProduct = () => {
             product_id: productData.id,
             address: productData.image,
           });
-          console.log("product images = ", productData.images);
         }
         let newState = { ...productData };
         return newState;
@@ -129,25 +125,21 @@ export const EditProduct = () => {
         fd.append("idDeleteImages[" + i + "]", idDeleteImages[i]);
         fd.append("nameDeleteImages[" + i + "]", nameDeleteImages[i]);
       }
-      console.log("All Images = ", images);
-      console.log("All deleteImages = ", idDeleteImages);
       axios({
         method: "post",
         url: BaseURL + `/products/${userId}`,
         data: fd,
-        headers: headers
-      })
-        .then((res) => console.log("response = ", res))
-        .catch((err) => {
-          if (err.response) {
-            if (err.response.status === 422) {
-              setInputErrorList(err.response.data.errors);
-            }
-            if (err.response.status === 500) {
-              alert(err.response.data);
-            }
+        headers: headers,
+      }).catch((err) => {
+        if (err.response) {
+          if (err.response.status === 422) {
+            setInputErrorList(err.response.data.errors);
           }
-        });
+          if (err.response.status === 500) {
+            alert(err.response.data);
+          }
+        }
+      });
       setProduct({});
       setLoading(false);
       navigate("/");
@@ -164,8 +156,8 @@ export const EditProduct = () => {
       ) : (
         <form className="page__box" onSubmit={handelSubmit}>
           <span className="page__title">ویرایش محصول</span>
-          <br/>
-         <br/> 
+          <br />
+          <br />
           <label id="type-admin" className="page__container-select">
             <span className="page__description">
               محصول شما در کدام دسته بندی قرار دارد
@@ -176,17 +168,16 @@ export const EditProduct = () => {
               name="category"
               value={product.category}
               onChange={handelInput}
-             
-
             >
-              <option value={parseInt(product.category_id)}>{product.category}</option>
+              <option value={parseInt(product.category_id)}>
+                {product.category}
+              </option>
               {categories.map((cat, index) => (
                 <option key={index} value={cat.id}>
                   {cat.name}
                 </option>
               ))}
             </select>
-            {console.log("category id = ", product.category_id)}
             <span className="page__err">{inputErrorList.category}</span>
           </label>
           <br />
@@ -256,12 +247,14 @@ export const EditProduct = () => {
             placeholder="قیمت"
             required={true}
           />
-          <span className="page__description">{PN.convert(product.price)} تومان</span>
+          <span className="page__description">
+            {PN.convert(product.price)} تومان
+          </span>
           <span className="page__err">{inputErrorList.price}</span>
 
           <br />
           <br />
-          <span className="page__help-title">تخفیف</span>  
+          <span className="page__help-title">تخفیف</span>
           <input
             className="page__input"
             name="discount"
@@ -269,10 +262,12 @@ export const EditProduct = () => {
             onChange={handelInput}
             placeholder="چند درصد امکان تخفیف وجود دارد"
           />
-          <span className="page__description">{PN.convert(product.discount)} درصد</span>
+          <span className="page__description">
+            {PN.convert(product.discount)} درصد
+          </span>
           <span className="page__err">{inputErrorList.discount}</span>
-          <br/>
-          <br/>
+          <br />
+          <br />
           <span className="page__help-title">هزینه ارسال</span>
           <input
             className="page__input"
@@ -282,7 +277,9 @@ export const EditProduct = () => {
             placeholder="هزینه ارسال"
             required={true}
           />
-          <span className="page__description">{PN.convert(product.shipping_cost)} تومان</span>
+          <span className="page__description">
+            {PN.convert(product.shipping_cost)} تومان
+          </span>
           <span className="page__err">{inputErrorList.shipping_cost}</span>
           <br />
           <br />
