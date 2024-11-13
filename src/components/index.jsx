@@ -18,7 +18,5 @@ export { default as AvatarUpload } from "./avatar-upload/AvatarUpload";
 export { default as ProfileUpload } from "./profile-upload/ProfileUpload";
 export { default as ImageUploadSvg } from "./image-upload/ImageUploadSvg";
 export { default as DeleteProduct } from "./deleteproduct/DeleteProduct";
-export { default as NewAvatarUpload } from './new-avatar-upload/NewAvatarUpload';
 export { default as InfiniteLoadingProducts} from "./main/InfiniteLoadingProducts";
 export { default as InfiniteLoadingManager } from "./user/manager/InfiniteLoadingManager";
-export { default as InfinitLoading } from "./infinit-loading-component/InfinitLoading";
