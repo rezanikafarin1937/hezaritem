@@ -13,6 +13,7 @@
   cursor: pointer;
   text-decoration: none;
   color : $text;
+  transition: all .5s;
 
   @media (max-width : 1024px) and (min-width : 426px){
     width: calc(50% - 2rem);
@@ -61,5 +62,7 @@
     flex: 0 0 40%;
     background-position: center;
     background-size: cover;
+    background-color: $search;
+    transition: all .5s;
   }
 }
