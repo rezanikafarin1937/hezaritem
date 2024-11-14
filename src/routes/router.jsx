@@ -46,11 +46,6 @@ export const router = createBrowserRouter([
         errorElement: <h3>error element</h3>,
       },
 
-      {
-        path: "/addproduct",
-        element: <Getproduct />,
-        errorElement: <h3>error element</h3>,
-      },
 
       {
         path: "/products/edit/:id",

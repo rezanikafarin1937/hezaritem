@@ -6,7 +6,6 @@ export { default as Spinner } from "./spinner/Spinner";
 export { default as Product } from "./product/Product";
 export { default as Sidebar } from "./sidebar/Sidebar";
 export { default as Manager } from "./user/manager/Manager";
-export { default as Getproduct } from "./getinfo/Getproduct";
 export { default as EditUser} from './user/edit-user/EditUser';
 export {default as ShowUser} from './user/show-user/ShowUser';
 export { default as Register } from "./user/register/Register";
