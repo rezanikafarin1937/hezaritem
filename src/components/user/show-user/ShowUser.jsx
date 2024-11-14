@@ -19,7 +19,6 @@ const ShowUser = () => {
         .then((res) => {
           setUser({ ...res.data });
           setIsLoading(false);
-          console.log("my user = ", user);
         })
         .catch((err) => console.log(err));
     } catch (err) {
