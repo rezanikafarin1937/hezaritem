@@ -81,7 +81,6 @@ export const EditUser = () => {
 
   const getImage = (img) => {
     setImage(img);
-    console.log("img in getImg = ", img);
   };
 
   useEffect(() => {
@@ -90,7 +89,6 @@ export const EditUser = () => {
         setUser({ ...res.data });
         setLoading(false);
         setTypeUser(res.data.type);
-        console.log("typeUser =", typeUser);
         setUrl(res.data.avatar);
       });
     } catch (err) {

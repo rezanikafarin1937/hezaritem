@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Confirm from "../../confirm/Confirm";
-// import { removeProduct } from "../../services/Service";
 import axios from "axios";
 import Spinner from "../../spinner/Spinner";
 import { BaseURL,headers } from "../../../Global/BaseUrl";
@@ -16,9 +15,6 @@ const DeleteUser = () => {
 
   const handelDelete = async () => {
     setLoading(true);
-    // const { status } = await axios
-      // .delete(`http://localhost/back-sef/public/api/users/${id}`)
-      // .then((res) => console.log("res = ", res));
     const status = axios({
       url : `${BaseURL}/users/${id}`,
       method : 'delete',

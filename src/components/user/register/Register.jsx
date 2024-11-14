@@ -47,7 +47,7 @@ export const Register = () => {
         data: fd,
         headers: headers
       })
-        .then((res) => console.log("response = ", res))
+        // .then((res) => console.log("response = ", res))
         .catch((err) => {
           if (err.response) {
             if (err.response.status === 422) {
@@ -174,7 +174,6 @@ export const Register = () => {
             value={getUser.address}
             onChange={handelInput}
             placeholder="آدرس"
-            // required={true}
           />
           <span className="page__err">{inputErrorList.address}</span>
 

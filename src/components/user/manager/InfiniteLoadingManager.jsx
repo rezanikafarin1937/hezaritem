@@ -21,8 +21,6 @@ const InfinitLoading = ({ BaseURL, config }) => {
       setTotalData((oldData) => [...oldData, ...response.data.data]);
       setVisible((prev) => prev + response.data.per_page);
       setNumberOfData(response.data.total);
-      console.log("numberOfData = ", numberOfData);
-      console.log("per_page =", visible);
     } catch (err) {
       console.log(err);
     } finally {

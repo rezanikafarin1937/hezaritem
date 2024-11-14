@@ -14,7 +14,6 @@ const UseInfiniteLoading = () => {
 
 
   useEffect(()=>{
-    console.log('isSholdRender = ',isSholdRender);
     if(isSholdRender){
         navigate(0);
         dispatch(updateForceRender(false));
@@ -24,7 +23,6 @@ const UseInfiniteLoading = () => {
   return (
     <div className="manager">
       <Link to="/register" className="manager__add-user">+</Link>
-      {/* <button className="manager__add-user" onClick={refreshPage}>+</button> */}
       <InfiniteLoadingManager BaseURL={`${BaseURL}/users`} config={config} />
     </div>
   );

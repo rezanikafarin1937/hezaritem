@@ -34,8 +34,6 @@ const CarouselTouchSlider = ({
       setStartPoint(() => e.touches[0].clientX);
     } else {
       setStartPoint(() => e.clientX);
-      // const wrapper = document.querySelector(".wrapper-slide");
-      // wrapper.style.cursor = "grabbing";
     }
   };
 
@@ -45,7 +43,6 @@ const CarouselTouchSlider = ({
     }
     setPressed(false);
     if (e.type === "touchmove") {
-      console.log(e.type, " indexImage = ", indexImage);
       if (indexImage === 0 && compare === -1) {
         setEndPoint(() => e.touches[0].clientX);
         document.querySelector(".slide").style.transform = `translateX(100px)`;
