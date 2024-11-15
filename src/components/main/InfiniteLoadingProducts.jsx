@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Spinner from "../spinner/Spinner";
 import Sidebar from "../sidebar/Sidebar";
 import Item from "../item/Item";
@@ -9,6 +10,7 @@ import "./infint-loading-products.scss";
 
 const InfiniteLoadingProducts = () => {
   const { catId = 0} = useParams();
+  const text = useSelector((state) => state.searchSlice.value);
 
   const [totalData, setTotalData] = useState([]);
   const [page, setPage] = useState(1);
@@ -19,8 +21,9 @@ const InfiniteLoadingProducts = () => {
 
   const fetchData = async () => {
     try {
+      setTotalData([]);
       setIsLoading(true);
-      let response = await axios.get(BaseURL+ '/products/' + `${catId}` + `?page=${page}` , config);
+      let response = await axios.get(BaseURL+ '/products/' + `${catId}` + `?page=${page}` +`?search=${text}`, config);
       setTotalData((oldData) => [...oldData, ...response.data.data]);
       setVisible((prev) => prev + response.data.per_page);
       setNumberOfData(response.data.total);
@@ -43,9 +46,8 @@ const InfiniteLoadingProducts = () => {
 
   
   useEffect(() => {
-    setTotalData([]);
     fetchData();
-  }, [page,catId]);
+  }, [page,catId,text]);
 
   useEffect(() => {
     if (numberOfData === undefined) {
