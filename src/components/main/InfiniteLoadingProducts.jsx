@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useDebounce } from "../../customHooks/useDebounce";
 import Spinner from "../spinner/Spinner";
 import Sidebar from "../sidebar/Sidebar";
 import Item from "../item/Item";
@@ -11,6 +12,8 @@ import "./infint-loading-products.scss";
 const InfiniteLoadingProducts = () => {
   const { catId = 0} = useParams();
   const text = useSelector((state) => state.searchSlice.value);
+  let debounceValue = useDebounce(text,800);
+
 
   const [totalData, setTotalData] = useState([]);
   const [page, setPage] = useState(1);
@@ -23,7 +26,7 @@ const InfiniteLoadingProducts = () => {
     try {
       setTotalData([]);
       setIsLoading(true);
-      let response = await axios.get(BaseURL+ '/products/' + `${catId}` + `?page=${page}` +`?search=${text}`, config);
+      let response = await axios.get(BaseURL+ '/products/' + `${catId}` + `?page=${page}` +`?search=${debounceValue}`, config);
       setTotalData((oldData) => [...oldData, ...response.data.data]);
       setVisible((prev) => prev + response.data.per_page);
       setNumberOfData(response.data.total);
@@ -46,6 +49,7 @@ const InfiniteLoadingProducts = () => {
 
   
   useEffect(() => {
+    setTotalData([]);
     fetchData();
   }, [page,catId,text]);
 
