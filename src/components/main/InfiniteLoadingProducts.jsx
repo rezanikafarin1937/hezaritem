@@ -27,7 +27,6 @@ const InfiniteLoadingProducts = () => {
       setTotalData(() => []);
       setIsLoading(true);
       let response = await axios.get(BaseURL+ '/products/' + `${catId}?title=${text}&page=${page}` , config);
-      // let response = await axios.get(BaseURL+ '/products' + '/search' + `/${text}`, config);
       console.log('res= ',response.data);
       setTotalData((oldData) => [...oldData, ...response.data.data]);
       setVisible((prev) => prev + response.data.per_page);
