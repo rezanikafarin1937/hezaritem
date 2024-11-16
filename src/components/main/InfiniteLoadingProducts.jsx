@@ -11,8 +11,8 @@ import "./infint-loading-products.scss";
 
 const InfiniteLoadingProducts = () => {
   const { catId = 0} = useParams();
-  const text = useSelector((state) => state.searchSlice.value);
-  let debounceValue = useDebounce(text,800);
+  let text = useSelector((state) => state.searchSlice.value);
+  text = useDebounce(text,800);
 
 
   const [totalData, setTotalData] = useState([]);
@@ -24,7 +24,7 @@ const InfiniteLoadingProducts = () => {
 
   const fetchData = async () => {
     try {
-      // setTotalData(() => []);
+      setTotalData(() => []);
       setIsLoading(true);
       let response = await axios.get(BaseURL+ '/products/' + `${catId}?title=${text}&page=${page}` , config);
       // let response = await axios.get(BaseURL+ '/products' + '/search' + `/${text}`, config);
