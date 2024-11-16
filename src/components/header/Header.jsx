@@ -22,24 +22,22 @@ const Header = () => {
           دسته ها
         </span>
         <span style={{ marginRight: "1rem" }}></span>
-        {location.pathname === "/" ? (
-          <input
-            value={text}
-            className="header__search"
-            placeholder="جستجو"
-            onChange={(e) => dispatch(updateSearch(e.target.value))}
-          />
-        ) : null}
+        <input
+          value={text}
+          className="header__search"
+          placeholder="جستجو"
+          onChange={(e) => dispatch(updateSearch(e.target.value))}
+        />
       </nav>
       <nav className="header__section">
-      <span to="/register" className="header__btn-nav header__space">
-           تولید من
+        <span to="/register" className="header__btn-nav header__space">
+          تولید من
         </span>
         <span to="/register" className="header__btn-nav header__space">
-           چت
+          چت
         </span>
         <span to="/register" className="header__btn-nav header__space">
-           پشتیبانی
+          پشتیبانی
         </span>
 
         <Link to="/insert-product" className="mybtn mybtn__active">
