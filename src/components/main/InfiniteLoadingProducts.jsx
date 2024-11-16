@@ -24,9 +24,10 @@ const InfiniteLoadingProducts = () => {
 
   const fetchData = async () => {
     try {
-      setTotalData([]);
+      // setTotalData(() => []);
       setIsLoading(true);
-      let response = await axios.get(BaseURL+ '/products/' + `${catId}` + `?page=${page}?${debounceValue}` , config);
+      let response = await axios.get(BaseURL+ '/products/' + `${catId}?title=${text}&page=${page}` , config);
+      // let response = await axios.get(BaseURL+ '/products' + '/search' + `/${text}`, config);
       console.log('res= ',response.data);
       setTotalData((oldData) => [...oldData, ...response.data.data]);
       setVisible((prev) => prev + response.data.per_page);
@@ -50,7 +51,7 @@ const InfiniteLoadingProducts = () => {
 
   
   useEffect(() => {
-    setTotalData([]);
+    setTotalData(() => []);
     fetchData();
   }, [page,catId,text]);
 
