@@ -6,6 +6,7 @@ import "./header.scss";
 const Header = () => {
   const location = useLocation();
 
+
   const text = useSelector((state) => state.searchSlice.value);
   const dispatch = useDispatch();
 
@@ -18,9 +19,9 @@ const Header = () => {
         <span to="/register" className="header__btn-nav header__space">
           اراک
         </span>
-        <span to="/register" className="header__btn-nav header__space">
-          دسته ها
-        </span>
+        <Link to="/" className="header__btn-nav header__space">
+           صفحه اصلی
+        </Link>
         <span style={{ marginRight: "1rem" }}></span>
         <input
           value={text}
@@ -33,9 +34,9 @@ const Header = () => {
         <span to="/register" className="header__btn-nav header__space">
           تولید من
         </span>
-        <span to="/register" className="header__btn-nav header__space">
-          چت
-        </span>
+        <Link to="/" className="header__btn-nav header__space">
+            محصولات
+        </Link>
         <span to="/register" className="header__btn-nav header__space">
           پشتیبانی
         </span>
