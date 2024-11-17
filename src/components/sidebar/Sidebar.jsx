@@ -25,7 +25,7 @@ const Sidebar = () => {
   return (
     <nav className="sidebar">
       <ul>
-        <span className="sidebar__title">دسته ها</span>
+        <span className="sidebar__title">دسته بندی</span>
         {categories.map((cat, index) => (
           <li key={index} className={cat.id == categoryId ? "active" : "" } onClick={() => handleCategoryId(cat.id)}>
             <NavLink
