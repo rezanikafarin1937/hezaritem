@@ -5,12 +5,14 @@
   background-color: $background;
   scrollbar-color: transparent;
   padding: 1rem;
+  position: relative;
 
   &__title {
     font-size: 1.25rem;
     line-height: 2;
     color: #999;
     text-shadow: 1px 1px 1px $title;
+    background-color: $background;
   }
 
   &__cat {
