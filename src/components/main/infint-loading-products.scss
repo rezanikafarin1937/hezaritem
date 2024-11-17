@@ -6,12 +6,13 @@
   text-align: right;
 
   &__sidebar {
-    min-height: 100vh;
+    max-height: 100vh;
     background-color: $sidebar;
-    flex: 0 0 25%;
+    flex: 0 0 20%;
     position: sticky;
     top: 0;
-    overflow-y: auto;
+    overflow-y: scroll;
+    scrollbar-width: none;
     display: none;
 
     @media (min-width: 768px) {
