@@ -31,12 +31,15 @@ const Header = () => {
         />
       </nav>
       <nav className="header__section">
-        <span to="/register" className="header__btn-nav header__space">
-          تولید من
-        </span>
         <Link to="/" className="header__btn-nav header__space">
             محصولات
         </Link>
+        <Link to="/" className="header__btn-nav header__space">
+            تولیدکنندگان
+        </Link>
+        <span to="/register" className="header__btn-nav header__space">
+          تولید من
+        </span>
         <span to="/register" className="header__btn-nav header__space">
           پشتیبانی
         </span>
