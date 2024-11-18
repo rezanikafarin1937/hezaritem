@@ -1,53 +1,61 @@
 @import "../../../public/sass/colorpullet.scss";
 
 .header {
-    background-color: #fff;
-    position: sticky;
-    top : 0;
-    padding: 1rem;
-    z-index: 1;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  padding: 1rem;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  box-shadow: 0 1px 2px 0 $border;
+  color: rgba(0, 0, 0, 0.56);
+  font-size: 0.875rem;
+
+  @media (max-width: 426px) {
+    display: none;
+  }
+
+  &__section {
     display: flex;
-    justify-content: space-between;
     flex-direction: row-reverse;
-    box-shadow: 0 1px 2px 0 $border;
-    color : rgba(0,0,0,.56);
-    font-size: .875rem;
+    justify-content: center;
+    align-items: center;
+  }
 
-    @media (max-width : 426px) {
-        display: none;
-    }
+  &__btn-nav {
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    text-decoration: none;
+    color: $color-description;
+    padding: .5rem 1rem;
 
+}
 
-    &__section{
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: center;
-        align-items: center;
-    }
+  &__space {
+    // padding: 0 0.5rem;
+    padding: .5rem 1rem;
 
-    &__btn-nav{
-        padding: 0.5rem 0 .5rem 1.5rem;
-        text-decoration: none;
-        color : $color-description;
+  }
 
-    }
-
-    &__space{
-        padding: 0 .5rem;
-    }
-
-    &__search{
-        min-width: 400px;
-        border: none;
-        outline: none;
-        background-color: $search;
-        direction: rtl;
-        border-radius: 4px;
-        text-align: right;
-        padding-block: 1px;
-        padding-inline: 2px;
-        min-height: 40px;
-        padding-right: 1rem;
-      
+  &__select {
+    a.active {
+        color : $active-hover;
     }
 }
+
+  &__search {
+    min-width: 400px;
+    border: none;
+    outline: none;
+    background-color: $search;
+    direction: rtl;
+    border-radius: 4px;
+    text-align: right;
+    padding-block: 1px;
+    padding-inline: 2px;
+    min-height: 40px;
+    padding-right: 1rem;
+  }
+}
+
