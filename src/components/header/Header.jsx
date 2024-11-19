@@ -44,7 +44,7 @@ const Header = () => {
           </NavLink>
         </span>
         <span onClick={() => selector(2)} className={numberLink === 2 ? "header__select" : ""}>
-          <NavLink to="/" className="header__btn-nav header__space">
+          <NavLink to="/general" className="header__btn-nav header__space">
             تولیدکنندگان
           </NavLink>
         </span>

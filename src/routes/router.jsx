@@ -8,6 +8,7 @@ import {
   EditUser,
   DeleteUser,
   InfiniteLoadingProducts,
+  InfiniteLoadingManufacturers,
   InsertProduct
  
 } from "../components";
@@ -45,6 +46,11 @@ export const router = createBrowserRouter([
         errorElement: <h3>error element</h3>,
       },
 
+      {
+        path: "/general",
+        element: <InfiniteLoadingManufacturers />,
+        errorElement: <h3>error element</h3>,
+      },
       {
         path: "/products/edit/:id",
         element: <EditProduct />,
