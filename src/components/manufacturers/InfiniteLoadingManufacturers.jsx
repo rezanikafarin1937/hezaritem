@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDebounce } from "../../customHooks/useDebounce";
 import { Spinner, Sidebar, ManufacturersItem } from "../../components";
@@ -8,7 +8,8 @@ import { BaseURL, config } from "../../Global/BaseUrl";
 import "./infinite-loading-manufacturers.scss";
 
 const InfiniteLoadingManufacturers = () => {
-  const { catId = 0 } = useParams();
+  const navigate = useNavigate();
+
   let text = useSelector((state) => state.searchSlice.value);
   text = useDebounce(text, 800);
 
@@ -17,6 +18,7 @@ const InfiniteLoadingManufacturers = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(0);
   const [numberOfData, setNumberOfData] = useState(0);
+  const [stateSearch, setStateSearch] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -29,6 +31,7 @@ const InfiniteLoadingManufacturers = () => {
       if (text.length === 0) {
         setTotalData((oldData) => [...oldData, ...response.data.data]);
       } else if (text.length > 0) {
+        setTotalData(() => []);
         setTotalData(() => [...response.data.data]);
       }
       setVisible((prev) => prev + response.data.per_page);
@@ -50,9 +53,30 @@ const InfiniteLoadingManufacturers = () => {
     }
   };
 
+  const refreshPage = () => {
+    navigate(0);
+  };
+
+
+  useEffect(() => {
+    if (text.length > 0) {
+      setTotalData(() => []);
+      setStateSearch(() => true);
+      setPage(1);
+      fetchData();
+    }
+    if (stateSearch && text.length === 0) {
+      setStateSearch(() => false);
+      setTotalData(() => []);
+      refreshPage();
+    }
+  }, [text]);
+
+
+
   useEffect(() => {
     fetchData();
-  }, [page, catId, text]);
+  }, [page]);
 
   useEffect(() => {
     if (numberOfData === undefined) {

@@ -1,33 +1,36 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDebounce } from "../../customHooks/useDebounce";
 import Spinner from "../spinner/Spinner";
 import Sidebar from "../sidebar/Sidebar";
 import Item from "../item/Item";
-import { BaseURL,config } from "../../Global/BaseUrl";
+import { BaseURL, config } from "../../Global/BaseUrl";
 import "./infint-loading-products.scss";
 
 const InfiniteLoadingProducts = () => {
-  const { catId = 0} = useParams();
+  const { catId = 0 } = useParams();
+  const navigate = useNavigate();
   let text = useSelector((state) => state.searchSlice.value);
-  text = useDebounce(text,800);
-
+  text = useDebounce(text, 800);
 
   const [totalData, setTotalData] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(0);
   const [numberOfData, setNumberOfData] = useState(0);
-
+  const [stateSearch, setStateSearch] = useState(false);
+  const [stateCatId, setStateCatId] = useState(false);
 
   const fetchData = async () => {
     try {
-      // setTotalData(() => []);
       setIsLoading(true);
-      let response = await axios.get(BaseURL+ '/products/' + `${catId}?title=${text}&page=${page}` , config);
-      console.log('res= ',response.data);
+      let response = await axios.get(
+        BaseURL + "/products/" + `${catId}?title=${text}&page=${page}`,
+        config
+      );
+      console.log("res= ", response.data);
       setTotalData((oldData) => [...oldData, ...response.data.data]);
       setVisible((prev) => prev + response.data.per_page);
       setNumberOfData(response.data.total);
@@ -48,11 +51,54 @@ const InfiniteLoadingProducts = () => {
     }
   };
 
+  const refreshPage = () => {
+    navigate(0);
+  };
+
+  useEffect(() => {
+    if (text.length > 0) {
+      setTotalData(() => []);
+      setStateSearch(() => true);
+      setPage(1);
+      fetchData();
+    }
+    if (stateSearch && text.length === 0) {
+      setStateSearch(() => false);
+      setTotalData(() => []);
+      refreshPage();
+    }
+  }, [text]);
   
   useEffect(() => {
-    // setTotalData(() => []);
+    if(catId > 0){
+      setTotalData(() => []);
+      setStateCatId(() => true);
+      setPage(1);
+      fetchData();
+    }
+    if(stateCatId && catId === 0){
+      setStateCatId(() => false);
+      setTotalData(() => []);
+      refreshPage();
+    }
+
+
+    // if(catId > 0){
+    //   setTotalData(() => []);
+    //   setStateCatId(true);
+    //   fetchData();
+    // }
+    // else if(catId == 0 && stateCatId){
+    //   setStateCatId(false);
+    //   fetchData();
+    // }
+
+  }, [catId]);
+
+  useEffect(() => {
+ 
     fetchData();
-  }, [page,catId,text]);
+  }, [page]);
 
   useEffect(() => {
     if (numberOfData === undefined) {
@@ -69,8 +115,8 @@ const InfiniteLoadingProducts = () => {
 
   return (
     <div className="main">
-        <div className="main__sidebar">
-        <Sidebar/>
+      <div className="main__sidebar">
+        <Sidebar />
       </div>
 
       <div className="main__items">
@@ -78,10 +124,9 @@ const InfiniteLoadingProducts = () => {
           <Spinner />
         ) : (
           <>
-              {totalData.map((data, index) => (
-                <Item  key={index} data={data} />
-))}
-
+            {totalData.map((data, index) => (
+              <Item key={index} data={data} />
+            ))}
           </>
         )}
       </div>
