@@ -1,3 +1,4 @@
+@import '../../../public/sass/colorpullet';
 .info {
   display: flex;
   flex-direction: column;
@@ -5,12 +6,13 @@
   flex: 1 1 auto;
   min-height: 400px;
 
+
   @media (max-width : 426px) {
     padding: 1rem;
   }
 
   &__small-title {
-    color: rgba(0, 0, 0, 0.56);
+    color: $color-description;
     font-weight: 400;
     font-size: 14px;
     line-height: 2;
@@ -23,4 +25,8 @@
     width: 80%;
     border-bottom: 1px solid #999;
   }
+}
+
+.height-space{
+  margin: .5rem 0;
 }

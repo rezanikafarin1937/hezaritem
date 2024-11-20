@@ -1,6 +1,7 @@
 .container-product {
   display: flex;
   flex-direction: row-reverse;
+  padding: 3rem 6rem;
 
   @media (max-width: 426px) {
     flex-direction: column-reverse;

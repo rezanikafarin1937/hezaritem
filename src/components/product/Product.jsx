@@ -43,6 +43,7 @@ const Product = () => {
                 webStyle={true}
                 twoWay={true}
                 dots={true}
+                // btnSharp={true}
               >
                 {images.map((image, index) => (
                   <div className="slide__item" key={index}>

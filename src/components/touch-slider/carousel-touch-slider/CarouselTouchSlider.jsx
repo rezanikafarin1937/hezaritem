@@ -6,6 +6,7 @@ const CarouselTouchSlider = ({
   imageLength,
   webStyle = true,
   dots = false,
+  btnSharp = false
 }) => {
   const [pressed, setPressed] = useState(false);
   const [startPoint, setStartPoint] = useState(0);
@@ -13,6 +14,10 @@ const CarouselTouchSlider = ({
   const [dragLength, setDragLength] = useState(0);
   const [compare, setCompare] = useState(0);
   const [indexImage, setIndexImage] = useState(0);
+
+  const btnRight = btnSharp ? ".wrapper-slide__right-btn-sharp" : ".wrapper-slide__right-btn";
+  const btnLeft = btnSharp ? ".wrapper-slide__left-btn-sharp" : ".wrapper-slide__left-btn";
+
   useEffect(() => {
     if (startPoint > endPoint) {
       setCompare(() => 1);
@@ -99,8 +104,8 @@ const CarouselTouchSlider = ({
     } else {
       slide.scrollLeft = indexImage * width;
     }
-    document.querySelector(".wrapper-slide__right-btn").style.opacity = "1";
-    document.querySelector(".wrapper-slide__left-btn").style.opacity = "1";
+    document.querySelector(btnRight).style.opacity = "1";
+    document.querySelector(btnLeft).style.opacity = "1";
   };
 
   const nextSlide = () => {
@@ -108,7 +113,7 @@ const CarouselTouchSlider = ({
       shiftIndexImage(indexImage + 1);
     } else if (indexImage >= imageLength - 1) {
       shiftIndexImage(imageLength - 1);
-      document.querySelector(".wrapper-slide__left-btn").style.opacity = "0";
+      document.querySelector(btnLeft).style.opacity = "0";
     }
   };
 
@@ -117,7 +122,7 @@ const CarouselTouchSlider = ({
       shiftIndexImage(indexImage - 1);
     } else if (indexImage <= 0) {
       shiftIndexImage(0);
-      document.querySelector(".wrapper-slide__right-btn").style.opacity = "0";
+      document.querySelector(btnRight).style.opacity = "0";
     }
   };
 
@@ -126,8 +131,8 @@ const CarouselTouchSlider = ({
     let width = slide.offsetWidth;
     slide.scrollLeft = index * width;
     setIndexImage(() => index);
-    document.querySelector(".wrapper-slide__right-btn").style.opacity = "1";
-    document.querySelector(".wrapper-slide__left-btn").style.opacity = "1";
+    document.querySelector(btnRight).style.opacity = "1";
+    document.querySelector(btnLeft).style.opacity = "1";
   };
 
   return (
@@ -160,20 +165,20 @@ const CarouselTouchSlider = ({
         </div>
         <div
           style={!webStyle ? { display: "none" } : {}}
-          className="wrapper-slide__right-btn"
+          className={btnSharp ? "wrapper-slide__right-btn-sharp" : "wrapper-slide__right-btn"}
           onClick={prevSlide}
         >
-          <span className="arrow-next"></span>
+          <span className={btnSharp ? "arrow-next" : "arrow-right"}></span>
         </div>
         <div
           style={!webStyle ? { display: "none" } : {}}
-          className="wrapper-slide__left-btn"
+          className={btnSharp ? "wrapper-slide__left-btn-sharp" : "wrapper-slide__left-btn"}
           onClick={nextSlide}
         >
-          <span className="arrow-prev"></span>
+          <span className={btnSharp ? "arrow-prev" : "arrow-left"}></span>
         </div>
 
-        <div className="slide">{children}</div>
+        <div className={btnSharp ? "slide" : "slide slide__border-radius"}>{children}</div>
       </div>
       <div className="cards">
         {children.map((child, index) => {

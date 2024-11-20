@@ -3,6 +3,17 @@ import "./show-information-product.scss";
 
 const ShowInformationProduct = ({ data }) => {
   const { id: productId } = useParams();
+  let parseNumber = parseInt(data.price);
+  const price = parseNumber.toLocaleString("fa");
+
+  parseNumber = parseInt(data.discount);
+  const discount = parseNumber.toLocaleString("fa");
+ 
+  parseNumber = parseInt(data.shipping_cost);
+  const shippingCost = parseNumber.toLocaleString("fa");
+
+  let returnProduct = "جنس فروخته شده بازپس گرفته ";
+  returnProduct +=  data.return === "YES" ? "میشود" : "نمیشود";
 
   return (
     <div className="info">
@@ -13,17 +24,28 @@ const ShowInformationProduct = ({ data }) => {
         <span style={{ marginLeft: "1rem" }}></span>
         <button className="mybtn mybtn__inactive">چت</button>
       </div>
-      <br />
+   
+      <div className="height-space"></div>
       <div className="info__hr"></div>
-      <br/>
+      <div className="height-space"></div>
       <div>دسته بندی</div>
-      <div>{data.category}</div>
-      <hr />
+      <span className="info__small-title">{data.category}</span>
+      <div className="height-space"></div>
+      <div>قیمت</div>
+      <span className="info__small-title">{price} تومان</span>
+      <div className="height-space"></div>
+      <div>هزینه ارسال</div>
+      <span className="info__small-title">{shippingCost} تومان</span>
+      <div className="height-space"></div>
+      <div>تخفیف</div>
+      <span className="info__small-title">{discount} درصد</span>
+      <div className="height-space"></div>
       <div>توضیحات</div>
-      <div>{data.description}</div>
-      <br />
+      <div className="info__small-title">{data.description}</div>
+      <p className="info__small-title">{returnProduct}</p>
+      <div className="height-space"></div>
       <div className="info__hr"></div>
-      <br/>
+      <div className="height-space"></div>
       <div className="info__buttons">
         <Link
           to={`/products/edit/${productId}`}
