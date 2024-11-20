@@ -7,8 +7,8 @@ import {
   ShowUser,
   EditUser,
   DeleteUser,
+  InfiniteLoadingUsers,
   InfiniteLoadingProducts,
-  InfiniteLoadingManufacturers,
   InsertProduct
  
 } from "../components";
@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
 
       {
         path: "/general",
-        element: <InfiniteLoadingManufacturers />,
+        element: <InfiniteLoadingUsers />,
         errorElement: <h3>error element</h3>,
       },
       {
