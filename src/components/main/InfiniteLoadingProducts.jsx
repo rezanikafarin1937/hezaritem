@@ -81,24 +81,13 @@ const InfiniteLoadingProducts = () => {
       setTotalData(() => []);
       refreshPage();
     }
-
-
-    // if(catId > 0){
-    //   setTotalData(() => []);
-    //   setStateCatId(true);
-    //   fetchData();
-    // }
-    // else if(catId == 0 && stateCatId){
-    //   setStateCatId(false);
-    //   fetchData();
-    // }
-
   }, [catId]);
 
+
   useEffect(() => {
- 
     fetchData();
   }, [page]);
+
 
   useEffect(() => {
     if (numberOfData === undefined) {
