@@ -1,4 +1,4 @@
-@import '../../../public/sass/colorpullet';
+@import "../../../public/sass/colorpullet";
 .info {
   display: flex;
   flex-direction: column;
@@ -6,8 +6,7 @@
   flex: 1 1 auto;
   min-height: 400px;
 
-
-  @media (max-width : 426px) {
+  @media (max-width: 426px) {
     padding: 1rem;
   }
 
@@ -18,15 +17,16 @@
     line-height: 2;
   }
 
-  &__buttons{
+  &__buttons {
     display: flex;
   }
-  &__hr{
+  &__hr {
     width: 80%;
     border-bottom: 1px solid #999;
   }
 }
 
-.height-space{
-  margin: .5rem 0;
+.height-space {
+  margin: 0.5rem 0;
 }
+

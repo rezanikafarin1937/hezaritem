@@ -15,6 +15,7 @@ const ShowInformationProduct = ({ data }) => {
   let returnProduct = "جنس فروخته شده بازپس گرفته ";
   returnProduct +=  data.return === "YES" ? "میشود" : "نمیشود";
 
+
   return (
     <div className="info">
       <h1 className="title">{data.title}</h1>

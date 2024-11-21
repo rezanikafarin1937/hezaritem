@@ -21,13 +21,20 @@ const Product = () => {
       setDataProduct(data);
       setImages(() => [...data.images]);
       setLoading(false);
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
     handelGetProduct();
   }, []);
+
+  const handleClose = () => {
+    document.querySelector('.zoom').style.display = "none";
+  }
+
+  const handleOpen = () => {
+    document.querySelector('.zoom').style.display = "block";
+  }
 
   return (
     <div className="product">
@@ -35,6 +42,10 @@ const Product = () => {
         <Spinner />
       ) : (
         <div className="wrapper">
+          <div className="zoom">
+            <button className="zoom__btn-close" onClick={handleClose}></button>
+          </div>
+
           <div className="container-product">
             <ShowInformationProduct data={getDataProduct} />
             <div className="container-product__slider">
@@ -46,7 +57,7 @@ const Product = () => {
                 // btnSharp={true}
               >
                 {images.map((image, index) => (
-                  <div className="slide__item" key={index}>
+                  <div className="slide__item" key={index} onClick={handleOpen}>
                     <img src={image.address} />
                   </div>
                 ))}
