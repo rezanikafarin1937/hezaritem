@@ -82,6 +82,10 @@
     right: 50px;
     color : #fff;
     user-select: none;
+
+    @media (max-width : 768px){
+      display: none;
+    }
   }
 
 
