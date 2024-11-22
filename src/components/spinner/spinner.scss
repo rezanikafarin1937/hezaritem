@@ -18,10 +18,10 @@
     width: 45px;
     height: 45px;
     border: {
-      left: 8px solid $spinner;
-      right: 8px solid $spinner;
-      top: 8px solid $spinner;
-      bottom: 8px solid blue;
+      left: 8px solid $spinner-border;
+      right: 8px solid $spinner-border;
+      top: 8px solid $spinner-border;
+      bottom: 8px solid $spinner;
     }
     border-radius: 50%;
     animation-name: a;

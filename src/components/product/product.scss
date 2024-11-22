@@ -76,7 +76,7 @@
     top: 0;
     right: 0;
     cursor: pointer;
-    transition: all 0.5s;
+    transition: all 0.2s;
   }
   &__left-btn{
     height: 100%;
@@ -99,7 +99,9 @@
     background-size: cover;
     background-position: center;
     transition: all .1s;
-  }
+    cursor: -moz-zoom-in; 
+    cursor: -webkit-zoom-in; 
+    cursor: zoom-in;  }
 
   &__btn-close {
     width: 20px;
