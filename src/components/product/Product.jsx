@@ -11,6 +11,7 @@ const Product = () => {
 
   const [getDataProduct, setDataProduct] = useState({});
   const [images, setImages] = useState([]);
+  const [indexImage, setIndexImage] = useState(() => 1);
   const [loading, setLoading] = useState(false);
 
   const handelGetProduct = async () => {
@@ -28,11 +29,35 @@ const Product = () => {
     handelGetProduct();
   }, []);
 
+  // useEffect(() => {
+  //   if (0 <= indexImage || indexImage >= images.length - 1) {
+  //     openZoomImage(indexImage);
+  //   }
+  // }, [indexImage]);
+
   const handleClose = () => {
     document.querySelector(".zoom").style.display = "none";
   };
 
-  const openZoomImage = (images,index) => {
+  const nextImage = () => {
+    if (indexImage + 1 < images.length) {
+      setIndexImage(() => indexImage + 1);
+    } else {
+      setIndexImage(() => 0);
+    }
+    openZoomImage(indexImage);
+  };
+
+  const prevImage = () => {
+    if (indexImage > 0) {
+      setIndexImage(() => indexImage - 1);
+    } else {
+      setIndexImage(() => images.length - 1);
+    }
+    openZoomImage(indexImage);
+  };
+
+  const openZoomImage = (index) => {
     document.querySelector(".zoom").style.display = "flex";
     let zoomImage = document.querySelector(".zoom__image");
     zoomImage.style.backgroundImage = `url(${images[index].address})`;
@@ -72,6 +97,12 @@ const Product = () => {
             <span className="zoom__btn-close" onClick={handleClose}></span>
             <span className="zoom__title">بزرگنمایی تصویر</span>
             <div className="zoom__image"></div>
+            <div className="zoom__left-btn" onClick={prevImage}>
+              <div className="zoom__arrow-left"></div>
+            </div>
+            <div className="zoom__right-btn" onClick={nextImage}>
+              <div className="zoom__arrow-right"></div>
+            </div>
           </div>
 
           <div className="container-product">
@@ -88,7 +119,7 @@ const Product = () => {
                   <div
                     className="slide__item"
                     key={index}
-                    onClick={() => openZoomImage(images,index)}
+                    onClick={() => openZoomImage(index)}
                   >
                     <img src={image.address} />
                   </div>

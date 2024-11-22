@@ -66,6 +66,31 @@
   display: none;
   padding: 2rem;
 
+  &__right-btn{
+    height: 100%;
+    min-width: 49px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+  &__left-btn{
+    height: 100%;
+    min-width: 49px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+
   &__image {
     width: 70%;
     height: 100%;
@@ -73,6 +98,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    transition: all .1s;
   }
 
   &__btn-close {
@@ -116,5 +142,20 @@
     @media (max-width: 768px) {
       display: none;
     }
+  }
+
+  &__arrow-right{
+    width: 14px;
+    height: 14px;
+    background-color: transparent;
+    border-top: 4px solid #fff;
+    border-right: 4px solid #fff;
+    border-radius: 4px;
+    transform: rotate(45deg);
+  }
+  
+  &__arrow-left{
+    @extend .zoom__arrow-right;
+    transform: rotate(-135deg);
   }
 }
