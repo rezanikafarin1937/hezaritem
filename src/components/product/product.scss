@@ -1,3 +1,5 @@
+@import "../../../public/sass/colorpullet";
+
 .container-product {
   display: flex;
   flex-direction: row-reverse;
@@ -16,6 +18,35 @@
       width: 100%;
       border: 0;
     }
+
+    // textarea:focus {
+    //   outline: none !important;
+    //   border:1px solid $active;
+    //   box-shadow: 0 0 1px $active-hover;
+    // }
+
+    textarea {
+      width: 100%;
+      min-height: 7.5rem;
+      direction: rtl;
+      resize: none;
+      padding: 1rem;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+      transition: all 0.5s;
+
+      &:hover {
+        border: 1px solid rgba(0, 0, 0, 0.8);
+      }
+
+      &:focus{
+        outline: none !important;
+        border:1px solid $active;
+        box-shadow: 0 0 6px $active-hover;
+  
+      }
+
+    }
   }
 }
 
@@ -28,22 +59,21 @@
   top: 0;
   left: 0;
   z-index: 2001;
-  display : flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   display: none;
   padding: 2rem;
 
-  &__image{
+  &__image {
     width: 70%;
     height: 100%;
-    background-color: #eee;
+    background-color: $search;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
   }
-
 
   &__btn-close {
     width: 20px;
@@ -54,24 +84,24 @@
     transform: rotate(45deg);
     cursor: pointer;
 
-    &::before{
-      content: '';
-      width: 4px;      
+    &::before {
+      content: "";
+      width: 4px;
       height: 100%;
       background-color: #fff;
       position: absolute;
-      top : 0;
-      left : 40%;
+      top: 0;
+      left: 40%;
       border-radius: 2px;
     }
 
-    &::after{
-      content: '';
+    &::after {
+      content: "";
       height: 4px;
       width: 100%;
       background-color: #fff;
       position: absolute;
-      top : 40%;
+      top: 40%;
       left: 0;
       border-radius: 2px;
     }
@@ -80,13 +110,11 @@
     position: absolute;
     top: 100px;
     right: 50px;
-    color : #fff;
+    color: #fff;
     user-select: none;
 
-    @media (max-width : 768px){
+    @media (max-width: 768px) {
       display: none;
     }
   }
-
-
 }

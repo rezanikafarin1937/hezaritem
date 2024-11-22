@@ -32,10 +32,10 @@ const Product = () => {
     document.querySelector(".zoom").style.display = "none";
   };
 
-  const openZoomImage = (urlImage) => {
+  const openZoomImage = (images,index) => {
     document.querySelector(".zoom").style.display = "flex";
     let zoomImage = document.querySelector(".zoom__image");
-    zoomImage.style.backgroundImage = `url(${urlImage})`;
+    zoomImage.style.backgroundImage = `url(${images[index].address})`;
 
     zoomImage.addEventListener("mouseenter", function () {
       this.style.backgroundSize = "300%";
@@ -88,12 +88,13 @@ const Product = () => {
                   <div
                     className="slide__item"
                     key={index}
-                    onClick={() => openZoomImage(image.address)}
+                    onClick={() => openZoomImage(images,index)}
                   >
                     <img src={image.address} />
                   </div>
                 ))}
               </CarouselTouchSlider>
+              <textarea placeholder="یادداشت شما ..."></textarea>
             </div>
           </div>
         </div>

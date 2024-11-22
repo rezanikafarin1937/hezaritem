@@ -155,6 +155,7 @@
 
 
   &__card {
+    max-height: 100px;
     width: calc(25% - 0.5rem);
     border-radius: 4px;
     padding: 0;
@@ -171,7 +172,8 @@
     }
   }
   &__select {
-    outline: 3px solid orangered;
+    outline: 1px solid $active-hover;
+    box-shadow: 0 0 10px $active-hover;
     border-radius: 4px;
   }
 }
