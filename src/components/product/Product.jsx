@@ -29,12 +29,38 @@ const Product = () => {
   }, []);
 
   const handleClose = () => {
-    document.querySelector('.zoom').style.display = "none";
-  }
+    document.querySelector(".zoom").style.display = "none";
+  };
 
-  const handleOpen = () => {
-    document.querySelector('.zoom').style.display = "block";
-  }
+  const openZoomImage = (urlImage) => {
+    document.querySelector(".zoom").style.display = "flex";
+    let zoomImage = document.querySelector(".zoom__image");
+    zoomImage.style.backgroundImage = `url(${urlImage})`;
+
+    zoomImage.addEventListener("mouseenter", function () {
+      this.style.backgroundSize = "300%";
+    });
+
+    zoomImage.addEventListener("mouseleave", function () {
+      this.style.backgroundSize = "cover";
+      this.style.backgroundPosition = "center";
+    });
+
+    zoomImage.addEventListener("mousemove", function (e) {
+      // روش آموزشی
+      // let dimentions = this.getBoundingClientRect();
+      // let x= e.clientX - dimentions.left;
+      // let y = e.clientY - dimentions.top;
+      // x =Math.round(100 / ( dimentions.width / x));
+      // y =Math.round(100 / (dimentions.height / y));
+      // this.style.backgroundPosition= `${x}% ${y}%`;
+
+      // روش بهتر
+      let x = 100 / (this.offsetWidth / e.offsetX);
+      let y = 100 / (this.offsetHeight / e.offsetY);
+      this.style.backgroundPosition = `${x}% ${y}%`;
+    });
+  };
 
   return (
     <div className="product">
@@ -43,7 +69,9 @@ const Product = () => {
       ) : (
         <div className="wrapper">
           <div className="zoom">
-            <button className="zoom__btn-close" onClick={handleClose}></button>
+            <span className="zoom__btn-close" onClick={handleClose}></span>
+            <span className="zoom__title">بزرگنمایی تصویر</span>
+            <div className="zoom__image"></div>
           </div>
 
           <div className="container-product">
@@ -57,7 +85,11 @@ const Product = () => {
                 // btnSharp={true}
               >
                 {images.map((image, index) => (
-                  <div className="slide__item" key={index} onClick={handleOpen}>
+                  <div
+                    className="slide__item"
+                    key={index}
+                    onClick={() => openZoomImage(image.address)}
+                  >
                     <img src={image.address} />
                   </div>
                 ))}
