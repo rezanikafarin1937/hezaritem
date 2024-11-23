@@ -79,7 +79,7 @@ export const EditProduct = () => {
       });
       setLoading(false);
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
       setLoading(false);
     }
   };
@@ -121,6 +121,7 @@ export const EditProduct = () => {
           j++;
         }
       }
+      console.log('images in handleSubmit = ',images);
       for (let i = 0; i < idDeleteImages.length; i++) {
         fd.append("idDeleteImages[" + i + "]", idDeleteImages[i]);
         fd.append("nameDeleteImages[" + i + "]", nameDeleteImages[i]);

@@ -48,6 +48,7 @@ const ImageUpload = ({ onUpload, PreviousPhotos = [] }) => {
         {files.map((file, index) => {
           return (
             <div className="upload__image" key={index}>
+              {console.log('files = ',files)}
               <img src={file.old ? file.name : createObjectUrl(file)} />
               <div className="upload__overlay">
                 <div
