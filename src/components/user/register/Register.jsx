@@ -45,7 +45,9 @@ export const Register = () => {
         method: "post",
         url: `${BaseURL}/users`,
         data: fd,
-        headers: headers
+        headers:  {
+          "Content-Type": "multipart/form-data",
+        },
       })
         // .then((res) => console.log("response = ", res))
         .catch((err) => {
