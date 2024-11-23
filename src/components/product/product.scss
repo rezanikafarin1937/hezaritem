@@ -1,16 +1,17 @@
 @import "../../../public/sass/colorpullet";
 
+
 .container-product {
   display: flex;
   flex-direction: row-reverse;
-  padding: 3rem 6rem;
+  padding: 3rem 4rem;
 
   @media (max-width: 426px) {
     flex-direction: column-reverse;
   }
 
   &__description{
-    font-size: 10px;
+    font-size: .60rem;
     color : $placeholder;
     width: 100%;
     text-align: right;

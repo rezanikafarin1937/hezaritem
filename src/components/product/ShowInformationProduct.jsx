@@ -8,16 +8,16 @@ const ShowInformationProduct = ({ data }) => {
 
   parseNumber = parseInt(data.discount);
   const discount = parseNumber.toLocaleString("fa");
- 
+
   parseNumber = parseInt(data.shipping_cost);
   const shippingCost = parseNumber.toLocaleString("fa");
 
   let returnProduct = "جنس فروخته شده بازپس گرفته ";
-  returnProduct +=  data.return === "YES" ? "میشود" : "نمیشود";
-
+  returnProduct += data.return === "YES" ? "میشود" : "نمیشود";
 
   return (
     <div className="info">
+
       <h1 className="title">{data.title}</h1>
       <p className="info__small-title">دقایقی پیش در اراک</p>
       <div className="info__buttons">
@@ -25,7 +25,7 @@ const ShowInformationProduct = ({ data }) => {
         <span style={{ marginLeft: "1rem" }}></span>
         <button className="mybtn mybtn__inactive">چت</button>
       </div>
-   
+
       <div className="height-space"></div>
       <div className="info__hr"></div>
       <div className="height-space"></div>

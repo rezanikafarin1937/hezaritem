@@ -11,6 +11,14 @@
   }
 
 
+  &__description{
+    font-size: .75rem;
+    color : $placeholder;
+    width: 100%;
+    text-align: right;
+  }
+
+
   &__small-title {
     color: $color-description;
     font-weight: 400;

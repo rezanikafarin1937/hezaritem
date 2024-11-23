@@ -172,8 +172,8 @@
     }
   }
   &__select {
-    outline: 1px solid $active;
-    box-shadow: 0 0 10px $active-hover;
+    outline: 2px solid $active-hover;
+    box-shadow: 0 0 15px $active-hover;
     border-radius: 4px;
   }
 }

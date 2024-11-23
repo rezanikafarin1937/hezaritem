@@ -6,7 +6,8 @@ const CarouselTouchSlider = ({
   imageLength,
   webStyle = true,
   dots = false,
-  btnSharp = false
+  btnSharp = false,
+  tooltip = null
 }) => {
   const [pressed, setPressed] = useState(false);
   const [startPoint, setStartPoint] = useState(0);
@@ -147,6 +148,7 @@ const CarouselTouchSlider = ({
         onTouchStart={dragStart}
         onTouchEnd={dragEndTouch}
         onTouchMove={dragMove}
+        title={tooltip ? tooltip : ""}
       >
         <div
           style={dots ? {} : { display: "none" }}
