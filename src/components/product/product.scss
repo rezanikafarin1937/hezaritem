@@ -9,6 +9,13 @@
     flex-direction: column-reverse;
   }
 
+  &__description{
+    font-size: 10px;
+    color : $placeholder;
+    width: 100%;
+    text-align: right;
+  }
+ 
   &__slider {
     width: 488px;
     height: 366px;
@@ -19,11 +26,7 @@
       border: 0;
     }
 
-    // textarea:focus {
-    //   outline: none !important;
-    //   border:1px solid $active;
-    //   box-shadow: 0 0 1px $active-hover;
-    // }
+
 
     textarea {
       width: 100%;

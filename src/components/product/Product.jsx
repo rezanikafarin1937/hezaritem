@@ -29,11 +29,6 @@ const Product = () => {
     handelGetProduct();
   }, []);
 
-  // useEffect(() => {
-  //   if (0 <= indexImage || indexImage >= images.length - 1) {
-  //     openZoomImage(indexImage);
-  //   }
-  // }, [indexImage]);
 
   const handleClose = () => {
     document.querySelector(".zoom").style.display = "none";
@@ -108,6 +103,7 @@ const Product = () => {
           <div className="container-product">
             <ShowInformationProduct data={getDataProduct} />
             <div className="container-product__slider">
+              <div className="container-product__description">برای بزرگنمایی تصویر بر روی  آن کلیک کنید</div>
               <CarouselTouchSlider
                 imageLength={images.length}
                 webStyle={true}
