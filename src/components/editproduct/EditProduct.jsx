@@ -130,7 +130,10 @@ export const EditProduct = () => {
         method: "post",
         url: BaseURL + `/products/${userId}`,
         data: fd,
-        headers: headers,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+
       }).catch((err) => {
         if (err.response) {
           if (err.response.status === 422) {
