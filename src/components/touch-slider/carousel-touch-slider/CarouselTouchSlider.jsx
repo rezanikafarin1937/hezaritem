@@ -182,6 +182,7 @@ const CarouselTouchSlider = ({
 
         <div className={btnSharp ? "slide" : "slide slide__border-radius"}>{children}</div>
       </div>
+      <div style={!tooltip ? {display : "none"} : {}} className="wrapper-slide__description">{tooltip}</div>
       <div className="cards">
         {children.map((child, index) => {
           return (
