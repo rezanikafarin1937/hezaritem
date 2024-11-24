@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink,Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { updateSearch } from "../../slices/searchSlice";
@@ -55,9 +55,12 @@ const Header = () => {
           پشتیبانی
         </span>
 
-        <NavLink to="/insert-product" className="mybtn mybtn__active" >
+        <span onClick={() => selector(3)}>
+        <Link to="/insert-product" className="mybtn mybtn__active">
           ثبت محصول
-        </NavLink>
+        </Link>
+        </span>
+
       </nav>
     </header>
   );
