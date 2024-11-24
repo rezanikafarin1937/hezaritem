@@ -3,7 +3,7 @@ const Spinner = ()=>{
     return(
         <div className='parent-spinner'>
             <span className="parent-spinner__spinner"></span>
-            <p>...لطفا شکیبا باشید</p>
+            <p className='parent-spinner__title'>...لطفا شکیبا باشید</p>
         </div>
     )
 }

@@ -13,6 +13,10 @@
   top : 0;
   left: 0;
 
+  &__title{
+    color : $active;
+  }
+
 
   &__spinner {
     width: 45px;

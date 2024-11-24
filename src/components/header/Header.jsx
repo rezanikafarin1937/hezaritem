@@ -55,7 +55,7 @@ const Header = () => {
           پشتیبانی
         </span>
 
-        <NavLink to="/insert-product" className="mybtn mybtn__active">
+        <NavLink to="/insert-product" className="mybtn mybtn__active" >
           ثبت محصول
         </NavLink>
       </nav>
