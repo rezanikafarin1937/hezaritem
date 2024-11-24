@@ -12,6 +12,11 @@
     color : $placeholder;
     width: 100%;
     text-align: right;
+
+    @media (max-width: 425px) {
+      display: none;
+    }
+
   }
 
 

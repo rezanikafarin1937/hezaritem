@@ -111,21 +111,22 @@ const Product = () => {
                 tooltip="برای بزرگنمایی تصویر بر روی  آن کلیک کنید"
               >
                 {images.map((image, index) => (
-                    <div
-                      className="slide__item"
-                      key={index}
-                      onClick={() => openZoomImage(index)}
-                    >
-                      <img src={image.address} />
-                    </div>
+                  <div
+                    className="slide__item"
+                    key={index}
+                    onClick={() => openZoomImage(index)}
+                  >
+                    <img src={image.address} />
+                  </div>
                 ))}
               </CarouselTouchSlider>
-              <textarea placeholder="یادداشت شما ..."></textarea>
-                    <div className="container-product__description">
-                      یادداشت تنها برای شما قابل دیدن است و پس از حذف آگهی، پاک
-                      خواهد شد
-                    </div>
-
+              <div className="container-product__note">
+                <textarea placeholder="یادداشت شما ..."></textarea>
+                <div className="container-product__description">
+                  یادداشت تنها برای شما قابل دیدن است و پس از حذف آگهی، پاک
+                  خواهد شد
+                </div>
+              </div>
             </div>
           </div>
         </div>
