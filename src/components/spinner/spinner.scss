@@ -15,17 +15,18 @@
 
   &__title{
     color : $active;
+    font-size : 14px;
   }
 
 
   &__spinner {
-    width: 45px;
-    height: 45px;
+    width: 30px;
+    height: 30px;
     border: {
-      left: 8px solid $spinner-border;
-      right: 8px solid $spinner-border;
-      top: 8px solid $spinner-border;
-      bottom: 8px solid $spinner;
+      left: 6px solid $spinner-border;
+      right: 6px solid $spinner-border;
+      top: 6px solid $spinner-border;
+      bottom: 6px solid $spinner;
     }
     border-radius: 50%;
     animation-name: a;
