@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./myselect.scss";
 
-const MySelect = ({ data,onSelect }) => {
+const MySelect = ({ onSelect,data }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const openSearch = (e) => {
@@ -32,13 +32,20 @@ const MySelect = ({ data,onSelect }) => {
   };
 
   const emitSelect = (data) => {
-    return data;
+    document.querySelector("#input-select").value = data.name;
+    onSelect(data);
+    setIsOpen(() => true);
+    document.querySelector(".myselect__area").style.opacity = "0";
+    document.querySelector(".myselect__area").style.height = "0";
+    document.querySelector(".myselect__arrow").style.transform = "rotate(0)";
+
+
   }
 
   return (
     <div className="myselect">
-      <div className="myselect__input">
-        <input onClick={openSearch} placeholder="انتخاب شهر" />
+      <div className="myselect__input" onClick={openSearch}>
+        <input id="input-select" placeholder="انتخاب شهر" onClick={openSearch} />
         <span className="myselect__arrow"></span>
       </div>
       <div className="myselect__area" onClick={startSearch}>

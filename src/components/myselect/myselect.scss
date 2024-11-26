@@ -3,9 +3,13 @@
 .myselect {
   width: 100%;
 
+  &__select{
+    color : $active;
+  }
+
   &__data {
     color: $color-description;
-    font-size: 0.875rem;
+    font-size: 12px;
     padding: 0.25rem 1rem;
     cursor: pointer;
 
@@ -31,6 +35,8 @@
       text-align: right;
       transition: border-color 0.36s ease;
       padding: 0 1rem 0 2.5rem;
+      color : $color-description;
+      font-size: 12px;
     }
 
     &:focus {
@@ -67,6 +73,7 @@
     overflow-y: scroll;
     scrollbar-width: thin;
     direction: rtl;
+
 
     input {
       width: 100%;

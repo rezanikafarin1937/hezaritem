@@ -92,6 +92,7 @@ export const InsertProduct = () => {
 
 
   const handleSelect = (d) => {
+
     console.log('mycity = ',d);
   }
 
