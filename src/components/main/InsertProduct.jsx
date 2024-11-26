@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Spinner, ImageUpload } from "../../components";
+import { Spinner, ImageUpload,MySelect } from "../../components";
 import axios from "axios";
 import PN from "persian-number";
 import { BaseURL } from "../../Global/BaseUrl";
 import "../../Global/sass/global-box.scss";
+import "./insert-product.scss";
 
 export const InsertProduct = () => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const [inputErrorList, setInputErrorList] = useState({});
+  const [cities, setCities] = useState([]);
 
   const [product, setProduct] = useState({
     title: "",
@@ -76,10 +78,23 @@ export const InsertProduct = () => {
     setImages(() => [...img]);
   };
 
-  useEffect(() => {
-    axios.get(BaseURL + "/categories").then((res) => {
-      setCategories([...res.data]);
+  const fetchCities = () => {
+    axios.get(BaseURL + "/cities").then((res) => {
+      setCities(() => [...res.data]);
     });
+  };
+
+
+  const fetchCategories = () => {
+    axios.get(BaseURL + "/categories").then((res) => {
+      setCategories(() => [...res.data]);
+    });
+  };
+
+
+  useEffect(() => {
+    fetchCategories();
+    fetchCities();
   }, []);
 
   return (
@@ -89,6 +104,13 @@ export const InsertProduct = () => {
       ) : (
         <form className="page__box" onSubmit={handelSubmit}>
           <span className="page__title">ثبت محصول</span>
+          <hr />
+          <br />
+          <MySelect>
+            {cities.map((city,index) => (
+              <div className="city" key={index}>{city.name}</div>
+            ))}
+          </MySelect>
           <hr />
           <br />
           <label id="type-admin" className="page__container-select">

@@ -1,0 +1,86 @@
+@import "../../../public/sass/colorpullet";
+
+.myselect {
+  width: 100%;
+
+  &__input {
+    position: relative;
+
+    input {
+      width: 100%;
+      align-items: center;
+      background-color: transparent;
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      height: 2.5rem;
+      outline: none;
+      text-align: right;
+      transition: border-color 0.36s ease;
+      padding: 0 1rem 0 2.5rem;
+    }
+
+
+    &:focus {
+      border: 1px solid $active-hover;
+    }
+  }
+
+  &__arrow{
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top : 0;
+    left: 0;
+    transition: all .5s;
+
+    &:after{
+      content: "";
+      width: .30rem;
+      height: .30rem;
+      border-left: 2px solid rgba(0, 0, 0, 0.16);
+      border-bottom: 2px solid rgba(0, 0, 0, 0.16);
+      transform: rotate(-45deg);
+  
+    }
+
+  }
+
+
+  &__area {
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    height: 0;
+    opacity: 0;
+    transition: all 0.5s;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    direction: rtl;
+
+    input {
+      width: 100%;
+      align-items: center;
+      background-color: transparent;
+      box-shadow:  0 0 5px  rgba(0, 0, 0, 0.16);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      height: 2.5rem;
+      outline: none;
+      text-align: right;
+      transition: border-color 0.36s ease;
+      padding: 0 1rem 0 2.5rem;
+    }
+
+
+  }
+  &__cities{
+    color : $color-description;
+    font-size: .875rem;
+    padding: 1rem;
+  }
+}
