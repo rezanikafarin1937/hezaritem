@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./myselect.scss";
 
-const MySelect = ({ children }) => {
+const MySelect = ({ data,onSelect }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const openSearch = (e) => {
@@ -31,6 +31,10 @@ const MySelect = ({ children }) => {
     e.preventDefault();
   };
 
+  const emitSelect = (data) => {
+    return data;
+  }
+
   return (
     <div className="myselect">
       <div className="myselect__input">
@@ -39,7 +43,11 @@ const MySelect = ({ children }) => {
       </div>
       <div className="myselect__area" onClick={startSearch}>
         <input placeholder="جستجو" />
-        <div>{children}</div>
+        {data.map((d, index) => (
+          <div className="myselect__data" key={index} onClick={() => emitSelect(d)}>
+            {d.name}
+          </div>
+        ))}
       </div>
     </div>
   );

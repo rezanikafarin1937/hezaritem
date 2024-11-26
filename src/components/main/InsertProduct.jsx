@@ -5,7 +5,6 @@ import axios from "axios";
 import PN from "persian-number";
 import { BaseURL } from "../../Global/BaseUrl";
 import "../../Global/sass/global-box.scss";
-import "./insert-product.scss";
 
 export const InsertProduct = () => {
   const [categories, setCategories] = useState([]);
@@ -92,10 +91,16 @@ export const InsertProduct = () => {
   };
 
 
+  const handleSelect = (d) => {
+    console.log('mycity = ',d);
+  }
+
   useEffect(() => {
     fetchCategories();
     fetchCities();
   }, []);
+
+
 
   return (
     <div className="page">
@@ -106,11 +111,7 @@ export const InsertProduct = () => {
           <span className="page__title">ثبت محصول</span>
           <hr />
           <br />
-          <MySelect>
-            {cities.map((city,index) => (
-              <div className="city" key={index}>{city.name}</div>
-            ))}
-          </MySelect>
+          <MySelect data={cities}  onSelect={handleSelect}/>
           <hr />
           <br />
           <label id="type-admin" className="page__container-select">
