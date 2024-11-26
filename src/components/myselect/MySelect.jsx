@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
 import "./myselect.scss";
 
 const MySelect = ({ children }) => {
