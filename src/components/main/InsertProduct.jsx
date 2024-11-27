@@ -117,7 +117,7 @@ export const InsertProduct = () => {
           <span className="page__title">ثبت محصول</span>
           <hr />
           <br />
-          <MySelect data={cities} onSelect={handleSelect} />
+          <MySelect data={cities} onSelect={handleSelect} fieldTitle="name"/>
           <hr />
           <br />
           <label id="type-admin" className="page__container-select">
