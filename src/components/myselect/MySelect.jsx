@@ -17,7 +17,7 @@ const MySelect = ({ onSelect,data,fieldTitle = "title"}) => {
     } else {
       document.querySelector(".myselect__area").style.opacity = "0";
       document.querySelector(".myselect__area").style.height = "0";
-      document.querySelector(".myselect__arrow").style.transform = "rotate(0)";
+      document.querySelector(".myselect__arrow").style.transform = "rotate(1deg)";
     }
   };
 
@@ -29,7 +29,9 @@ const MySelect = ({ onSelect,data,fieldTitle = "title"}) => {
   };
 
   const emitSelect = (data) => {
-    document.querySelector("#input-select").value = data.name;
+    document.querySelector("#select-input").value = data.name;
+    document.querySelector("#search-input").value = "";
+    setText("");
     onSelect(data);
     setIsOpen(() => true);
     document.querySelector(".myselect__area").style.opacity = "0";
@@ -41,13 +43,11 @@ const MySelect = ({ onSelect,data,fieldTitle = "title"}) => {
   const handelInputSearch = (event) => {
     event.persist();
     setText(event.target.value);
-    console.log("value : ",text);
   };
   
   const searchInputValueInData = () => {
      let mydata =  data.filter(d => d.name.indexOf(text) > -1);
      setMyData(() => [...mydata]);
-     console.log('mydata = ',mydata);
 
   }
 
@@ -58,11 +58,11 @@ const MySelect = ({ onSelect,data,fieldTitle = "title"}) => {
   return (
     <div className="myselect">
       <div className="myselect__input" onClick={openSearch}>
-        <input id="input-select" placeholder="انتخاب شهر" onClick={openSearch} />
+        <input id="select-input" placeholder="انتخاب شهر" onClick={openSearch} readOnly/>
         <span className="myselect__arrow"></span>
       </div>
       <div className="myselect__area" onClick={startSearch}>
-        <input placeholder="جستجو" name="search" className="search-input" onChange={(e) => handelInputSearch(e)}/>
+        <input placeholder="جستجو" name="search" id="search-input" onChange={(e) => handelInputSearch(e)}/>
         {myData.map((d, index) => (
           <div className="myselect__data" key={index} onClick={() => emitSelect(d)}>
             {d[fieldTitle]}
