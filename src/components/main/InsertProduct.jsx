@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Spinner, ImageUpload,MySelect } from "../../components";
+import { Spinner, ImageUpload, MySelect } from "../../components";
 import axios from "axios";
 import PN from "persian-number";
-import { BaseURL } from "../../Global/BaseUrl";
+import { BaseURL, config } from "../../Global/BaseUrl";
 import "../../Global/sass/global-box.scss";
 
 export const InsertProduct = () => {
@@ -11,6 +11,8 @@ export const InsertProduct = () => {
   const navigate = useNavigate();
   const [inputErrorList, setInputErrorList] = useState({});
   const [cities, setCities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [images, setImages] = useState([]);
 
   const [product, setProduct] = useState({
     title: "",
@@ -22,9 +24,6 @@ export const InsertProduct = () => {
     images: [],
     category: 0,
   });
-
-  const [loading, setLoading] = useState(false);
-  const [images, setImages] = useState([]);
 
   const handelInput = (event) => {
     event.persist();
@@ -77,31 +76,71 @@ export const InsertProduct = () => {
     setImages(() => [...img]);
   };
 
-  const fetchCities = () => {
-    axios.get(BaseURL + "/cities").then((res) => {
-      setCities(() => [...res.data]);
-    });
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      await axios
+        .all([
+          axios.get(BaseURL + "/cities"),
+          axios.get(BaseURL + "/categories"),
+        ])
+        .then(
+          axios.spread((res1, res2) => {
+            setCities(() => [...res1.data]);
+            setCategories(() => [...res2.data]);
+          })
+        );
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
+  // const fetchCities = async () => {
+  //   try {
+  //     setLoading(true);
+  //     let response = await axios.get(BaseURL + "/cities", config);
+  //     setCities(() => [...response.data]);
+  //     console.log("res= ", response.data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
 
-  const fetchCategories = () => {
-    axios.get(BaseURL + "/categories").then((res) => {
-      setCategories(() => [...res.data]);
-    });
-  };
+  //   axios
+  //     .get(BaseURL + "/cities")
+  //     .then((res) => {
+  //       setCities(() => [...res.data]);
+  //       setLoading(() => false);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //       setLoading(() => false);
+  //     });
+  // };
 
+  // const fetchCategories = () => {
+  //   axios
+  //     .get(BaseURL + "/categories")
+  //     .then((res) => {
+  //       setCategories(() => [...res.data]);
+  //       setLoading(() => false);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //       setLoading(() => false);
+  //     });
+  // };
 
   const handleSelect = (d) => {
-
-    console.log('mycity = ',d);
-  }
+    console.log("mycity = ", d);
+  };
 
   useEffect(() => {
-    fetchCategories();
-    fetchCities();
+    fetchData();
   }, []);
-
-
 
   return (
     <div className="page">
@@ -112,7 +151,7 @@ export const InsertProduct = () => {
           <span className="page__title">ثبت محصول</span>
           <hr />
           <br />
-          <MySelect data={cities}  onSelect={handleSelect}/>
+          <MySelect data={cities} onSelect={handleSelect} />
           <hr />
           <br />
           <label id="type-admin" className="page__container-select">
