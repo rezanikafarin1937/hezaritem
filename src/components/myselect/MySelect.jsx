@@ -19,12 +19,13 @@ const MySelect = ({ onSelect,data }) => {
     }
   };
 
-  window.addEventListener("click", function () {
-    setIsOpen(() => true);
-    document.querySelector(".myselect__area").style.opacity = "0";
-    document.querySelector(".myselect__area").style.height = "0";
-    document.querySelector(".myselect__arrow").style.transform = "rotate(0)";
-  });
+  // window.addEventListener("click", function () {
+  //   setIsOpen(() => true);
+  //   document.querySelector(".myselect__area").style.opacity = "0";
+  //   document.querySelector(".myselect__area").style.height = "0";
+  //   document.querySelector(".myselect__arrow").style.transform = "rotate(0)";
+  // });
+
 
   const startSearch = (e) => {
     e.stopPropagation();

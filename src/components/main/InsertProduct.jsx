@@ -97,42 +97,6 @@ export const InsertProduct = () => {
     }
   };
 
-  // const fetchCities = async () => {
-  //   try {
-  //     setLoading(true);
-  //     let response = await axios.get(BaseURL + "/cities", config);
-  //     setCities(() => [...response.data]);
-  //     console.log("res= ", response.data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-
-  //   axios
-  //     .get(BaseURL + "/cities")
-  //     .then((res) => {
-  //       setCities(() => [...res.data]);
-  //       setLoading(() => false);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //       setLoading(() => false);
-  //     });
-  // };
-
-  // const fetchCategories = () => {
-  //   axios
-  //     .get(BaseURL + "/categories")
-  //     .then((res) => {
-  //       setCategories(() => [...res.data]);
-  //       setLoading(() => false);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //       setLoading(() => false);
-  //     });
-  // };
 
   const handleSelect = (d) => {
     console.log("mycity = ", d);
@@ -141,6 +105,8 @@ export const InsertProduct = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  
 
   return (
     <div className="page">
