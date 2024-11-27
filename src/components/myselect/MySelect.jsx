@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "./myselect.scss";
 
 const MySelect = ({ onSelect,data }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [text,setText] = useState("");
+  const [myData,setMyData] = useState([]);
 
   const openSearch = (e) => {
     e.stopPropagation();
@@ -19,12 +21,6 @@ const MySelect = ({ onSelect,data }) => {
     }
   };
 
-  // window.addEventListener("click", function () {
-  //   setIsOpen(() => true);
-  //   document.querySelector(".myselect__area").style.opacity = "0";
-  //   document.querySelector(".myselect__area").style.height = "0";
-  //   document.querySelector(".myselect__arrow").style.transform = "rotate(0)";
-  // });
 
 
   const startSearch = (e) => {
@@ -39,9 +35,25 @@ const MySelect = ({ onSelect,data }) => {
     document.querySelector(".myselect__area").style.opacity = "0";
     document.querySelector(".myselect__area").style.height = "0";
     document.querySelector(".myselect__arrow").style.transform = "rotate(0)";
+  }
 
+
+  const handelInputSearch = (event) => {
+    event.persist();
+    setText(event.target.value);
+    console.log("value : ",text);
+  };
+  
+  const searchInputValueInData = () => {
+     let mydata =  data.filter(d => d.name.indexOf(text) > -1);
+     setMyData(() => [...mydata]);
+     console.log('mydata = ',mydata);
 
   }
+
+  useEffect(()=>{
+    searchInputValueInData();
+  },[text]);
 
   return (
     <div className="myselect">
@@ -50,8 +62,8 @@ const MySelect = ({ onSelect,data }) => {
         <span className="myselect__arrow"></span>
       </div>
       <div className="myselect__area" onClick={startSearch}>
-        <input placeholder="جستجو" />
-        {data.map((d, index) => (
+        <input placeholder="جستجو" name="search" className="search-input" onChange={(e) => handelInputSearch(e)}/>
+        {myData.map((d, index) => (
           <div className="myselect__data" key={index} onClick={() => emitSelect(d)}>
             {d.name}
           </div>
