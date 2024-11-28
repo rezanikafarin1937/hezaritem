@@ -15,6 +15,7 @@
     overflow-y: scroll;
     scrollbar-width: none;
     display: none;
+    direction: rtl;
 
     @media (min-width: 769px) {
         display: flex;
