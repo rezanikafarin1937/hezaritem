@@ -9,12 +9,13 @@
   &__sidebar {
     max-height: 100vh;
     background-color: $sidebar;
-    flex: 0 0 20%;
+    flex: 0 0 16%;
     position: sticky;
     top: 0;
     overflow-y: scroll;
     scrollbar-width: none;
     display: none;
+    direction: rtl;
 
     @media (min-width: 769px) {
         display: flex;
