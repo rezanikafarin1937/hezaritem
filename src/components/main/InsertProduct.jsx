@@ -13,10 +13,13 @@ export const InsertProduct = () => {
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
+  const [city,setCity] = useState({});
 
   const [product, setProduct] = useState({
     title: "",
     price: "",
+    city: 0,
+    province: 0,
     discount: "",
     shipping_cost: "",
     return: "",
@@ -38,6 +41,8 @@ export const InsertProduct = () => {
       fd.append("user_id", 1);
       fd.append("title", product.title);
       fd.append("price", product.price);
+      fd.append("city", city.id);
+      fd.append("province", city.province_id);
       fd.append("category", product.category);
       fd.append("discount", product.discount);
       fd.append("shipping_cost", product.shipping_cost);
@@ -65,7 +70,7 @@ export const InsertProduct = () => {
       });
       setProduct({});
       setLoading(false);
-      navigate("/");
+      // navigate("/");
     } catch (err) {
       console.log(err.message);
       setLoading(false);
@@ -97,16 +102,18 @@ export const InsertProduct = () => {
     }
   };
 
-
   const handleSelect = (d) => {
     console.log("mycity = ", d);
+    product.city = d.id;
+    product.province = d.province_id;
+    console.log('product.city',product.city);
+    console.log('product.province',product.province);
+    setCity(() => d);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-
-  
 
   return (
     <div className="page">
@@ -117,7 +124,18 @@ export const InsertProduct = () => {
           <span className="page__title">ثبت محصول</span>
           <hr />
           <br />
-          <MySelect data={cities} onSelect={handleSelect} fieldTitle="name"/>
+          <label id="type-admin" className="page__container-select">
+            <div className="page__title">موقعیت کارگاه</div>
+            <span className="page__help-title">شهر</span>
+            <MySelect
+              data={cities}
+              onSelect={handleSelect}
+              fieldTitle="name"
+            />
+            {/* <input name="city" hidden/> */}
+            <span className="page__err">{inputErrorList.city}</span>
+          </label>
+
           <hr />
           <br />
           <label id="type-admin" className="page__container-select">
