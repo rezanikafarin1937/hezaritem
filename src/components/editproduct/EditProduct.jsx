@@ -18,7 +18,7 @@ export const EditProduct = () => {
     return: "",
     description: "",
     price: "",
-    // category: 0,
+    category: 0,
     image: {},
     images: [],
     idDeleteImages: [],
@@ -161,16 +161,32 @@ export const EditProduct = () => {
     }
   };
 
-  const handleSelect = (objCity) => {
+  // const handleSelect = (objCity) => {
+  //   console.log("mycity = ", objCity);
+  //   setProduct(() => {
+  //     product.city = objCity.id;
+  //     product.province = objCity.province_id;
+  //     let newState = { ...product };
+  //     return newState;
+  //   });
+  //   console.log('EditProduct myCity = ',product)
+  // };
+
+  const handleSelectCity = (objCity) => {
     console.log("mycity = ", objCity);
-    setProduct(() => {
-      product.city = objCity.id;
-      product.province = objCity.province_id;
-      let newState = { ...product };
-      return newState;
-    });
-    console.log('EditProduct myCity = ',product)
+    product.city = objCity.id;
+    product.province = objCity.province_id;
+    console.log('product.city',product.city);
+    console.log('product.province',product.province);
   };
+
+  const handleSelectCategory = (objCat) => {
+    console.log("myCategory = ", objCat);
+    product.category = objCat.id;
+    console.log('product.category',product.category);
+
+  }
+
 
   return (
     <div className="page">
@@ -187,35 +203,40 @@ export const EditProduct = () => {
           <span className="page__help-title">شهر</span>
             <MySelect
               data={cities}
-              onSelect={handleSelect}
+              onSelect={handleSelectCity}
               fieldTitle="name"
-              defaultCity={product.city}
+              defaultSelect={product.city}
+              placeholder="انتخاب شهر"
+              id="city"
+
             />
             <span className="page__small-description">با انتخاب شهر به صورت خودکار استان شما نیز انخاب میشود</span>
             <span className="page__err">{inputErrorList.city}</span>
           </label>
+          <br />
+          <span className="page__help-title">آدرس دقیق کارگاه</span>
+          <input
+            className="page__input"
+            name="title"
+            // value={product.title}
+            onChange={handelInput}
+            placeholder="آدرس دقیق کارگاه"
+          />
+          <span className="page__err">{inputErrorList.title}</span>
 
           <br />
           <br />
           <label id="type-admin" className="page__container-select">
-          <span className="page__help-title">دسته بندی محصول</span>
-            <br />
-            <select
-              className="page__select"
-              name="category"
-              value={product.category}
-              onChange={handelInput}
-            >
-              <option value={parseInt(product.category_id)}>
-                {product.category}
-              </option>
-              {categories.map((cat, index) => (
-                <option key={index} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
-            <span className="page__err">{inputErrorList.category}</span>
+            <span className="page__help-title">دسته بندی محصول</span>
+            <MySelect
+              data={categories}
+              onSelect={handleSelectCategory}
+              fieldTitle="name"
+              placeholder="انتخاب دسته بندی"
+              id="catecory"
+            />
+            {/* <input name="city" hidden/> */}
+            <span className="page__err">{inputErrorList.city}</span>
           </label>
           <br />
           <br />

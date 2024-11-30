@@ -13,8 +13,6 @@ export const InsertProduct = () => {
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
-  const [city,setCity] = useState({});
-
   const [product, setProduct] = useState({
     title: "",
     price: "",
@@ -41,8 +39,8 @@ export const InsertProduct = () => {
       fd.append("user_id", 1);
       fd.append("title", product.title);
       fd.append("price", product.price);
-      fd.append("city", city.id);
-      fd.append("province", city.province_id);
+      fd.append("city", product.city);
+      fd.append("province", product.province);
       fd.append("category", product.category);
       fd.append("discount", product.discount);
       fd.append("shipping_cost", product.shipping_cost);
@@ -102,14 +100,20 @@ export const InsertProduct = () => {
     }
   };
 
-  const handleSelect = (d) => {
-    console.log("mycity = ", d);
-    product.city = d.id;
-    product.province = d.province_id;
+  const handleSelectCity = (objCity) => {
+    console.log("mycity = ", objCity);
+    product.city = objCity.id;
+    product.province = objCity.province_id;
     console.log('product.city',product.city);
     console.log('product.province',product.province);
-    setCity(() => d);
   };
+
+  const handleSelectCategory = (objCat) => {
+    console.log("myCategory = ", objCat);
+    product.category = objCat.id;
+    console.log('product.category',product.category);
+
+  }
 
   useEffect(() => {
     fetchData();
@@ -129,7 +133,7 @@ export const InsertProduct = () => {
             <span className="page__help-title">شهر</span>
             <MySelect
               data={cities}
-              onSelect={handleSelect}
+              onSelect={handleSelectCity}
               fieldTitle="name"
               placeholder="انتخاب شهر"
               id="city"
@@ -150,44 +154,20 @@ export const InsertProduct = () => {
           />
           <span className="page__err">{inputErrorList.title}</span>
           <br />
-
-
           <br />
           <label id="type-admin" className="page__container-select">
             <span className="page__help-title">دسته بندی محصول</span>
             <MySelect
               data={categories}
-              onSelect={handleSelect}
+              onSelect={handleSelectCategory}
               fieldTitle="name"
               placeholder="انتخاب دسته بندی"
               id="catecory"
-
             />
             {/* <input name="city" hidden/> */}
             <span className="page__err">{inputErrorList.city}</span>
           </label>
 
-
-          {/* <hr />
-          <br />
-          <label id="type-admin" className="page__container-select">
-            <span className="page__help-title">دسته بندی محصول</span>
-            <br />
-            <select
-              className="page__select"
-              name="category"
-              value={product.category}
-              onChange={handelInput}
-            >
-              <option value={0}>انتخاب دسته بندی</option>
-              {categories.map((cat, index) => (
-                <option key={index} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
-            <span className="page__err">{inputErrorList.category}</span>
-          </label> */}
           <br />
           <br />
           <span className="page__help-title">عکس محصول</span>

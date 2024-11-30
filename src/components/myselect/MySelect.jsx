@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 import "./myselect.scss";
 
-const MySelect = ({ onSelect,data,fieldTitle = "title",defaultCity = {},placeholder = "",id}) => {
+const MySelect = ({ onSelect,data,fieldTitle = "title",defaultSelect = {},placeholder = "",id}) => {
   const [isOpen, setIsOpen] = useState(true);
   const [text,setText] = useState("");
   const [myData,setMyData] = useState([]);
@@ -60,7 +60,7 @@ const MySelect = ({ onSelect,data,fieldTitle = "title",defaultCity = {},placehol
   return (
     <div className="myselect" id={id}>
       <div className="myselect__input" onClick={openSearch}>
-        <input value={defaultCity ?  defaultCity.name : ""} id="select-input" placeholder={placeholder} onClick={openSearch} readOnly/>
+        <input value={defaultSelect ?  defaultSelect[fieldTitle] : ""} id="select-input" placeholder={placeholder} onClick={openSearch} readOnly/>
         <span className="myselect__arrow"></span>
       </div>
       <div className="myselect__area" onClick={startSearch}>
