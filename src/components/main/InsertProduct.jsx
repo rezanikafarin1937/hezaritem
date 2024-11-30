@@ -132,6 +132,7 @@ export const InsertProduct = () => {
               onSelect={handleSelect}
               fieldTitle="name"
               placeholder="انتخاب شهر"
+              id="city"
 
             />
             {/* <input name="city" hidden/> */}
@@ -159,6 +160,7 @@ export const InsertProduct = () => {
               onSelect={handleSelect}
               fieldTitle="name"
               placeholder="انتخاب دسته بندی"
+              id="catecory"
 
             />
             {/* <input name="city" hidden/> */}

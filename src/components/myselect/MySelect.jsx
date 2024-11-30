@@ -1,24 +1,25 @@
 import { useState,useEffect } from "react";
 import "./myselect.scss";
 
-const MySelect = ({ onSelect,data,fieldTitle = "title",defaultCity = {},placeholder = "",selector}) => {
+const MySelect = ({ onSelect,data,fieldTitle = "title",defaultCity = {},placeholder = "",id}) => {
   const [isOpen, setIsOpen] = useState(true);
   const [text,setText] = useState("");
   const [myData,setMyData] = useState([]);
+  const myroot = document.getElementById(id);
 
   const openSearch = (e) => {
     e.stopPropagation();
     e.preventDefault();
     setIsOpen(() => !isOpen);
     if (isOpen) {
-      document.querySelector(".myselect__area").style.opacity = "1";
-      document.querySelector(".myselect__area").style.height = "300px";
-      document.querySelector(".myselect__arrow").style.transform =
+      myroot.querySelector(".myselect__area").style.opacity = "1";
+      myroot.querySelector(".myselect__area").style.height = "300px";
+      myroot.querySelector(".myselect__arrow").style.transform =
         "rotate(180deg)";
     } else {
-      document.querySelector(".myselect__area").style.opacity = "0";
-      document.querySelector(".myselect__area").style.height = "0";
-      document.querySelector(".myselect__arrow").style.transform = "rotate(1deg)";
+      myroot.querySelector(".myselect__area").style.opacity = "0";
+      myroot.querySelector(".myselect__area").style.height = "0";
+      myroot.querySelector(".myselect__arrow").style.transform = "rotate(1deg)";
     }
   };
 
@@ -30,14 +31,14 @@ const MySelect = ({ onSelect,data,fieldTitle = "title",defaultCity = {},placehol
   };
 
   const emitSelect = (data) => {
-    document.querySelector("#select-input").value = data.name;
-    document.querySelector("#search-input").value = "";
+    myroot.querySelector("#select-input").value = data.name;
+    myroot.querySelector("#search-input").value = "";
     setText("");
     onSelect(data);
     setIsOpen(() => true);
-    document.querySelector(".myselect__area").style.opacity = "0";
-    document.querySelector(".myselect__area").style.height = "0";
-    document.querySelector(".myselect__arrow").style.transform = "rotate(0)";
+    myroot.querySelector(".myselect__area").style.opacity = "0";
+    myroot.querySelector(".myselect__area").style.height = "0";
+    myroot.querySelector(".myselect__arrow").style.transform = "rotate(0)";
   }
 
 
@@ -57,7 +58,7 @@ const MySelect = ({ onSelect,data,fieldTitle = "title",defaultCity = {},placehol
   },[text]);
 
   return (
-    <div className="myselect">
+    <div className="myselect" id={id}>
       <div className="myselect__input" onClick={openSearch}>
         <input value={defaultCity ?  defaultCity.name : ""} id="select-input" placeholder={placeholder} onClick={openSearch} readOnly/>
         <span className="myselect__arrow"></span>
