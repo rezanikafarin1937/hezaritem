@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getProduct } from "../../services/Service";
-import { Spinner, ImageUpload } from "../../components";
+import { Spinner, ImageUpload, MySelect } from "../../components";
 import axios from "axios";
 import PN from "persian-number";
 import { BaseURL, headers } from "../../Global/BaseUrl";
@@ -10,12 +9,11 @@ export const EditProduct = () => {
   const navigate = useNavigate();
   const { id: userId } = useParams();
 
-  const [inputErrorList, setInputErrorList] = useState({});
-  const [categories, setCategories] = useState([]);
-
   const [product, setProduct] = useState({
     id: null,
     title: "",
+    city: 0,
+    province: 0,
     shipping_cost: "",
     return: "",
     description: "",
@@ -27,13 +25,15 @@ export const EditProduct = () => {
     nameDeleteImages: [],
   });
 
-  const { id } = useParams();
-
   const [loading, setLoading] = useState(false);
   const [returnProduct, setReturnProduct] = useState(null);
   const [images, setImages] = useState([]);
   const [idDeleteImages, setIdDeleteImages] = useState([]);
   const [nameDeleteImages, setNameDeleteImages] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [city, setCity] = useState({});
+  const [inputErrorList, setInputErrorList] = useState({});
+  const [categories, setCategories] = useState([]);
 
   const getImage = (addImages, delImage) => {
     setImages(() => [...addImages]);
@@ -45,9 +45,6 @@ export const EditProduct = () => {
     });
   };
 
-  const removeImages = (delImage) => {
-    setIdDeleteImages(() => [...delImage]);
-  };
 
   const giveNameToOldImage = (image) => {
     let dot = image.name.indexOf(".");
@@ -61,37 +58,47 @@ export const EditProduct = () => {
     setReturnProduct(() => e.target.value);
   };
 
-  const featchData = async () => {
+
+  const fetchData = async () => {
     try {
       setLoading(true);
-      const { data: productData } = await getProduct(id);
-      setReturnProduct(() => productData.return);
-      setProduct(() => {
-        if (productData.image) {
-          productData.images.unshift({
-            id: 0,
-            product_id: productData.id,
-            address: productData.image,
-          });
-        }
-        let newState = { ...productData };
-        return newState;
-      });
-      setLoading(false);
+      await axios
+        .all([
+          axios.get(BaseURL + "/cities"),
+          axios.get(BaseURL + "/categories"),
+          axios.get(`${BaseURL}/products/show/${userId}`),
+        ])
+        .then(
+          axios.spread((res1, res2, res3) => {
+            setCities(() => [...res1.data]);
+            setCategories(() => [...res2.data]);
+
+            setReturnProduct(() => res3.data.return);
+            setProduct(() => {
+              if (res3.data.image) {
+                res3.data.images.unshift({
+                  id: 0,
+                  product_id: res3.data.id,
+                  address: res3.data.image,
+                });
+              }
+              let newState = { ...res3.data };
+              return newState;
+            });
+            setLoading(false);
+
+          })
+        );
     } catch (err) {
-      console.error(err.message);
+      console.log(err);
+    } finally {
       setLoading(false);
     }
   };
 
-  const fetchCategories = () => {
-    axios.get(BaseURL + "/categories").then((res) => {
-      setCategories([...res.data]);
-    });
-  };
+
   useEffect(() => {
-    featchData();
-    fetchCategories();
+    fetchData();
   }, []);
 
   const handelInput = (event) => {
@@ -121,7 +128,7 @@ export const EditProduct = () => {
           j++;
         }
       }
-      console.log('images in handleSubmit = ',images);
+      console.log("images in handleSubmit = ", images);
       for (let i = 0; i < idDeleteImages.length; i++) {
         fd.append("idDeleteImages[" + i + "]", idDeleteImages[i]);
         fd.append("nameDeleteImages[" + i + "]", nameDeleteImages[i]);
@@ -133,7 +140,6 @@ export const EditProduct = () => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-
       }).catch((err) => {
         if (err.response) {
           if (err.response.status === 422) {
@@ -153,6 +159,15 @@ export const EditProduct = () => {
     }
   };
 
+  const handleSelect = (d) => {
+    console.log("mycity = ", d);
+    product.city = d.id;
+    product.province = d.province_id;
+    console.log("product.city", product.city);
+    console.log("product.province", product.province);
+    setCity(() => d);
+  };
+
   return (
     <div className="page">
       {loading ? (
@@ -160,6 +175,19 @@ export const EditProduct = () => {
       ) : (
         <form className="page__box" onSubmit={handelSubmit}>
           <span className="page__title">ویرایش محصول</span>
+
+          <label id="type-admin" className="page__container-select">
+            <div className="page__title">موقعیت کارگاه</div>
+            <span className="page__help-title">شهر</span>
+            <MySelect
+              data={cities}
+              onSelect={handleSelect}
+              fieldTitle="name"
+              defaultTitle={product.city.name}
+            />
+            <span className="page__err">{inputErrorList.city}</span>
+          </label>
+
           <br />
           <br />
           <label id="type-admin" className="page__container-select">
