@@ -31,7 +31,7 @@ export const EditProduct = () => {
   const [idDeleteImages, setIdDeleteImages] = useState([]);
   const [nameDeleteImages, setNameDeleteImages] = useState([]);
   const [cities, setCities] = useState([]);
-  const [city, setCity] = useState({});
+  // const [city, setCity] = useState({});
   const [inputErrorList, setInputErrorList] = useState({});
   const [categories, setCategories] = useState([]);
 
@@ -115,6 +115,8 @@ export const EditProduct = () => {
       const fd = new FormData();
       fd.append("user_id", 1);
       fd.append("title", product.title);
+      fd.append("city", product.city);
+      fd.append("province", product.province);
       fd.append("price", product.price);
       fd.append("category", product.category_id);
       fd.append("discount", product.discount);
@@ -159,13 +161,15 @@ export const EditProduct = () => {
     }
   };
 
-  const handleSelect = (d) => {
-    console.log("mycity = ", d);
-    product.city = d.id;
-    product.province = d.province_id;
-    console.log("product.city", product.city);
-    console.log("product.province", product.province);
-    setCity(() => d);
+  const handleSelect = (objCity) => {
+    console.log("mycity = ", objCity);
+    setProduct(() => {
+      product.city = objCity.id;
+      product.province = objCity.province_id;
+      let newState = { ...product };
+      return newState;
+    });
+    console.log('EditProduct myCity = ',product)
   };
 
   return (
@@ -175,25 +179,26 @@ export const EditProduct = () => {
       ) : (
         <form className="page__box" onSubmit={handelSubmit}>
           <span className="page__title">ویرایش محصول</span>
+          <br />
+          <br />
 
           <label id="type-admin" className="page__container-select">
-            <div className="page__title">موقعیت کارگاه</div>
-            <span className="page__help-title">شهر</span>
+          <div className="page__help-title">موقعیت کارگاه</div>
+          <span className="page__help-title">شهر</span>
             <MySelect
               data={cities}
               onSelect={handleSelect}
               fieldTitle="name"
-              defaultTitle={product.city.name}
+              defaultCity={product.city}
             />
+            <span className="page__small-description">با انتخاب شهر به صورت خودکار استان شما نیز انخاب میشود</span>
             <span className="page__err">{inputErrorList.city}</span>
           </label>
 
           <br />
           <br />
           <label id="type-admin" className="page__container-select">
-            <span className="page__description">
-              محصول شما در کدام دسته بندی قرار دارد
-            </span>
+          <span className="page__help-title">دسته بندی محصول</span>
             <br />
             <select
               className="page__select"

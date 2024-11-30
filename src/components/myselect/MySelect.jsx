@@ -1,13 +1,14 @@
 import { useState,useEffect } from "react";
 import "./myselect.scss";
 
-const MySelect = ({ onSelect,data,fieldTitle = "title",defaultTitle = ""}) => {
+const MySelect = ({ onSelect,data,fieldTitle = "title",defaultCity = {},placeholder = "",selector}) => {
   const [isOpen, setIsOpen] = useState(true);
   const [text,setText] = useState("");
   const [myData,setMyData] = useState([]);
 
   const openSearch = (e) => {
     e.stopPropagation();
+    e.preventDefault();
     setIsOpen(() => !isOpen);
     if (isOpen) {
       document.querySelector(".myselect__area").style.opacity = "1";
@@ -58,7 +59,7 @@ const MySelect = ({ onSelect,data,fieldTitle = "title",defaultTitle = ""}) => {
   return (
     <div className="myselect">
       <div className="myselect__input" onClick={openSearch}>
-        <input value={defaultTitle} id="select-input" placeholder="انتخاب شهر" onClick={openSearch} readOnly/>
+        <input value={defaultCity ?  defaultCity.name : ""} id="select-input" placeholder={placeholder} onClick={openSearch} readOnly/>
         <span className="myselect__arrow"></span>
       </div>
       <div className="myselect__area" onClick={startSearch}>

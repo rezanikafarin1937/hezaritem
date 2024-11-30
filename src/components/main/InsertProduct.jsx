@@ -125,23 +125,51 @@ export const InsertProduct = () => {
           <hr />
           <br />
           <label id="type-admin" className="page__container-select">
-            <div className="page__title">موقعیت کارگاه</div>
+            <div className="page__help-title">موقعیت کارگاه</div>
             <span className="page__help-title">شهر</span>
             <MySelect
               data={cities}
               onSelect={handleSelect}
               fieldTitle="name"
+              placeholder="انتخاب شهر"
+
+            />
+            {/* <input name="city" hidden/> */}
+            <span className="page__small-description">با انتخاب شهر به صورت خودکار استان شما نیز انخاب میشود</span>
+            <span className="page__err">{inputErrorList.city}</span>
+          </label>
+          <br />
+          <span className="page__help-title">آدرس دقیق کارگاه</span>
+          <input
+            className="page__input"
+            name="title"
+            value={product.title}
+            onChange={handelInput}
+            placeholder="آدرس دقیق کارگاه"
+          />
+          <span className="page__err">{inputErrorList.title}</span>
+          <br />
+
+
+          <br />
+          <label id="type-admin" className="page__container-select">
+            <span className="page__help-title">دسته بندی محصول</span>
+            <MySelect
+              data={categories}
+              onSelect={handleSelect}
+              fieldTitle="name"
+              placeholder="انتخاب دسته بندی"
+
             />
             {/* <input name="city" hidden/> */}
             <span className="page__err">{inputErrorList.city}</span>
           </label>
 
-          <hr />
+
+          {/* <hr />
           <br />
           <label id="type-admin" className="page__container-select">
-            <span className="page__description">
-              محصول شما در کدام دسته بندی قرار دارد
-            </span>
+            <span className="page__help-title">دسته بندی محصول</span>
             <br />
             <select
               className="page__select"
@@ -157,7 +185,7 @@ export const InsertProduct = () => {
               ))}
             </select>
             <span className="page__err">{inputErrorList.category}</span>
-          </label>
+          </label> */}
           <br />
           <br />
           <span className="page__help-title">عکس محصول</span>
