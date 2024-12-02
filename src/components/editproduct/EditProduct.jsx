@@ -14,6 +14,7 @@ export const EditProduct = () => {
     title: "",
     city: 0,
     province: 0,
+    address : "",
     shipping_cost: "",
     return: "",
     description: "",
@@ -115,6 +116,7 @@ export const EditProduct = () => {
       fd.append("title", product.title);
       fd.append("city", product.city);
       fd.append("province", product.province);
+      fd.append("address", product.address);
       fd.append("price", product.price);
       fd.append("category", product.category);
       fd.append("discount", product.discount);
@@ -213,12 +215,12 @@ export const EditProduct = () => {
           <span className="page__help-title">آدرس دقیق کارگاه</span>
           <input
             className="page__input"
-            name="title"
-            // value={product.title}
+            name="address"
+            value={product.address}
             onChange={handelInput}
             placeholder="آدرس دقیق کارگاه"
           />
-          <span className="page__err">{inputErrorList.title}</span>
+          <span className="page__err">{inputErrorList.address}</span>
 
           <br />
           <br />

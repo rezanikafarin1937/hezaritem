@@ -18,6 +18,7 @@ export const InsertProduct = () => {
     price: "",
     city: 0,
     province: 0,
+    address : "",
     discount: "",
     shipping_cost: "",
     return: "",
@@ -41,6 +42,7 @@ export const InsertProduct = () => {
       fd.append("price", product.price);
       fd.append("city", product.city);
       fd.append("province", product.province);
+      fd.append("address", product.address);
       fd.append("category", product.category);
       fd.append("discount", product.discount);
       fd.append("shipping_cost", product.shipping_cost);
@@ -147,12 +149,13 @@ export const InsertProduct = () => {
           <span className="page__help-title">آدرس دقیق کارگاه</span>
           <input
             className="page__input"
-            name="title"
-            value={product.title}
+            name="address"
+            value={product.address}
             onChange={handelInput}
             placeholder="آدرس دقیق کارگاه"
           />
-          <span className="page__err">{inputErrorList.title}</span>
+          <span className="page__small-description">ثبت آدرس کارگاه صرفا جهت گرفتن کالا یا محصول تولیدی شما میباشد</span>
+          <span className="page__err">{inputErrorList.address}</span>
           <br />
           <br />
           <label id="type-admin" className="page__container-select">
