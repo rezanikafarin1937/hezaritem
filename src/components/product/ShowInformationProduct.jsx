@@ -30,7 +30,7 @@ const ShowInformationProduct = ({ data }) => {
       <div className="info__hr"></div>
       <div className="height-space"></div>
       <div>دسته بندی</div>
-      <span className="info__small-title">{data.category}</span>
+      <span className="info__small-title">{data.category_name}</span>
       <div className="height-space"></div>
       <div>قیمت</div>
       <span className="info__small-title">{price} تومان</span>

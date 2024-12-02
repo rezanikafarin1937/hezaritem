@@ -35,6 +35,7 @@ const MySelect = ({ onSelect,data,fieldTitle = "title",defaultSelect = {},placeh
     myroot.querySelector("#search-input").value = "";
     setText("");
     onSelect(data);
+    console.log("emitSelect = ",data);
     setIsOpen(() => true);
     myroot.querySelector(".myselect__area").style.opacity = "0";
     myroot.querySelector(".myselect__area").style.height = "0";
@@ -48,7 +49,7 @@ const MySelect = ({ onSelect,data,fieldTitle = "title",defaultSelect = {},placeh
   };
   
   const searchInputValueInData = () => {
-     let mydata =  data.filter(d => d.name.indexOf(text) > -1);
+     let mydata =  data.filter(d => d[fieldTitle].indexOf(text) > -1);
      setMyData(() => [...mydata]);
 
   }

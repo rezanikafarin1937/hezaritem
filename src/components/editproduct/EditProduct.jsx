@@ -31,7 +31,6 @@ export const EditProduct = () => {
   const [idDeleteImages, setIdDeleteImages] = useState([]);
   const [nameDeleteImages, setNameDeleteImages] = useState([]);
   const [cities, setCities] = useState([]);
-  // const [city, setCity] = useState({});
   const [inputErrorList, setInputErrorList] = useState({});
   const [categories, setCategories] = useState([]);
 
@@ -72,7 +71,6 @@ export const EditProduct = () => {
           axios.spread((res1, res2, res3) => {
             setCities(() => [...res1.data]);
             setCategories(() => [...res2.data]);
-
             setReturnProduct(() => res3.data.return);
             setProduct(() => {
               if (res3.data.image) {
@@ -118,7 +116,7 @@ export const EditProduct = () => {
       fd.append("city", product.city);
       fd.append("province", product.province);
       fd.append("price", product.price);
-      fd.append("category", product.category_id);
+      fd.append("category", product.category);
       fd.append("discount", product.discount);
       fd.append("shipping_cost", product.shipping_cost);
       fd.append("return", returnProduct ? returnProduct : product.return);
@@ -161,31 +159,29 @@ export const EditProduct = () => {
     }
   };
 
-  // const handleSelect = (objCity) => {
-  //   console.log("mycity = ", objCity);
-  //   setProduct(() => {
-  //     product.city = objCity.id;
-  //     product.province = objCity.province_id;
-  //     let newState = { ...product };
-  //     return newState;
-  //   });
-  //   console.log('EditProduct myCity = ',product)
-  // };
+
 
   const handleSelectCity = (objCity) => {
     console.log("mycity = ", objCity);
-    product.city = objCity.id;
-    product.province = objCity.province_id;
-    console.log('product.city',product.city);
-    console.log('product.province',product.province);
+    setProduct(() => {
+      product.city = objCity.id;
+      product.province = objCity.province_id;
+      let newState = { ...product };
+      return newState;
+    });
+    console.log('EditProduct myCity = ',product)
   };
 
   const handleSelectCategory = (objCat) => {
-    console.log("myCategory = ", objCat);
-    product.category = objCat.id;
-    console.log('product.category',product.category);
+    console.log("mycat = ", objCat);
+    setProduct(() => {
+      product.category = objCat.id;
+      let newState = { ...product };
+      return newState;
+    });
+    console.log('EditProduct myCity = ',product)
+  };
 
-  }
 
 
   return (
@@ -201,11 +197,11 @@ export const EditProduct = () => {
           <label id="type-admin" className="page__container-select">
           <div className="page__help-title">موقعیت کارگاه</div>
           <span className="page__help-title">شهر</span>
-            <MySelect
+          <MySelect
               data={cities}
               onSelect={handleSelectCity}
               fieldTitle="name"
-              defaultSelect={product.city}
+              defaultSelect={cities[product.city - 1]}
               placeholder="انتخاب شهر"
               id="city"
 
@@ -232,6 +228,7 @@ export const EditProduct = () => {
               data={categories}
               onSelect={handleSelectCategory}
               fieldTitle="name"
+              defaultSelect={categories[product.category - 1]}
               placeholder="انتخاب دسته بندی"
               id="catecory"
             />
