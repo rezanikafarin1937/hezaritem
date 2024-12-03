@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Spinner, ImageUpload, MySelect } from "../../components";
+import { Spinner, ImageUpload, MySelect,GoogleMap } from "../../components";
 import axios from "axios";
 import PN from "persian-number";
 import { BaseURL, config } from "../../Global/BaseUrl";
@@ -156,6 +156,11 @@ export const InsertProduct = () => {
           />
           <span className="page__small-description">ثبت آدرس کارگاه صرفا جهت گرفتن کالا یا محصول تولیدی شما میباشد</span>
           <span className="page__err">{inputErrorList.address}</span>
+          <br />
+          <br />
+          <div className="page__map">
+            <GoogleMap style={{width : "100%", height : "100%",position: "absolute"}}/>
+          </div>
           <br />
           <br />
           <label id="type-admin" className="page__container-select">

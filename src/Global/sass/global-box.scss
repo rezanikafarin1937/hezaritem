@@ -19,6 +19,15 @@
     }
   }
 
+  &__map{
+    width: 100%;
+    max-height: 300px ;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    position: relative;
+    
+  }
+
 
   &__btns {
     width: 100%;

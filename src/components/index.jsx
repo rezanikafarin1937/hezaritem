@@ -7,6 +7,7 @@ export { default as Product } from "./product/Product";
 export { default as Sidebar } from "./sidebar/Sidebar";
 export { default as MySelect} from "./myselect/MySelect";
 export { default as Manager } from "./user/manager/Manager";
+export { default as GoogleMap} from './google-map/GoogleMap';
 export { default as Register } from "./user/register/Register";
 export { default as EditUser } from "./user/edit-user/EditUser";
 export { default as ShowUser } from "./user/show-user/ShowUser";
