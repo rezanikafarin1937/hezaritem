@@ -1,0 +1,104 @@
+@import "../../../public/sass/colorpullet";
+.select-city {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 1rem;
+  direction: rtl;
+  transition: all .5s;
+
+  &__input {
+    position: relative;
+
+    input {
+      width: 100%;
+      align-items: center;
+      background-color: transparent;
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      height: 2.5rem;
+      outline: none;
+      text-align: right;
+      transition: border-color 0.36s ease;
+      padding: 0 1rem 0 2.5rem;
+      color: $color-description;
+      font-size: 12px;
+    }
+
+    &:focus {
+      border: 1px solid $active-hover;
+    }
+  }
+
+  &__provinces{
+    width: 100%;
+    height: 300px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    margin-top: 1rem;
+  }
+
+  &__province{
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    cursor: pointer;
+   
+  }
+
+  &__arrow{
+    position: absolute;
+    top : 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .5s;
+
+    &::after{
+        content: "";
+        width: 0.3rem;
+        height: 0.3rem;
+        border-left: 2px solid rgba(0, 0, 0, 0.4);
+        border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+        transform: rotate(45deg);
+    }
+  }
+
+
+  &__cities{
+    height: 0;
+    transition: all 0.5s;
+    overflow-y: scroll;
+    direction: rtl;
+    background-color: #eee;
+  }
+
+  &__parent{
+    margin : 1rem;
+  }
+
+  &__city{
+    margin: .5rem 0;
+  }
+
+  &__header{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: .5rem;
+  }
+
+  &__title{
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 14px;
+  }
+
+  &__delete{
+    color : $active-hover;
+    cursor: pointer;
+  }
+}

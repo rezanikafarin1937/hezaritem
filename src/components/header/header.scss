@@ -1,5 +1,9 @@
 @import "../../../public/sass/colorpullet.scss";
 
+html{
+  box-sizing: border-box;
+}
+
 .header {
   background-color: #fff;
   position: sticky;
@@ -17,6 +21,26 @@
     display: none;
   }
 
+
+  
+  &__select-city {
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+  
+  }
+
+  &__box {
+    width: 30%;
+  }
+
   &__section {
     display: flex;
     flex-direction: row-reverse;
@@ -29,10 +53,10 @@
     text-decoration: none;
     color: $color-description;
     padding: 0.5rem 1rem;
+    cursor: pointer;
   }
 
   &__space {
-    // padding: 0 0.5rem;
     padding: 0.5rem 1rem;
   }
 
@@ -41,7 +65,6 @@
       color: $active-hover;
     }
   }
-
 
   &__search {
     min-width: 400px;
