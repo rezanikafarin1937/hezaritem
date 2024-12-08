@@ -5,7 +5,7 @@
   border-radius: 4px;
   padding: 1rem;
   direction: rtl;
-  transition: all .5s;
+  transition: all 0.5s;
 
   &__input {
     position: relative;
@@ -32,7 +32,7 @@
     }
   }
 
-  &__provinces{
+  &__provinces {
     width: 100%;
     height: 300px;
     overflow-y: scroll;
@@ -40,65 +40,87 @@
     margin-top: 1rem;
   }
 
-  &__province{
+  &__province {
     width: 100%;
     border-bottom: 1px solid #eee;
     position: relative;
     cursor: pointer;
-   
   }
 
-  &__arrow{
+  &__arrow {
     position: absolute;
-    top : 0;
+    top: 0;
     left: 0;
     width: 30px;
     height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all .5s;
+    transition: all 0.5s;
 
-    &::after{
-        content: "";
-        width: 0.3rem;
-        height: 0.3rem;
-        border-left: 2px solid rgba(0, 0, 0, 0.4);
-        border-bottom: 2px solid rgba(0, 0, 0, 0.4);
-        transform: rotate(45deg);
+    &::after {
+      content: "";
+      width: 0.3rem;
+      height: 0.3rem;
+      border-left: 2px solid rgba(0, 0, 0, 0.4);
+      border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+      transform: rotate(45deg);
     }
   }
 
-
-  &__cities{
-    height: 0;
+  &__cities {
+    max-height: 240px;
     transition: all 0.5s;
     overflow-y: scroll;
     direction: rtl;
     background-color: #eee;
+    padding: 0 1rem;
+    border-radius: 4px;
   }
 
-  &__parent{
-    margin : 1rem;
+  &__parent {
+    margin: 1rem;
   }
 
-  &__city{
-    margin: .5rem 0;
+  &__city {
+    margin: 0.5rem 0;
   }
 
-  &__header{
+  &__header {
     display: flex;
     justify-content: space-between;
-    padding-bottom: .5rem;
   }
 
-  &__title{
+  &__title {
     color: rgba(0, 0, 0, 0.87);
     font-size: 14px;
   }
 
-  &__delete{
-    color : $active-hover;
+  &__delete {
+    color: $active-hover;
     cursor: pointer;
   }
+
+
+  &__balance{
+    border : none; 
+    padding:1rem 0;
+  }
+
+  input[type="checkbox"]{
+    width: 1.2rem;
+    border: none;
+    outline: none;
+  }
+
+  &__item{
+    padding: .5rem;
+    cursor: pointer;
+    transition: all .2s;
+
+    &:hover{
+      color: rgba(0, 0, 0, 0.8);
+    }
+  }
+
 }

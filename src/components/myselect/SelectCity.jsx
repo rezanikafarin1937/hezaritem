@@ -8,9 +8,12 @@ const SelectCity = () => {
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [dataCities, setDataCities] = useState([]);
   const [newData, setNewData] = useState([]);
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
+  const [showProvince, setShowProvince] = useState(true);
+  const [indexProvince, setIndexProvinve] = useState(0);
 
   const fetchData = async () => {
     try {
@@ -30,7 +33,10 @@ const SelectCity = () => {
               let province = p.name;
               let province_id = p.id;
               let cities = res1.data.filter((c) => p.id === c.province_id);
-              setData((d) => [...d, { province,province_id, cities: [...cities] }]);
+              setData((d) => [
+                ...d,
+                { province, province_id, cities: [...cities] },
+              ]);
             });
           })
         );
@@ -42,51 +48,18 @@ const SelectCity = () => {
     }
   };
 
-  const addToCities = (myProvince,provinceId, myCities) => {
-
-    myCities.map(city => {
-        let newdata = data.filter(d => d.province_id === city.province_id);
-        setNewData((d) => [...d,...newdata]);
-        console.log('newdata = ',newdata);
-    })
-
-    // setData(() => [...newData]);
-
-    // setData((d) =>[...d,...data.filter(d => d.province_id === provinceId)]);
-    // if (newData.length === 0) {
-    //   setNewData((nd) => [
-    //     ...nd,
-    //     { province: myProvince, cities: [...myCities] },
-    //   ]);
-    //   return;
-    // }
-    // let myFilter = newData.filter((nd) => nd.province == myProvince);
-    // if (myFilter === null) {
-    //   setNewData((nd) => [
-    //     ...nd,
-    //     { province: myProvince, cities: [...myCities] },
-    //   ]);
-    // }
-  };
   const searchInputValueInData = () => {
-    if (data.length > 0) {
-      data.map((d) => {
-        let myCities = d.cities.filter((city) => city.name.indexOf(text) > -1);
-        if (myCities) {
-          addToCities(d.province,d.province_id, myCities);
-            // setNewData((nd) => [...nd,{ province: d.province, cities: [...myCities] }]);
-        }
-        // console.log("newData = ", newData);
-      });
-        // setData((nd)=> [...nd,...newData]);
-    //     console.log("data = ", data);
-    // console.log("cities = ",cities);
-    // console.log("province =",provinces);
+    let myCities = cities.filter((city) => city.name.indexOf(text) > -1);
+    setDataCities(() => [...myCities]);
+    let elem = document.getElementById("province-header");
+    if (elem) {
+      elem.style.display = "none";
     }
   };
 
   useEffect(() => {
     fetchData();
+    setDataCities([...cities]);
   }, []);
 
   useEffect(() => {
@@ -94,21 +67,24 @@ const SelectCity = () => {
   }, [text]);
 
   const openCities = (index) => {
-    if (!open) {
-      document.getElementById("item" + index).style.height = "250px";
-      document.getElementById("arrow" + index).style.transform =
-        "rotate(-90deg)";
-      setOpen(true);
-    } else {
-      document.getElementById("item" + index).style.height = "0";
-      document.getElementById("arrow" + index).style.transform = "rotate(0)";
-      setOpen(false);
-    }
+    setShowProvince(false);
+    let myCities = cities.filter((city) => city.province_id === index + 1);
+    setDataCities([...myCities]);
+    setIndexProvinve(() => index);
+  };
+
+  const closeCities = (e) => {
+    e.stopPropagation();
+    setShowProvince(true);
   };
 
   const handleInput = (e) => {
     setText(() => e.target.value);
-    console.log("text = ", text);
+    setShowProvince(false);
+    if (e.target.value.length === 0) {
+      setShowProvince(true);
+    }
+    console.log("slect cities = ", cities);
   };
 
   return (
@@ -121,28 +97,44 @@ const SelectCity = () => {
         <input placeholder="جستجو" onChange={handleInput} />
       </div>
       <div className="select-city__provinces">
-        {data.map((d, index) => (
-          <div
-            className="select-city__province"
-            key={index}
-            onClick={() => openCities(index)}
-          >
-            <p>{d.province}</p>
-            <div className="select-city__arrow" id={"arrow" + index}></div>
-            <div className="select-city__cities" id={"item" + index}>
-              <div className="select-city__parent">
-                <div className="select-city__city">
-                  همه ی شهرهای استان {d.province}
-                </div>
-                {d.cities.map((c) => (
-                  <div className="select-city__city" key={c.id}>
-                    {c.name}
-                  </div>
-                ))}
+        {showProvince ? (
+          data.map((d, index) => (
+            <div
+              className="select-city__province"
+              key={index}
+              onClick={() => openCities(index)}
+            >
+              <p>{d.province}</p>
+              <div className="select-city__arrow"></div>
+            </div>
+          ))
+        ) : (
+          <div>
+            <div
+              className="select-city__header"
+              onClick={(e) => closeCities(e)}
+            >
+              <div
+                className="select-city__province select-city__balance"
+                id="province-header"
+              >
+                <span> استان {provinces[indexProvince].name}</span>
+                <div
+                  className="select-city__arrow"
+                  style={{ top: "1rem" }}
+                ></div>
               </div>
             </div>
+            <div className="select-city__cities">
+              {dataCities.map((c) => (
+                <div className="select-city__item">
+                  <input type="checkbox"/>
+                  <span key={c.id}>{c.name}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
