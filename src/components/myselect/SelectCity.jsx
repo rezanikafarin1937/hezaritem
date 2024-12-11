@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { BaseURL } from "../../Global/BaseUrl";
+import { SlideItems, Del, MultipliedBy, MyDelete } from "../../components";
 import "./select-city.scss";
 
 const SelectCity = () => {
@@ -9,11 +10,10 @@ const SelectCity = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [dataCities, setDataCities] = useState([]);
-  const [newData, setNewData] = useState([]);
-  const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
   const [showProvince, setShowProvince] = useState(true);
   const [indexProvince, setIndexProvinve] = useState(0);
+  const [selected, setSelected] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -87,12 +87,46 @@ const SelectCity = () => {
     console.log("slect cities = ", cities);
   };
 
+  const addToSelected = (city) => {
+    if(selected.length === 0){
+      setSelected((c) => [...c,city]);
+      console.log('مرحله اول');
+      return;
+    }else{
+      let test = selected.filter(s => s.id === city.id);
+      if(test.length === 0){
+        setSelected((c) => [...c, city]);
+        console.log('مرحله دوم',test);
+      }
+    }
+  };
+
+  const delInSelected = (city) => {
+    let del = selected.filter((s) => s.id !== city.id);
+    setSelected(() => [...del]);
+  };
+
   return (
     <div className="select-city">
       <header className="select-city__header">
         <p className="select-city__title">انتخاب شهر</p>
         <p className="select-city__delete">حذف همه</p>
       </header>
+      {selected.length === 0 ? (
+        <div style={{ marginBottom: "1rem" }}>حداقل یک شهر را انتخاب کنید.</div>
+      ) : (
+        <SlideItems>
+          {selected.map((h) => (
+            <span className="select-city__btn-select" key={h.id}>
+              {h.name}
+              <span style={{margin : "0 .5rem"}}></span>
+              <div className="select-city__delete" onClick={() => delInSelected(h)}>
+                <MyDelete width="9px" height="9px"/>
+              </div>
+            </span>
+          ))}
+        </SlideItems>
+      )}
       <div className="select-city__input">
         <input placeholder="جستجو" onChange={handleInput} />
       </div>
@@ -126,10 +160,20 @@ const SelectCity = () => {
               </div>
             </div>
             <div className="select-city__cities">
-              {dataCities.map((c) => (
+              {text.length === 0 ? (
                 <div className="select-city__item">
-                  <input type="checkbox"/>
-                  <span key={c.id}>{c.name}</span>
+                  <input type="checkbox" />
+                  <span>همه ی شهرهای {provinces[indexProvince].name}</span>
+                </div>
+              ) : null}
+              {dataCities.map((c) => (
+                <div
+                  key={c.id}
+                  className="select-city__item"
+                  onClick={() => addToSelected(c)}
+                >
+                  <input type="checkbox" />
+                  <span>{c.name}</span>
                 </div>
               ))}
             </div>

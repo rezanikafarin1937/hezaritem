@@ -39,6 +39,9 @@ html{
 
   &__box {
     width: 30%;
+    max-width: 30%;
+    position :fixed;
+
   }
 
   &__section {

@@ -1,0 +1,13 @@
+.slide-items{
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow-x: scroll;
+    scrollbar-color: transparent;
+    scrollbar-width:none;
+    scroll-behavior: smooth;
+    transition: all .2s;
+    margin-bottom: 1rem;
+    vertical-align: middle;
+
+}

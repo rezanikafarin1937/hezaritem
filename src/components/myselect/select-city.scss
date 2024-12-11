@@ -101,26 +101,42 @@
     cursor: pointer;
   }
 
-
-  &__balance{
-    border : none; 
-    padding:1rem 0;
+  &__balance {
+    border: none;
+    padding: 1rem 0;
   }
 
-  input[type="checkbox"]{
+  input[type="checkbox"] {
     width: 1.2rem;
     border: none;
     outline: none;
   }
 
-  &__item{
-    padding: .5rem;
+  &__item {
+    padding: 0.5rem;
     cursor: pointer;
-    transition: all .2s;
+    transition: all 0.2s;
 
-    &:hover{
+    &:hover {
       color: rgba(0, 0, 0, 0.8);
     }
+  }
+
+  &__btn-select {
+    border: 1px solid $active-hover;
+    background-color: rgb(255, 241, 241);
+    font-size: .75rem;
+    color: $active-hover;
+    border-radius: 20px;
+    padding: .25rem .5rem;
+    margin-left: 1rem;
+    display: inline;
+    white-space: nowrap;
+    user-select: none;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
 }
