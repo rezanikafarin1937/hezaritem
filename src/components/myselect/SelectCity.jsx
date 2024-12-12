@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { BaseURL } from "../../Global/BaseUrl";
-import { SlideItems, Del, MultipliedBy, MyDelete } from "../../components";
+import { SlideItems, MyDelete,CheckBox } from "../../components";
 import "./select-city.scss";
 
 const SelectCity = () => {
@@ -14,6 +14,7 @@ const SelectCity = () => {
   const [showProvince, setShowProvince] = useState(true);
   const [indexProvince, setIndexProvinve] = useState(0);
   const [selected, setSelected] = useState([]);
+  let findSelect = false;
 
   const fetchData = async () => {
     try {
@@ -97,6 +98,9 @@ const SelectCity = () => {
       if (test.length === 0) {
         setSelected((c) => [...c, city]);
         console.log("مرحله دوم", test);
+      }else if(test.length > 0){
+        let myfilter = selected.filter(s => s.id !== city.id);
+        setSelected(() => [...myfilter]);
       }
     }
   };
@@ -106,11 +110,15 @@ const SelectCity = () => {
     setSelected(() => [...del]);
   };
 
+  const deleteAllSelect = () => {
+    setSelected(() => []);
+  }
+
   return (
     <div className="select-city">
       <header className="select-city__header">
         <p className="select-city__title">انتخاب شهر</p>
-        <p className="select-city__delete">حذف همه</p>
+        <p className="select-city__delete" onClick={deleteAllSelect}>حذف همه</p>
       </header>
       <div className="select-city__parent-select">
         {selected.length === 0 ? (
@@ -169,7 +177,7 @@ const SelectCity = () => {
             <div className="select-city__cities">
               {text.length === 0 ? (
                 <div className="select-city__item">
-                  <input type="checkbox" />
+                  <CheckBox middle={selected.length > 0}/>
                   <span>همه ی شهرهای {provinces[indexProvince].name}</span>
                 </div>
               ) : null}
@@ -179,7 +187,8 @@ const SelectCity = () => {
                   className="select-city__item"
                   onClick={() => addToSelected(c)}
                 >
-                  <input type="checkbox" />
+                  {findSelect = selected.find(s => s.id === c.id) ? true : false}
+                  <CheckBox active={findSelect}/>
                   <span>{c.name}</span>
                 </div>
               ))}
@@ -190,7 +199,7 @@ const SelectCity = () => {
       <footer className="select-city__footer">
         <span className="mybtn mybtn__inactive mybtn__long">انصراف</span>
         <span className="mybtn__space"></span>
-        <span className="mybtn mybtn__active mybtn__long">تایید</span>
+        <span className={"mybtn mybtn__long " + (selected.length > 0 ? "mybtn__active" : "mybtn__noselect")}>تایید</span>
       </footer>
     </div>
   );

@@ -1,4 +1,3 @@
-export { default as Del } from "./icons/Del";
 export { default as Item } from "./item/Item";
 export { default as Header } from "./header/Header";
 export { default as Footer } from "./footer/Footer";
@@ -7,9 +6,9 @@ export { default as Confirm } from "./confirm/Confirm";
 export { default as Spinner } from "./spinner/Spinner";
 export { default as Product } from "./product/Product";
 export { default as Sidebar } from "./sidebar/Sidebar";
+export { default as CheckBox } from "./checkbox/CheckBox";
 export { default as MySelect } from "./myselect/MySelect";
 export { default as Manager } from "./user/manager/Manager";
-export { default as MultipliedBy } from "./icons/MultipliedBy";
 export { default as SelectCity } from "./myselect/SelectCity";
 export { default as Register } from "./user/register/Register";
 export { default as EditUser } from "./user/edit-user/EditUser";

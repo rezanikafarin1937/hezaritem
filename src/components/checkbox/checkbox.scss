@@ -1,0 +1,66 @@
+@import "../../../public/sass/colorpullet";
+.checkbox {
+  width: 1.12rem;
+  height: 1.12rem;
+  border: 1px solid #cac7c7;
+
+  &__active {
+    width: 1.12rem;
+    height: 1.12rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $active;
+    transition: all 0.5s;
+    border: none;
+
+    &:hover {
+      background-color: $active-hover;
+    }
+
+    &::before {
+      content: "";
+      width: 20%;
+      height: 40%;
+      border-right: 0.16rem solid #fff;
+      border-bottom: 0.16rem solid #fff;
+      transform: rotate(45deg);
+      position: relative;
+      bottom: 4%;
+      transition: all 0.5s;
+    }
+  }
+
+  &__middle {
+    @extend .checkbox__active;
+
+    &::before {
+        content: "";
+        width: 50%;
+        height: 0.01rem;
+        border-radius: 1px;
+        background-color: #fff;
+        transition: all 0.5s;
+        transform: rotate(0);
+        position: relative;
+        top : 4%;
+
+        animation-name: a;
+        animation-duration: .4s;
+        animation-timing-function: linear;
+        animation-iteration-count :initial;
+        }
+  
+    
+  }
+}
+
+@keyframes a {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

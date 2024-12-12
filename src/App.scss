@@ -70,6 +70,13 @@
     }
   }
 
+  &__noselect{
+    background-color: #eeecec;
+    box-shadow: none;
+    color: rgba(0, 0, 0, .22);
+    cursor: not-allowed;
+  }
+
   &__long{
     flex : 1 1 auto;
     text-align: center;
