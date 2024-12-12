@@ -88,15 +88,15 @@ const SelectCity = () => {
   };
 
   const addToSelected = (city) => {
-    if(selected.length === 0){
-      setSelected((c) => [...c,city]);
-      console.log('مرحله اول');
+    if (selected.length === 0) {
+      setSelected((c) => [...c, city]);
+      console.log("مرحله اول");
       return;
-    }else{
-      let test = selected.filter(s => s.id === city.id);
-      if(test.length === 0){
+    } else {
+      let test = selected.filter((s) => s.id === city.id);
+      if (test.length === 0) {
         setSelected((c) => [...c, city]);
-        console.log('مرحله دوم',test);
+        console.log("مرحله دوم", test);
       }
     }
   };
@@ -112,21 +112,28 @@ const SelectCity = () => {
         <p className="select-city__title">انتخاب شهر</p>
         <p className="select-city__delete">حذف همه</p>
       </header>
-      {selected.length === 0 ? (
-        <div style={{ marginBottom: "1rem" }}>حداقل یک شهر را انتخاب کنید.</div>
-      ) : (
-        <SlideItems>
-          {selected.map((h) => (
-            <span className="select-city__btn-select" key={h.id}>
-              {h.name}
-              <span style={{margin : "0 .5rem"}}></span>
-              <div className="select-city__delete" onClick={() => delInSelected(h)}>
-                <MyDelete width="9px" height="9px"/>
-              </div>
-            </span>
-          ))}
-        </SlideItems>
-      )}
+      <div className="select-city__parent-select">
+        {selected.length === 0 ? (
+          <div style={{ marginBottom: "1rem" }}>
+            حداقل یک شهر را انتخاب کنید.
+          </div>
+        ) : (
+          <SlideItems>
+            {selected.map((h) => (
+              <span className="select-city__btn-select" key={h.id}>
+                {h.name}
+                <span style={{ margin: "0 .5rem" }}></span>
+                <div
+                  className="select-city__delete"
+                  onClick={() => delInSelected(h)}
+                >
+                  <MyDelete width="9px" height="9px" />
+                </div>
+              </span>
+            ))}
+          </SlideItems>
+        )}
+      </div>
       <div className="select-city__input">
         <input placeholder="جستجو" onChange={handleInput} />
       </div>
@@ -155,7 +162,7 @@ const SelectCity = () => {
                 <span> استان {provinces[indexProvince].name}</span>
                 <div
                   className="select-city__arrow"
-                  style={{ top: "1rem" }}
+                  style={{ top: "1rem",transform : "rotate(-90deg)" }}
                 ></div>
               </div>
             </div>
@@ -180,6 +187,11 @@ const SelectCity = () => {
           </div>
         )}
       </div>
+      <footer className="select-city__footer">
+        <span className="mybtn mybtn__inactive mybtn__long">انصراف</span>
+        <span className="mybtn__space"></span>
+        <span className="mybtn mybtn__active mybtn__long">تایید</span>
+      </footer>
     </div>
   );
 };

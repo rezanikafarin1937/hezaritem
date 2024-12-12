@@ -8,7 +8,6 @@ html{
   background-color: #fff;
   position: sticky;
   top: 0;
-  padding: 1rem;
   z-index: 1;
   display: flex;
   justify-content: space-between;
@@ -38,8 +37,8 @@ html{
   }
 
   &__box {
-    width: 30%;
-    max-width: 30%;
+    width: 35%;
+    max-width: 35%;
     position :fixed;
 
   }

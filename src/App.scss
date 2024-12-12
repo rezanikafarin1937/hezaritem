@@ -29,7 +29,7 @@
 }
 
 .mybtn {
-  padding: 0.5rem 1rem; 
+  padding: 0.35rem 1rem; 
   border-radius: 4px;
   text-align: center;
   border: none;
@@ -68,6 +68,11 @@
     &:hover {
       background-color: #eee;
     }
+  }
+
+  &__long{
+    flex : 1 1 auto;
+    text-align: center;
   }
 
   &__space{
