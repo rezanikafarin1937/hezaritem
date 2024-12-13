@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { BaseURL } from "../../Global/BaseUrl";
-import { SlideItems, MyDelete,CheckBox } from "../../components";
+import { SlideItems, MyDelete, CheckBox } from "../../components";
 import "./select-city.scss";
 
 const SelectCity = () => {
@@ -98,8 +98,8 @@ const SelectCity = () => {
       if (test.length === 0) {
         setSelected((c) => [...c, city]);
         console.log("مرحله دوم", test);
-      }else if(test.length > 0){
-        let myfilter = selected.filter(s => s.id !== city.id);
+      } else if (test.length > 0) {
+        let myfilter = selected.filter((s) => s.id !== city.id);
         setSelected(() => [...myfilter]);
       }
     }
@@ -112,13 +112,22 @@ const SelectCity = () => {
 
   const deleteAllSelect = () => {
     setSelected(() => []);
-  }
+  };
+
+  const selectAllCities = () => {
+    let myCities = cities.filter(
+      (city) => city.province_id === indexProvince + 1
+    );
+    setSelected((c) => [...c, ...myCities]);
+  };
 
   return (
     <div className="select-city">
       <header className="select-city__header">
         <p className="select-city__title">انتخاب شهر</p>
-        <p className="select-city__delete" onClick={deleteAllSelect}>حذف همه</p>
+        <p className="select-city__delete" onClick={deleteAllSelect}>
+          حذف همه
+        </p>
       </header>
       <div className="select-city__parent-select">
         {selected.length === 0 ? (
@@ -170,14 +179,19 @@ const SelectCity = () => {
                 <span> استان {provinces[indexProvince].name}</span>
                 <div
                   className="select-city__arrow"
-                  style={{ top: "1rem",transform : "rotate(-90deg)" }}
+                  style={{ top: "1rem", transform: "rotate(-90deg)" }}
                 ></div>
               </div>
             </div>
             <div className="select-city__cities">
               {text.length === 0 ? (
-                <div className="select-city__item">
-                  <CheckBox middle={selected.length > 0}/>
+                <div className="select-city__item" onClick={selectAllCities}>
+                  <CheckBox
+                    middle={
+                      selected.length > 0 && selected.length < dataCities.length
+                    }
+                    active={selected.length >= dataCities.length}
+                  />
                   <span>همه ی شهرهای {provinces[indexProvince].name}</span>
                 </div>
               ) : null}
@@ -187,8 +201,12 @@ const SelectCity = () => {
                   className="select-city__item"
                   onClick={() => addToSelected(c)}
                 >
-                  {findSelect = selected.find(s => s.id === c.id) ? true : false}
-                  <CheckBox active={findSelect}/>
+                  {
+                    (findSelect = selected.find((s) => s.id === c.id)
+                      ? true
+                      : false)
+                  }
+                  <CheckBox active={findSelect} />
                   <span>{c.name}</span>
                 </div>
               ))}
@@ -199,7 +217,14 @@ const SelectCity = () => {
       <footer className="select-city__footer">
         <span className="mybtn mybtn__inactive mybtn__long">انصراف</span>
         <span className="mybtn__space"></span>
-        <span className={"mybtn mybtn__long " + (selected.length > 0 ? "mybtn__active" : "mybtn__noselect")}>تایید</span>
+        <span
+          className={
+            "mybtn mybtn__long " +
+            (selected.length > 0 ? "mybtn__active" : "mybtn__noselect")
+          }
+        >
+          تایید
+        </span>
       </footer>
     </div>
   );
