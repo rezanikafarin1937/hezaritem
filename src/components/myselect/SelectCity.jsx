@@ -3,6 +3,7 @@ import axios from "axios";
 import { BaseURL } from "../../Global/BaseUrl";
 import { SlideItems, MyDelete, CheckBox } from "../../components";
 import "./select-city.scss";
+import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 const SelectCity = () => {
   const [provinces, setProvinces] = useState([]);
@@ -14,7 +15,9 @@ const SelectCity = () => {
   const [showProvince, setShowProvince] = useState(true);
   const [indexProvince, setIndexProvinve] = useState(0);
   const [selected, setSelected] = useState([]);
+  const [selectProvince, setSelectProvince] = useState([]);
   let findSelect = false;
+  let allCities = [];
 
   const fetchData = async () => {
     try {
@@ -91,13 +94,13 @@ const SelectCity = () => {
   const addToSelected = (city) => {
     if (selected.length === 0) {
       setSelected((c) => [...c, city]);
-      console.log("مرحله اول");
+      console.log("مرحله اول", selected);
       return;
     } else {
       let test = selected.filter((s) => s.id === city.id);
       if (test.length === 0) {
         setSelected((c) => [...c, city]);
-        console.log("مرحله دوم", test);
+        console.log("مرحله دوم", selected);
       } else if (test.length > 0) {
         let myfilter = selected.filter((s) => s.id !== city.id);
         setSelected(() => [...myfilter]);
@@ -114,11 +117,32 @@ const SelectCity = () => {
     setSelected(() => []);
   };
 
+  const findInSelected = (city) => {
+    let myfind = selected.find((s) => s.id === city.id) ? true : false;
+    return myfind;
+  };
+
   const selectAllCities = () => {
+    setSelectProvince((p) => [...p, indexProvince + 1]);
     let myCities = cities.filter(
-      (city) => city.province_id === indexProvince + 1
+      (city) => city.province_id === indexProvince + 1 && !findInSelected(city)
     );
-    setSelected((c) => [...c, ...myCities]);
+    let myfind = selected.filter((f) => f.province_id === indexProvince + 1);
+    if (data[indexProvince].cities.length !== myfind.length) {
+      setSelected((c) => [...c, ...myCities]);
+    } else if (data[indexProvince].cities.length === myfind.length) {
+      let del = selected.filter((s) => s.province_id !== indexProvince + 1);
+      setSelected(() => [...del]);
+    }
+  };
+
+  const isSelectAllCityOfProvince = () => {
+    let mydata = data[indexProvince].cities.filter(
+      (c) => c.province_id === indexProvince + 1
+    );
+    let myselect = selected.filter((s) => s.province_id === indexProvince + 1);
+    console.log("mydata.len = ",mydata.length, " ,myselect.len = ",myselect.length);
+    return mydata.length === myselect.length;
   };
 
   return (
@@ -136,18 +160,18 @@ const SelectCity = () => {
           </div>
         ) : (
           <SlideItems>
-            {selected.map((h) => (
-              <span className="select-city__btn-select" key={h.id}>
-                {h.name}
-                <span style={{ margin: "0 .5rem" }}></span>
-                <div
-                  className="select-city__delete"
-                  onClick={() => delInSelected(h)}
-                >
-                  <MyDelete width="9px" height="9px" />
-                </div>
-              </span>
-            ))}
+             {selected.map((h) => (
+                  <span className="select-city__btn-select" key={h.id}>
+                    {h.name}
+                    <span style={{ margin: "0 .5rem" }}></span>
+                    <div
+                      className="select-city__delete"
+                      onClick={() => delInSelected(h)}
+                    >
+                      <MyDelete width="9px" height="9px" />
+                    </div>
+                  </span>
+                ))}
           </SlideItems>
         )}
       </div>
@@ -188,10 +212,20 @@ const SelectCity = () => {
                 <div className="select-city__item" onClick={selectAllCities}>
                   <CheckBox
                     middle={
-                      selected.length > 0 && selected.length < dataCities.length
+                      selected.filter(
+                        (f) => f.province_id === indexProvince + 1
+                      ).length < data[indexProvince].cities.length &&
+                      selected.filter(
+                        (f) => f.province_id === indexProvince + 1
+                      ).length > 0
                     }
-                    active={selected.length >= dataCities.length}
+                    active={
+                      selected.filter(
+                        (f) => f.province_id === indexProvince + 1
+                      ).length === data[indexProvince].cities.length
+                    }
                   />
+                  {console.log("active = ", selectProvince)}
                   <span>همه ی شهرهای {provinces[indexProvince].name}</span>
                 </div>
               ) : null}
