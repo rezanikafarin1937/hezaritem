@@ -3,10 +3,14 @@
   width: 100%;
   background-color: #fff;
   border-radius: 4px;
-  padding: 0 2rem 2rem 2rem;
+  padding: 0 2rem 4rem 2rem;
   direction: rtl;
   transition: all 0.5s;
   position: relative;
+
+  &__selected{
+    color : $active;
+  }
 
   &__footer{
     position:absolute;
@@ -84,11 +88,12 @@
   }
 
   &__cities {
-    max-height: 270px;
+    max-height: 300px;
     transition: all 0.5s;
     overflow-y: scroll;
     scrollbar-width: none;
     direction: rtl;
+    padding-bottom: 3rem;
   }
 
   &__parent {

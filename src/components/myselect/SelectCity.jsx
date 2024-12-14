@@ -113,6 +113,11 @@ const SelectCity = () => {
     setSelected(() => [...del]);
   };
 
+  const delAllCitiesThisProvince = () => {
+    let del = selected.filter((s) => s.province_id !== indexProvince + 1);
+    setSelected(() => [...del]);
+  };
+
   const deleteAllSelect = () => {
     setSelected(() => []);
   };
@@ -123,7 +128,7 @@ const SelectCity = () => {
   };
 
   const selectAllCities = () => {
-    setSelectProvince((p) => [...p, indexProvince + 1]);
+    // setSelectProvince((p) => [...p, indexProvince + 1]);
     let myCities = cities.filter(
       (city) => city.province_id === indexProvince + 1 && !findInSelected(city)
     );
@@ -141,8 +146,31 @@ const SelectCity = () => {
       (c) => c.province_id === indexProvince + 1
     );
     let myselect = selected.filter((s) => s.province_id === indexProvince + 1);
-    console.log("mydata.len = ",mydata.length, " ,myselect.len = ",myselect.length);
+    console.log(
+      "mydata.len = ",
+      mydata.length,
+      " ,myselect.len = ",
+      myselect.length
+    );
     return mydata.length === myselect.length;
+  };
+
+  const isSelectAllCityThisProvince = (select) => {
+    let myfind = selectProvince.find((p) => p === select.province_id);
+    if (myfind) {
+      return;
+    }
+    let mydata = data[select.province_id - 1].cities;
+    let myselect = selected.filter((s) => s.province_id === select.province_id);
+    if (mydata.length === myselect.length) {
+      setSelectProvince((p) => [...p, select.province_id]);
+    }
+    return mydata.length === myselect.length;
+  };
+
+  const isSelectAnyCityOfThisProvince = (d) => {
+    let myfind = selected.find((s) => s.province_id === d.province_id);
+    return myfind ? true : false;
   };
 
   return (
@@ -160,18 +188,21 @@ const SelectCity = () => {
           </div>
         ) : (
           <SlideItems>
-             {selected.map((h) => (
-                  <span className="select-city__btn-select" key={h.id}>
-                    {h.name}
-                    <span style={{ margin: "0 .5rem" }}></span>
-                    <div
-                      className="select-city__delete"
-                      onClick={() => delInSelected(h)}
-                    >
-                      <MyDelete width="9px" height="9px" />
-                    </div>
-                  </span>
-                ))}
+            {selected.map((s) => (
+              <span className="select-city__btn-select" key={s.id}>
+                {/* {isSelectAllCityThisProvince(s)
+                  ? " همه شهرهای " + provinces[s.province_id - 1].name
+                  : isSelectAllCityThisProvince(s)} */}
+                  {s.name}
+                <span style={{ margin: "0 .5rem" }}></span>
+                <div
+                  className="select-city__delete"
+                  onClick={() => delInSelected(s)}
+                >
+                  <MyDelete width="9px" height="9px" />
+                </div>
+              </span>
+            ))}
           </SlideItems>
         )}
       </div>
@@ -182,7 +213,12 @@ const SelectCity = () => {
         {showProvince ? (
           data.map((d, index) => (
             <div
-              className="select-city__province"
+              className={
+                "select-city__province " +
+                (isSelectAnyCityOfThisProvince(d)
+                  ? "select-city__selected"
+                  : "")
+              }
               key={index}
               onClick={() => openCities(index)}
             >
@@ -219,13 +255,8 @@ const SelectCity = () => {
                         (f) => f.province_id === indexProvince + 1
                       ).length > 0
                     }
-                    active={
-                      selected.filter(
-                        (f) => f.province_id === indexProvince + 1
-                      ).length === data[indexProvince].cities.length
-                    }
+                    active={isSelectAllCityOfProvince()}
                   />
-                  {console.log("active = ", selectProvince)}
                   <span>همه ی شهرهای {provinces[indexProvince].name}</span>
                 </div>
               ) : null}
