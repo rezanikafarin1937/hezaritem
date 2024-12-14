@@ -173,6 +173,10 @@ const SelectCity = () => {
     return myfind ? true : false;
   };
 
+  const handleShowSelected = () => {
+    console.log("Selectted = ",selected)
+  };
+
   return (
     <div className="select-city">
       <header className="select-city__header">
@@ -193,7 +197,7 @@ const SelectCity = () => {
                 {/* {isSelectAllCityThisProvince(s)
                   ? " همه شهرهای " + provinces[s.province_id - 1].name
                   : isSelectAllCityThisProvince(s)} */}
-                  {s.name}
+                {s.name}
                 <span style={{ margin: "0 .5rem" }}></span>
                 <div
                   className="select-city__delete"
@@ -283,6 +287,7 @@ const SelectCity = () => {
         <span className="mybtn mybtn__inactive mybtn__long">انصراف</span>
         <span className="mybtn__space"></span>
         <span
+          onClick={handleShowSelected}
           className={
             "mybtn mybtn__long " +
             (selected.length > 0 ? "mybtn__active" : "mybtn__noselect")
