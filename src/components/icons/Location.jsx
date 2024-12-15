@@ -1,4 +1,4 @@
-const Location = ({width = "20px",height="20px",color = "#000000"}) => {
+const Location = ({ width = "25px", height = "25px", color = "#000000" }) => {
   return (
     <>
       <svg

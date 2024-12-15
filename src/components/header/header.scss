@@ -29,6 +29,16 @@ html {
     background-image: url("../../components/icons/divar-logo.png");
   }
 
+  &__layer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__select-city {
     min-width: 100vw;
     min-height: 100vh;
@@ -68,18 +78,20 @@ html {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    border-radius: 4px;
   }
 
   &__select {
     a.active {
-      color: $active-hover;
+      color: $active;
     }
   }
 
   &__search {
     position: relative;
+    border-radius: 4px;
     input {
-      min-width: 400px;
+      min-width: 480px;
       border: none;
       outline: none;
       background-color: $search;
@@ -100,7 +112,7 @@ html {
     position: absolute;
     top: 0;
     left: 0;
-    width: 30px;
+    width: 40px;
     height: 100%;
     display: flex;
     justify-content: center;

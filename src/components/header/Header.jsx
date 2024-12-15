@@ -32,13 +32,13 @@ const Header = () => {
   };
   return (
     <header className="header">
-      {/* <div className="header__layer">
+      <div className="header__layer">
         <div className="header__select-city" onClick={closeSelectCity}>
           <div className="header__box" onClick={(e) => f(e)}>
             <SelectCity />
           </div>
         </div>
-      </div> */}
+      </div>
       <nav className="header__section">
         <span to="/register" className="header__logo"></span>
         <span
