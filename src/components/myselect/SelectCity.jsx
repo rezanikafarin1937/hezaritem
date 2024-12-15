@@ -3,7 +3,6 @@ import axios from "axios";
 import { BaseURL } from "../../Global/BaseUrl";
 import { SlideItems, MyDelete, CheckBox } from "../../components";
 import "./select-city.scss";
-import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 const SelectCity = () => {
   const [provinces, setProvinces] = useState([]);
@@ -17,7 +16,6 @@ const SelectCity = () => {
   const [selected, setSelected] = useState([]);
   const [selectProvince, setSelectProvince] = useState([]);
   let findSelect = false;
-  let allCities = [];
 
   const fetchData = async () => {
     try {
@@ -128,7 +126,6 @@ const SelectCity = () => {
   };
 
   const selectAllCities = () => {
-    // setSelectProvince((p) => [...p, indexProvince + 1]);
     let myCities = cities.filter(
       (city) => city.province_id === indexProvince + 1 && !findInSelected(city)
     );
@@ -156,15 +153,8 @@ const SelectCity = () => {
   };
 
   const isSelectAllCityThisProvince = (select) => {
-    let myfind = selectProvince.find((p) => p === select.province_id);
-    if (myfind) {
-      return;
-    }
     let mydata = data[select.province_id - 1].cities;
     let myselect = selected.filter((s) => s.province_id === select.province_id);
-    if (mydata.length === myselect.length) {
-      setSelectProvince((p) => [...p, select.province_id]);
-    }
     return mydata.length === myselect.length;
   };
 
