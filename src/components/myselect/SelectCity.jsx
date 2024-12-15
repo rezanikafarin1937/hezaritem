@@ -3,7 +3,6 @@ import axios from "axios";
 import { BaseURL } from "../../Global/BaseUrl";
 import { SlideItems, MyDelete, CheckBox } from "../../components";
 import "./select-city.scss";
-import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 const SelectCity = () => {
   const [provinces, setProvinces] = useState([]);
@@ -16,8 +15,8 @@ const SelectCity = () => {
   const [indexProvince, setIndexProvinve] = useState(0);
   const [selected, setSelected] = useState([]);
   const [selectProvince, setSelectProvince] = useState([]);
+  const [copySelected, setCopySelected] = useState([]);
   let findSelect = false;
-  let allCities = [];
 
   const fetchData = async () => {
     try {
@@ -94,16 +93,38 @@ const SelectCity = () => {
   const addToSelected = (city) => {
     if (selected.length === 0) {
       setSelected((c) => [...c, city]);
+      if (isSelectAllCityThisProvince(city)) {
+        setCopySelected((c) => [
+          ...c,
+          {
+            id: city.id,
+            province_id: city.province_id,
+            name: "همه شهر های " + provinces[city.province_id],
+          },
+        ]);
+      } else {
+        setCopySelected((c) => [...c, city]);
+      }
       console.log("مرحله اول", selected);
       return;
     } else {
       let test = selected.filter((s) => s.id === city.id);
       if (test.length === 0) {
         setSelected((c) => [...c, city]);
+        let copytest = copySelected.filter((s) => s.province_id === city.province_id);
+        if(copytest.length === 0){
+        if (isSelectAllCityThisProvince(city)) {
+          setCopySelected((c) => [...c,{id: city.id,province_id: city.province_id, name: "همه شهر های " + provinces[city.province_id],}]);
+        } else {
+          setCopySelected((c) => [...c, city]);
+        }
+      }
         console.log("مرحله دوم", selected);
       } else if (test.length > 0) {
         let myfilter = selected.filter((s) => s.id !== city.id);
+        let myCopyFilter = copySelected.filter(s => s.id !== city.id);
         setSelected(() => [...myfilter]);
+        setCopySelected(() => [...myCopyFilter]);
       }
     }
   };
@@ -111,15 +132,21 @@ const SelectCity = () => {
   const delInSelected = (city) => {
     let del = selected.filter((s) => s.id !== city.id);
     setSelected(() => [...del]);
-  };
+    let delCopy = copySelected.filter(s => s.province_id !== indexProvince + 1);
+    setCopySelected(() => [...delCopy]);
+    setSelected(() => [...delCopy]);
+   };
 
   const delAllCitiesThisProvince = () => {
     let del = selected.filter((s) => s.province_id !== indexProvince + 1);
     setSelected(() => [...del]);
+    let delCopy = copySelected.filter((s) => s.province_id !== indexProvince + 1);
+    setCopySelected(() => [...delCopy]);
   };
 
   const deleteAllSelect = () => {
     setSelected(() => []);
+    setCopySelected(() => []);
   };
 
   const findInSelected = (city) => {
@@ -128,16 +155,19 @@ const SelectCity = () => {
   };
 
   const selectAllCities = () => {
-    // setSelectProvince((p) => [...p, indexProvince + 1]);
     let myCities = cities.filter(
       (city) => city.province_id === indexProvince + 1 && !findInSelected(city)
     );
     let myfind = selected.filter((f) => f.province_id === indexProvince + 1);
     if (data[indexProvince].cities.length !== myfind.length) {
       setSelected((c) => [...c, ...myCities]);
+      setCopySelected((c) => [...c,{id:indexProvince + 1,province_id : indexProvince + 1,name : "همه شهرهای " + provinces[indexProvince].name}])
     } else if (data[indexProvince].cities.length === myfind.length) {
       let del = selected.filter((s) => s.province_id !== indexProvince + 1);
+      let copyDel = copySelected.filter((s) => s.province_id !== indexProvince + 1)
       setSelected(() => [...del]);
+      setCopySelected(() => [...copyDel])
+      // setCopySelected(() => [{id:indexProvince + 1,province_id : indexProvince + 1,name : "همه شهرهای " + provinces[indexProvince].name}])
     }
   };
 
@@ -156,15 +186,8 @@ const SelectCity = () => {
   };
 
   const isSelectAllCityThisProvince = (select) => {
-    let myfind = selectProvince.find((p) => p === select.province_id);
-    if (myfind) {
-      return;
-    }
     let mydata = data[select.province_id - 1].cities;
     let myselect = selected.filter((s) => s.province_id === select.province_id);
-    if (mydata.length === myselect.length) {
-      setSelectProvince((p) => [...p, select.province_id]);
-    }
     return mydata.length === myselect.length;
   };
 
@@ -188,12 +211,12 @@ const SelectCity = () => {
           </div>
         ) : (
           <SlideItems>
-            {selected.map((s) => (
-              <span className="select-city__btn-select" key={s.id}>
+            {copySelected.map((s,index) => (
+              <span className="select-city__btn-select" key={index}>
                 {/* {isSelectAllCityThisProvince(s)
                   ? " همه شهرهای " + provinces[s.province_id - 1].name
                   : isSelectAllCityThisProvince(s)} */}
-                  {s.name}
+                {s.name}
                 <span style={{ margin: "0 .5rem" }}></span>
                 <div
                   className="select-city__delete"
