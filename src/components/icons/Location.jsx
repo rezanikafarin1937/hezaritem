@@ -1,10 +1,17 @@
-const Location = () => {
+const Location = ({width = "20px",height="20px",color = "#000000"}) => {
   return (
     <>
       <svg
-        fill="#000000"
-        height="20px"
-        width="20px"
+        fill={color}
+        height={height}
+        width={width}
+        x="10"
+        y="10"        
+        stroke={color}
+        fill-opacity="0.5"
+        stroke-opacity="0.5"
+        stroke-width="5"
+
         version="1.1"
         id="Capa_1"
         xmlns="http://www.w3.org/2000/svg"
@@ -23,8 +30,9 @@ const Location = () => {
 		C8.44,24.468,9.185,13.08,15.235,7.031C18.479,3.787,22.792,2,27.38,2s8.901,1.787,12.146,5.031
 		C45.576,13.08,46.321,24.468,41.099,31.431z"
           />
+
         </g>
-      </svg>{" "}
+      </svg>
     </>
   );
 };

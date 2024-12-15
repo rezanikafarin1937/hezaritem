@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ImageUploadSvg from "./ImageUploadSvg";
+import {TrashCan} from "../../components";
 import "./image-upload.scss";
 
 const ImageUpload = ({ onUpload, PreviousPhotos = [] }) => {
@@ -52,7 +53,7 @@ const ImageUpload = ({ onUpload, PreviousPhotos = [] }) => {
               <img src={file.old ? file.name : createObjectUrl(file)} />
               <div className="upload__overlay">
                 <div
-                  className="upload__del-btn"
+                  // className="upload__del-btn"
                   onClick={() => {
                     setDelFiles(() =>
                       files.filter((f, i) => {
@@ -69,7 +70,9 @@ const ImageUpload = ({ onUpload, PreviousPhotos = [] }) => {
                       })
                     );
                   }}
-                ></div>
+                >
+                  <TrashCan width="2rem" height="2rem" color="#eee"/>
+                </div>
               </div>
             </div>
           );

@@ -2,7 +2,7 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { updateSearch } from "../../slices/searchSlice";
-import { SelectCity } from "../../components";
+import { SelectCity, Location,SearchIcon } from "../../components";
 import "./header.scss";
 
 const Header = () => {
@@ -32,23 +32,25 @@ const Header = () => {
   };
   return (
     <header className="header">
-      <div className="header__layer">
+      {/* <div className="header__layer">
         <div className="header__select-city" onClick={closeSelectCity}>
           <div className="header__box" onClick={(e) => f(e)}>
             <SelectCity />
           </div>
         </div>
-      </div>
+      </div> */}
       <nav className="header__section">
-        <span to="/register" className="header__btn-nav">
-          لوگو
-        </span>
+        <span to="/register" className="header__logo"></span>
         <span
           onClick={openSelectCity}
           to="/register"
-          className="header__btn-nav header__space"
+          className="header__btn-nav header__btn-city"
         >
-          اراک
+          <span>اراک</span>
+          <span style={{ marginLeft: ".25rem" }}></span>
+          <span style={{ position: "relative", top: ".25rem" }}>
+            <Location width="1rem" height="1rem" color={"rgba(0, 0, 0, .56)"} />
+          </span>
         </span>
         <div
           onClick={() => selector(0)}
@@ -59,12 +61,17 @@ const Header = () => {
           </NavLink>
         </div>
         <span style={{ marginRight: "1rem" }}></span>
-        <input
-          value={text}
-          className="header__search"
-          placeholder="جستجو"
-          onChange={(e) => dispatch(updateSearch(e.target.value))}
-        />
+        <span className="header__search">
+          <input
+            value={text}
+            className="header__search"
+            placeholder="جستجو"
+            onChange={(e) => dispatch(updateSearch(e.target.value))}
+          />
+          <span className="header__search-icon">
+            <SearchIcon width=".85rem" height=".85rem" color={"rgba(0, 0, 0, .56)"}/>
+          </span>
+        </span>
       </nav>
       <nav className="header__section">
         <span

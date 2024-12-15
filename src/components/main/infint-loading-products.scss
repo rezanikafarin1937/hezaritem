@@ -5,10 +5,10 @@
   flex-direction: row-reverse;
   text-align: right;
   min-height: 100vh;
+  background-color: $background;
 
   &__sidebar {
     max-height: 100vh;
-    background-color: $sidebar;
     flex: 0 0 16%;
     position: sticky;
     top: 0;
