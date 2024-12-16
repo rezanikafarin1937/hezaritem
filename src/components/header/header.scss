@@ -21,6 +21,18 @@ html {
     display: none;
   }
 
+  &__balance {
+    // background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    color : $color-description;
+
+  }
+
   &__logo {
     width: 3rem;
     height: 3rem;
@@ -29,11 +41,11 @@ html {
     background-image: url("../../components/icons/divar-logo.png");
   }
 
-  &__layer{
+  &__layer {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(0,0,0,.4);
+    background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,8 +81,6 @@ html {
   &__btn-nav {
     text-decoration: none;
     color: $color-description;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
   }
 
   &__btn-city {

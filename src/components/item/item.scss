@@ -7,9 +7,9 @@
   background-color: $background;
   display: flex;
   flex-direction: row-reverse;
-  width: calc(100% - 2rem);
+  width: calc(100% - 1rem);
   max-height: 10rem;
-  margin: 1rem;
+  margin: .5rem;
   box-shadow: 1px 1px 10px $border;
   cursor: pointer;
   text-decoration: none;
@@ -17,11 +17,11 @@
   transition: all .5s;
 
   @media (max-width : 1024px) and (min-width : 426px){
-    width: calc(50% - 2rem);
+    width: calc(50% - 1rem);
   }
 
   @media (min-width : 1025px){
-    width: calc(33.333% - 2rem);
+    width: calc(33.333% - 1rem);
 
   }
 

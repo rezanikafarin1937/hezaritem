@@ -2,7 +2,16 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { updateSearch } from "../../slices/searchSlice";
-import { SelectCity, Location,SearchIcon } from "../../components";
+import {
+  SelectCity,
+  Location,
+  SearchIcon,
+  UserIcon,
+  UsersIcon,
+  Home,
+  Support,
+  Language
+} from "../../components";
 import "./header.scss";
 
 const Header = () => {
@@ -41,25 +50,23 @@ const Header = () => {
       </div>
       <nav className="header__section">
         <span to="/register" className="header__logo"></span>
-        <span
-          onClick={openSelectCity}
-          to="/register"
-          className="header__btn-nav header__btn-city"
-        >
+        <span className="header__balance" onClick={openSelectCity}>
           <span>اراک</span>
           <span style={{ marginLeft: ".25rem" }}></span>
-          <span style={{ position: "relative", top: ".25rem" }}>
-            <Location width="1rem" height="1rem" color={"rgba(0, 0, 0, .56)"} />
-          </span>
+          <Location width="1rem" height="1rem" color={"rgba(0, 0, 0, .56)"} />
         </span>
-        <div
+        {/* <div
+          className={
+            "header__balance" + (numberLink === 0 ? "header__select" : "")
+          }
           onClick={() => selector(0)}
-          className={numberLink === 0 ? "header__select" : ""}
-        >
-          <NavLink to="/" className="header__btn-nav header__space">
-            صفحه اصلی
-          </NavLink>
-        </div>
+        ></div> */}
+        <NavLink to="/" className="header__balance">
+          <span>صفحه اصلی</span> 
+          <span style={{ marginLeft: ".25rem" }}></span>
+          <Home width="1rem" height="1rem" color={"rgba(0, 0, 0, .56)"} />
+
+        </NavLink>
         <span style={{ marginRight: "1rem" }}></span>
         <span className="header__search">
           <input
@@ -69,33 +76,51 @@ const Header = () => {
             onChange={(e) => dispatch(updateSearch(e.target.value))}
           />
           <span className="header__search-icon">
-            <SearchIcon width=".85rem" height=".85rem" color={"rgba(0, 0, 0, .56)"}/>
+            <SearchIcon
+              width=".85rem"
+              height=".85rem"
+              color={"rgba(0, 0, 0, .4)"}
+            />
           </span>
         </span>
       </nav>
       <nav className="header__section">
-        <span
+        {/* <span
           onClick={() => selector(1)}
           className={numberLink === 1 ? "header__select" : ""}
         >
-          <NavLink to="/" className="header__btn-nav header__space">
-            محصولات
-          </NavLink>
-        </span>
-        <span
+        </span> */}
+
+
+        {/* <span
           onClick={() => selector(2)}
-          className={numberLink === 2 ? "header__select" : ""}
+          className={
+            "header__balance" + (numberLink === 2 ? "header__select" : "")
+          }
         >
-          <NavLink to="/general" className="header__btn-nav header__space">
-            تولیدکنندگان
-          </NavLink>
-        </span>
-        <span to="/register" className="header__btn-nav header__space">
-          تولید من
-        </span>
-        <span to="/register" className="header__btn-nav header__space">
-          پشتیبانی
-        </span>
+        </span> */}
+        <NavLink to="/general" className="header__balance">
+          <span>تولیدکنندگان</span>
+          <span style={{ marginLeft: ".25rem" }}></span>
+          <UsersIcon width="1rem" height="1rem" color="rgba(0,0,0,.56)" />
+        </NavLink>
+        <NavLink className="header__balance">
+          <span>تولید من</span>
+          <span style={{ marginLeft: ".25rem" }}></span>
+          <UserIcon width="1rem" height="1rem" color="rgba(0,0,0,.56)" />
+        </NavLink>
+        <NavLink className="header__balance">
+          <span>پشتیبانی</span>
+          <span style={{ marginLeft: ".25rem" }}></span>
+          <Support width="1rem" height="1rem" color="rgba(0,0,0,.56)" />
+        </NavLink>
+
+        <NavLink to="/" className="header__balance">
+          <span>فارسی</span>
+          <span style={{ marginLeft: ".25rem" }}></span>
+          <Language width="1rem" height="1rem" color={"rgba(0, 0, 0, .56)"} />
+        </NavLink>
+
 
         <span onClick={() => selector(3)}>
           <Link to="/insert-product" className="mybtn mybtn__active">

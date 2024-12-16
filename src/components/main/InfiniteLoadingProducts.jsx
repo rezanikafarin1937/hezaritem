@@ -68,26 +68,22 @@ const InfiniteLoadingProducts = () => {
       refreshPage();
     }
   }, [text]);
-  
+
   useEffect(() => {
-    if(catId > 0){
+    if (catId > 0) {
       setTotalData(() => []);
       setStateCatId(() => true);
       setPage(1);
       fetchData();
     }
-    if(stateCatId && catId === 0){
+    if (stateCatId && catId === 0) {
       setStateCatId(() => false);
       setTotalData(() => []);
       refreshPage();
     }
-
-
-
   }, [catId]);
 
   useEffect(() => {
- 
     fetchData();
   }, [page]);
 
@@ -109,9 +105,9 @@ const InfiniteLoadingProducts = () => {
       <div className="main__sidebar">
         <Sidebar />
       </div>
-
       <div className="main__items">
-        {isLoading ? (
+      <p style={{position : "fixed", top: 0,right:0}}>انواع آگهی‌ها و نیازمندی های اراک</p>
+      {isLoading ? (
           <Spinner />
         ) : (
           <>
