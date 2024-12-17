@@ -105,16 +105,23 @@ const InfiniteLoadingProducts = () => {
       <div className="main__sidebar">
         <Sidebar />
       </div>
-      <div className="main__items">
-      {isLoading ? (
-          <Spinner />
-        ) : (
-          <>
-            {totalData.map((data, index) => (
-              <Item key={index} data={data} />
-            ))}
-          </>
-        )}
+      <div className="main__parent-items">
+        <div className="main__header-items">
+          <span className="main__small-title">
+             تولیدآباد سایت ثبت و فروش محصولات تولیدکنندگان خردو کلان
+          </span>
+        </div>
+        <div className="main__items">
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <>
+              {totalData.map((data, index) => (
+                <Item key={index} data={data} />
+              ))}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

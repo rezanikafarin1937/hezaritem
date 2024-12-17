@@ -3,8 +3,8 @@
   text-align: right;
   direction: rtl;
   background-color: $background;
-  scrollbar-color: transparent;
   position: relative;
+  width: 95%;
 
 
   &__active{
@@ -24,6 +24,7 @@
     display: flex;
     align-items: center;
     border-radius: 4px;
+    padding: 0 2rem;
 
     &:hover{
       background-color: #eee;
