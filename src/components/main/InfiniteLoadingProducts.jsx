@@ -3,9 +3,10 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDebounce } from "../../customHooks/useDebounce";
-import Spinner from "../spinner/Spinner";
-import Sidebar from "../sidebar/Sidebar";
-import Item from "../item/Item";
+import { Spinner,Sidebar,Item,ProductCard} from "../../components";
+// import Spinner from "../spinner/Spinner";
+// import Sidebar from "../sidebar/Sidebar";
+// import Item from "../item/Item";
 import { BaseURL, config } from "../../Global/BaseUrl";
 import "./infint-loading-products.scss";
 
@@ -117,7 +118,7 @@ const InfiniteLoadingProducts = () => {
           ) : (
             <>
               {totalData.map((data, index) => (
-                <Item key={index} data={data} />
+                <ProductCard key={index} data={data} />
               ))}
             </>
           )}
