@@ -1,3 +1,4 @@
+import "./icons.scss";
 const TrashCan = ({width = "1.25rem",height = "1.25rem", color = "#000000"}) => {
   return (
     <>

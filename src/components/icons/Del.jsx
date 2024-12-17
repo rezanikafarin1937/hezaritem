@@ -1,3 +1,4 @@
+import "./icons.scss";
 const Del = () => {
   return (
     <div style={{cursor : "pointer"}}>

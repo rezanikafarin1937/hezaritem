@@ -1,3 +1,4 @@
+import "./icons.scss";
 const Digital = ({ width = "30px", height = "30px", color = "#000000" }) => {
     return(
         <>

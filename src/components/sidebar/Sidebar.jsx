@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BaseURL } from "../../Global/BaseUrl";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   AllProduct,
   Clothing,
@@ -18,13 +18,14 @@ import {
   Invention,
   Base,
   Medicine,
-  Exception
+  Exception,
 } from "../../components";
 import "./sidebar.scss";
 
 const Sidebar = () => {
   const [categories, setCategories] = useState([]);
   const [categoryId, setCategoryId] = useState(0);
+  let navigation = useNavigate();
 
   const getCategories = () => {
     axios.get(`${BaseURL}/categories`).then((res) => {
@@ -34,6 +35,11 @@ const Sidebar = () => {
 
   const handleCategoryId = (catId) => {
     setCategoryId(() => catId);
+    if (catId === 0) {
+      navigation("/");
+    } else {
+      navigation(`/${catId}`);
+    }
   };
 
   useEffect(() => {
@@ -48,33 +54,188 @@ const Sidebar = () => {
           <li
             key={index}
             className={
-              "sidebar__parent-cat " + (cat.id == categoryId ? "active" : "")
+              "sidebar__parent-cat " + (cat.id === categoryId ? "sidebar__active" : "")
             }
             onClick={() => handleCategoryId(cat.id)}
           >
-            {index === 0 ? <AllProduct color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 1 ? <Food color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 2 ? <Clothing color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 3 ? <Shoes color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 4 ? <Kitchen color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 5 ? <Carpet color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 6 ? <Sport color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 7 ? <BookIcon color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 8 ? <Digital color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 9 ? <Industry color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 10 ? <Brick color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 11 ? <Software color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 12 ? <Invention color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 13 ? <Base color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 14 ? <Medicine color="rgba(0, 0, 0, 0.56)" /> : ""}
-            {index === 15 ? <Exception color="rgba(0, 0, 0, 0.56)" /> : ""}
+            {index === 0 ? (
+              <AllProduct
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 1 ? (
+              <Food
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 2 ? (
+              <Clothing
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0, 0, 0, 0.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 3 ? (
+              <Shoes
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 4 ? (
+              <Kitchen
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 5 ? (
+              <Carpet
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 6 ? (
+              <Sport
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 7 ? (
+              <BookIcon
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 8 ? (
+              <Digital
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 9 ? (
+              <Industry
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 10 ? (
+              <Brick
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 11 ? (
+              <Software
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 12 ? (
+              <Invention
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 13 ? (
+              <Base
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 14 ? (
+              <Medicine
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
+            {index === 15 ? (
+              <Exception
+                color={
+                  cat.id === categoryId
+                    ? "rgba(0,0,0,.8)"
+                    : "rgba(0, 0, 0, 0.56)"
+                }
+              />
+            ) : (
+              ""
+            )}
             <span style={{ marginLeft: ".5rem" }}></span>
-            <NavLink
-              className="sidebar__cat"
-              to={cat.id == 0 ? "/" : `/${cat.id}`}
-            >
-              {cat.name}
-            </NavLink>
+            <span>{cat.name}</span>
           </li>
         ))}
       </ul>

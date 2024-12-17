@@ -106,7 +106,6 @@ const InfiniteLoadingProducts = () => {
         <Sidebar />
       </div>
       <div className="main__items">
-      <p style={{position : "fixed", top: 0,right:0}}>انواع آگهی‌ها و نیازمندی های اراک</p>
       {isLoading ? (
           <Spinner />
         ) : (

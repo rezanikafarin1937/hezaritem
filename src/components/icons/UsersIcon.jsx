@@ -1,3 +1,4 @@
+import "./icons.scss";
 const UsersIcon = ({ width = "25px", height = "25px", color = "#000000" }) => {
   return (
     <>

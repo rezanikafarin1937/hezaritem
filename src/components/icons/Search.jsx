@@ -1,3 +1,4 @@
+import "./icons.scss";
 const Search = () => {
   return (
     <>

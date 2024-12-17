@@ -1,3 +1,4 @@
+import "./icons.scss";
 const Software = ({ width = "20px", height = "20px", color = "#000000" }) => {
   return (
     <>

@@ -8,7 +8,7 @@ html {
   background-color: $background;
   position: sticky;
   top: 0;
-  padding: 1rem;
+  padding: 1rem 2rem;
   z-index: 1;
   display: flex;
   justify-content: space-between;
@@ -22,7 +22,6 @@ html {
   }
 
   &__balance {
-    // background-color: #eee;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,6 +29,17 @@ html {
     cursor: pointer;
     text-decoration: none;
     color : $color-description;
+    white-space: nowrap;
+    transition: all .4s;
+    border-radius: 4px;
+
+    &:hover{
+      background-color: #eee;
+    }
+
+    @media (max-width : 1324px) {
+      display: none;
+    }
 
   }
 
@@ -39,6 +49,7 @@ html {
     background-position: center;
     background-size: cover;
     background-image: url("../../components/icons/divar-logo.png");
+
   }
 
   &__layer {
@@ -76,6 +87,7 @@ html {
     flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
+    
   }
 
   &__btn-nav {
@@ -101,7 +113,7 @@ html {
     position: relative;
     border-radius: 4px;
     input {
-      min-width: 480px;
+      width: 480px;
       border: none;
       outline: none;
       background-color: $search;
@@ -111,11 +123,12 @@ html {
       min-height: 40px;
       padding-right: 1rem;
       z-index: -1;
-    }
 
-    @media (max-width: 1024px) {
-      min-width: 300px;
-    }
+      @media (max-width: 1023px) {
+        width: 300px;
+      }
+      }
+
   }
 
   &__search-icon {
