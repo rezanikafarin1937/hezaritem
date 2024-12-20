@@ -31,7 +31,7 @@ const InfiniteLoadingProducts = () => {
         BaseURL + "/products/" + `${catId}?title=${text}&page=${page}`,
         config
       );
-      console.log("res= ", response.data);
+      console.log("res= ", response.data.category_name);
       setTotalData((oldData) => [...oldData, ...response.data.data]);
       setVisible((prev) => prev + response.data.per_page);
       setNumberOfData(response.data.total);

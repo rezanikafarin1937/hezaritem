@@ -11,9 +11,8 @@
 .wrapper {
   margin: 0 2rem;
 
-  @media (max-width : 770px) {
+  @media (max-width: 770px) {
     margin: 0;
-
   }
 }
 
@@ -22,7 +21,7 @@
   justify-content: space-between;
 }
 
-.center-element{
+.center-element {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,15 +29,15 @@
 
 .mybtn {
   height: 40px;
-  padding: 0.5rem 1rem; 
+  padding: 0.5rem 1rem;
   border-radius: 4px;
   text-align: center;
   border: none;
-  font-size: .9rem;
+  font-size: 0.9rem;
   cursor: pointer;
   text-decoration: none;
   color: $color-btn;
-  transition: all .2s;
+  transition: all 0.2s;
 
   &__sucsess {
     background-color: #9999;
@@ -52,13 +51,12 @@
   &__logo {
     background-color: $background;
     color: $text;
-    border-left: 2px solid  $border;
-
+    border-left: 2px solid $border;
   }
   &__active {
     background-color: $active;
     color: white;
-    &:hover{
+    &:hover {
       background-color: $active-hover;
     }
   }
@@ -71,22 +69,50 @@
     }
   }
 
-  &__noselect{
+  &__noselect {
     background-color: #eeecec;
     box-shadow: none;
-    color: rgba(0, 0, 0, .22);
+    color: rgba(0, 0, 0, 0.22);
     cursor: not-allowed;
   }
 
-  &__long{
-    flex : 1 1 auto;
+  &__long {
+    flex: 1 1 auto;
     text-align: center;
   }
 
-  &__space{
-    margin : 0 .5rem;
+  &__space {
+    margin: 0 0.5rem;
   }
+}
 
+.btn-price {
+  width: 100%;
+  height: 2rem;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: .8rem;
+  color : #fff;
+
+  &__left {
+    width: 50%;
+    background-color: $active;
+    color: #fff;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    text-align: center;
+    padding-bottom: 1px;
+    }
+
+  &__right {
+    width: 50%;
+    background-color: blue;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    text-align: center;
+    }
 }
 
 .input-box {
