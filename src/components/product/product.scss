@@ -105,6 +105,7 @@
     transition: all 0.5s;
   }
 
+
   &__image {
     width: 70%;
     height: 100%;
@@ -116,6 +117,11 @@
     cursor: -moz-zoom-in;
     cursor: -webkit-zoom-in;
     cursor: zoom-in;
+    border-radius: 4px;
+
+    @media (max-width:768px) {
+      width: 100%;
+    }
   }
 
   &__btn-close {

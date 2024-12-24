@@ -6,21 +6,21 @@
   border-radius: 4px;
   user-select: none;
   position: relative;
+  padding: .25rem;
+  border: .5rem solid #eee;
 
-  &__description{
-    font-size: .60rem;
-    color : $placeholder;
+  &__description {
+    font-size: 0.6rem;
+    color: $placeholder;
     width: 100%;
     text-align: right;
 
     @media (max-width: 425px) {
       display: none;
     }
-
   }
 
-
-  &__dots{
+  &__dots {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -28,14 +28,12 @@
     height: 2rem;
     display: flex;
     flex-direction: row-reverse;
-    justify-content :center;
+    justify-content: center;
     align-items: center;
     z-index: 2000;
-
-
   }
 
-  &__dot{
+  &__dot {
     width: 7px;
     height: 7px;
     background-color: #b7a9a9;
@@ -43,16 +41,15 @@
     margin: 0 8px;
   }
 
-  &__dot-bold{
+  &__dot-bold {
     @extend .wrapper-slide__dot;
     background-color: #fff;
-    transition: all .2s;
-    width: .5rem;
-    height: .5rem;
-
+    transition: all 0.2s;
+    width: 0.5rem;
+    height: 0.5rem;
   }
 
-  &__right-btn{
+  &__right-btn {
     height: 100%;
     width: 2rem;
     display: flex;
@@ -67,14 +64,12 @@
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
 
-    @media (max-width : 425px){
+    @media (max-width: 425px) {
       display: none;
     }
-  
-
   }
 
-  &__right-btn-sharp{
+  &__right-btn-sharp {
     @extend .wrapper-slide__right-btn;
     right: -2rem;
 
@@ -92,7 +87,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    position:absolute;
+    position: absolute;
     left: -1.5rem;
     top: 0;
     background-color: transparent;
@@ -101,15 +96,13 @@
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
 
-    @media (max-width : 425px){
+    @media (max-width: 425px) {
       display: none;
     }
-  
-
   }
 
-  &__left-btn-sharp{
-    @extend  .wrapper-slide__left-btn;
+  &__left-btn-sharp {
+    @extend .wrapper-slide__left-btn;
     left: -2rem;
 
     &:hover {
@@ -121,7 +114,6 @@
     }
   }
 
-
   .slide {
     width: 100%;
     height: 100%;
@@ -131,12 +123,11 @@
     overflow-x: scroll;
     overflow-y: hidden;
     scrollbar-color: transparent;
-    scrollbar-width:none;
+    scrollbar-width: none;
     scroll-behavior: smooth;
-    transition: all .2s;
+    transition: all 0.2s;
 
-
-    &__border-radius{
+    &__border-radius {
       border-radius: 4px;
     }
 
@@ -151,7 +142,6 @@
         height: 100%;
       }
     }
-
   }
 }
 
@@ -162,19 +152,20 @@
   width: 100%;
   padding: 2rem 0;
 
-  @media (max-width : 425px){
+  @media (max-width: 425px) {
     display: none;
   }
-
 
   &__card {
     max-height: 100px;
     width: calc(25% - 0.5rem);
-    border-radius: 4px;
     padding: 0;
     cursor: pointer;
     transition: all 0.1s;
-    margin: 0 0.5rem 0.5rem 0;
+    margin: 0 0.6rem 0.6rem 0;
+    padding: .25rem;
+    border-radius: 4px;
+
 
     img {
       width: 100%;
@@ -185,9 +176,12 @@
     }
   }
   &__select {
-    outline: 2px solid $active-hover;
-    box-shadow: 0 0 15px $active-hover;
+    outline: 2px solid #eee;
+    box-shadow: 0 0 20px rgba(0,0,0,.5);
     border-radius: 4px;
+
+    // outline: .25rem solid $active-hover;
+    // border-radius: 4px;
   }
 }
 
@@ -209,11 +203,11 @@
 }
 
 .disply-none {
-    width: 0;
-    height: 0;
+  width: 0;
+  height: 0;
 }
 
-.arrow-right{
+.arrow-right {
   width: 14px;
   height: 14px;
   background-color: transparent;
@@ -223,7 +217,7 @@
   transform: rotate(45deg);
 }
 
-.arrow-left{
+.arrow-left {
   @extend .arrow-right;
   transform: rotate(-135deg);
 }

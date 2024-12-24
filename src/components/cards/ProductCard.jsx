@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { Star, NoImage,NoPicture } from "../../components";
+import { Star, NoImage, NoPicture } from "../../components";
 import "./product-card.scss";
 
-const ProductCard = ({ data, cityName, provinceName }) => {
+const ProductCard = ({ data,cityName,provinceName }) => {
   return (
     <Link className="card" to={`/products/show/${data.id}`}>
       <div className="card__left">
@@ -10,7 +10,9 @@ const ProductCard = ({ data, cityName, provinceName }) => {
           className="card__image"
           style={{ backgroundImage: `url(${data.image})` }}
         >
-          {data.image ? null : <NoPicture width="2rem" color="rgba(0,0,0,.2)"/>}
+          {data.image ? null : (
+            <NoPicture width="2rem" color="rgba(0,0,0,.2)" />
+          )}
         </div>
       </div>
       <div className="card__right">
@@ -23,7 +25,7 @@ const ProductCard = ({ data, cityName, provinceName }) => {
             <Star width="15px" height="15px" color="orange" />
             <Star width="15px" height="15px" color="orange" />
           </div>
-          <div className="card__description">مرکزی - {data.city}</div>
+          <div className="card__description">{provinceName} - {cityName}</div>
         </div>
         <div className="card__bottom">
           <div className="card__parent-price">

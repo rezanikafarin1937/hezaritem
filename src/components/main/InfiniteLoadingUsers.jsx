@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useDebounce } from "../../customHooks/useDebounce";
 import { Spinner, Sidebar, ManufacturersItem } from "../../components";
 import { BaseURL, config } from "../../Global/BaseUrl";
+
 import "./infint-loading-products.scss";
 
 const InfiniteLoadingManufacturers = () => {
@@ -12,6 +13,7 @@ const InfiniteLoadingManufacturers = () => {
 
   let text = useSelector((state) => state.searchSlice.value);
   text = useDebounce(text, 800);
+
 
   const [totalData, setTotalData] = useState([]);
   const [page, setPage] = useState(1);
@@ -57,7 +59,6 @@ const InfiniteLoadingManufacturers = () => {
     navigate(0);
   };
 
-
   useEffect(() => {
     if (text.length > 0) {
       setTotalData(() => []);
@@ -71,8 +72,6 @@ const InfiniteLoadingManufacturers = () => {
       refreshPage();
     }
   }, [text]);
-
-
 
   useEffect(() => {
     fetchData();
@@ -90,6 +89,7 @@ const InfiniteLoadingManufacturers = () => {
       };
     }
   }, [visible]);
+
 
   return (
     <div className="main">

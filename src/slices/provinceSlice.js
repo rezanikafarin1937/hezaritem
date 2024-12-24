@@ -2,11 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BaseURL } from "../Global/BaseUrl";
 
-export const fetchCities = createAsyncThunk(
-  "citySlice/fetchCities",
+export const fetchProvince = createAsyncThunk(
+  "provinceSlice/fetchProvinces",
   async () => {
     try {
-      const res = await axios.get(BaseURL + "/cities");
+      const res = await axios.get(BaseURL + "/provinces");
       return res.data;
     } catch (err) {
       console.log(err.message);
@@ -14,8 +14,8 @@ export const fetchCities = createAsyncThunk(
   }
 );
 
-export const citySlice = createSlice({
-  name: "citySlice",
+export const provinceSlice = createSlice({
+  name: "provinceSlice",
   initialState: {
     data: [],
     loading: false,
@@ -23,18 +23,18 @@ export const citySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCities.fulfilled, (state, action) => {
+      .addCase(fetchProvince.fulfilled, (state, action) => {
         state.data = action.payload;
         state.loading = false;
       })
-      .addCase(fetchCities.pending, (state) => {
+      .addCase(fetchProvince.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchCities.rejected, (state) => {
+      .addCase(fetchProvince.rejected, (state) => {
         state.errorMessage = "error in fetch data";
         state.loading = false;
       });
   },
 
 });
-export default citySlice.reducer;
+export default provinceSlice.reducer;

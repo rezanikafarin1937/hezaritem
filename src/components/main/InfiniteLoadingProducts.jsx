@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useDebounce } from "../../customHooks/useDebounce";
-import { Spinner,Sidebar,Item,ProductCard} from "../../components";
+import { fetchCities } from "../../slices/citySlice";
+import { fetchProvince } from "../../slices/provinceSlice";
+import { Spinner, Sidebar, Item, ProductCard } from "../../components";
 // import Spinner from "../spinner/Spinner";
 // import Sidebar from "../sidebar/Sidebar";
 // import Item from "../item/Item";
@@ -15,6 +17,10 @@ const InfiniteLoadingProducts = () => {
   const navigate = useNavigate();
   let text = useSelector((state) => state.searchSlice.value);
   text = useDebounce(text, 800);
+
+  const dispatch = useDispatch();
+  const allCities = useSelector((state) => state.citySlice.data);
+  const allProvince =  useSelector(state => state.provinceSlice.data);
 
   const [totalData, setTotalData] = useState([]);
   const [page, setPage] = useState(1);
@@ -55,6 +61,11 @@ const InfiniteLoadingProducts = () => {
   const refreshPage = () => {
     navigate(0);
   };
+
+  useEffect(() => {
+    dispatch(fetchCities());
+    dispatch(fetchProvince());
+  }, []);
 
   useEffect(() => {
     if (text.length > 0) {
@@ -101,6 +112,32 @@ const InfiniteLoadingProducts = () => {
     }
   }, [visible]);
 
+  const giveCityName = (code) => {
+    if (code === 0) {
+      return null;
+    } else {
+      let city = allCities.find((c) => c.id === code);
+      if (city) {
+        return city.name;
+      } else {
+        return null;
+      }
+    }
+  };
+
+  const giveProvinceName = (code) => {
+    if (code === 0) {
+      return null;
+    } else {
+      let province = allProvince.find((p) => p.id === code);
+      if (province) {
+        return province.name;
+      } else {
+        return null;
+      }
+    }
+  };
+
   return (
     <div className="main">
       <div className="main__sidebar">
@@ -109,7 +146,7 @@ const InfiniteLoadingProducts = () => {
       <div className="main__parent-items">
         <div className="main__header-items">
           <span className="main__small-title">
-             تولیدآباد سایت ثبت و فروش محصولات تولیدکنندگان خردو کلان
+            تولیدآباد سایت ثبت و فروش محصولات تولیدکنندگان خردو کلان
           </span>
         </div>
         <div className="main__items">
@@ -118,7 +155,12 @@ const InfiniteLoadingProducts = () => {
           ) : (
             <>
               {totalData.map((data, index) => (
-                <ProductCard key={index} data={data} />
+                <ProductCard
+                  key={index}
+                  data={data}
+                  cityName={giveCityName(data.city)}
+                  provinceName={giveProvinceName(data.province)}
+                />
               ))}
             </>
           )}
