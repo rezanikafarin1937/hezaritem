@@ -112,8 +112,10 @@ html {
   &__search {
     position: relative;
     border-radius: 4px;
+
     input {
       width: 480px;
+      height: 100%;
       border: none;
       outline: none;
       background-color: $search;
@@ -122,7 +124,6 @@ html {
       text-align: right;
       min-height: 40px;
       padding-right: 1rem;
-      z-index: -1;
 
       @media (max-width: 1023px) {
         width: 300px;
