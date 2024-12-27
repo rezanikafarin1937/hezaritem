@@ -53,23 +53,24 @@ const Header = () => {
       </div>
       <nav className="header__section">
         <span to="/register" className="header__logo"></span>
+        <NavLink to="/" className="header__balance">
+          <span>صفحه اصلی</span>
+          <span style={{ marginLeft: ".25rem" }}></span>
+          <Home width="1rem" height="1rem" color={"rgba(0, 0, 0, .56)"} />
+        </NavLink>
         <span className="header__balance" onClick={openSelectCity}>
           <span>اراک</span>
           <span style={{ marginLeft: ".25rem" }}></span>
           <Location width="1rem" height="1rem" color={"rgba(0, 0, 0, .56)"} />
         </span>
+        <span style={{ marginRight: "1rem" }}></span>
+
         {/* <div
           className={
             "header__balance" + (numberLink === 0 ? "header__select" : "")
           }
           onClick={() => selector(0)}
         ></div> */}
-        <NavLink to="/" className="header__balance">
-          <span>صفحه اصلی</span>
-          <span style={{ marginLeft: ".25rem" }}></span>
-          <Home width="1rem" height="1rem" color={"rgba(0, 0, 0, .56)"} />
-        </NavLink>
-        <span style={{ marginRight: "1rem" }}></span>
         <span id="headerinput" className="header__search">
           <input
             value={text}
