@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BaseURL } from '../Global/BaseUrl';
+import { BaseURL,headers } from '../Global/BaseUrl';
 
 export const getAllProducts = async () => {
     const products =  await axios.get(`${BaseURL}/products`);

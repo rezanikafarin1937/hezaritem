@@ -22,7 +22,9 @@ const Product = () => {
       setDataProduct(data);
       setImages(() => [...data.images]);
       setLoading(false);
-    } catch (err) {}
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
