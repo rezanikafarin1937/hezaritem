@@ -25,6 +25,9 @@ class ProductController extends Controller
         } else {
             $products = Product::orderBy('created_at', 'desc')->where('category_id', $catId)->where('title','LIKE','%'.$title.'%')->paginate(100);
         }
+        if($catId > 0){
+            return $catId;
+        }
         return response()->json($products, 200);
     }
 
