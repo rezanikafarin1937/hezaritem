@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { Star, NoImage, NoPicture } from "../../components";
 import "./product-card.scss";
-/* REza Nikafarin For Test Remote Gitup **/
+/* REza Nikafarin For Test Remote Gitup  1**/
+/* REza Nikafarin For Test Remote Gitup  2**/
+/* REza Nikafarin For Test Remote Gitup  3**/
 const ProductCard = ({ data,cityName,provinceName }) => {
   return (
     <Link className="card" to={`/products/show/${data.id}`}>
