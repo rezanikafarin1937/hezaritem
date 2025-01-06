@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Star, NoImage, NoPicture } from "../../components";
 import "./product-card.scss";
+import axios from "axios";
 
 const ProductCard = ({ data,cityName,provinceName }) => {
   return (
