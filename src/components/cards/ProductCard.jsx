@@ -5,6 +5,7 @@ import "./product-card.scss";
 /* REza Nikafarin For Test Remote Gitup  2**/
 /* REza Nikafarin For Test Remote Gitup  3**/
 /* REza Nikafarin For Test Remote Gitup  4**/
+/* REza Nikafarin For Test Remote Gitup  5**/
 const ProductCard = ({ data,cityName,provinceName }) => {
   return (
     <Link className="card" to={`/products/show/${data.id}`}>
