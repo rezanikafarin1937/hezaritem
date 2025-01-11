@@ -114,7 +114,6 @@ class ProductController extends Controller
     {
         try {
             $product =  Product::findOrFail($id);
-            $catecory = Category::findOrFail($product->category_id);
             $data = [
                 'id' => $product->id,
                 'return' => $product->return,
@@ -126,8 +125,7 @@ class ProductController extends Controller
                 'description' => $product->description,
                 'shipping_cost' => $product->shipping_cost,
                 'images' => $product->images,
-                'category_id' => $product->category_id,
-                'category' => $catecory->name,
+                'category' => $product->category,
                 'products' => $product->user,
             ];
             return response()->json($data, 200);
