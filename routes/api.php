@@ -36,7 +36,7 @@ Route::group(['prefix' => 'users'],function (){
 
 Route::group(['prefix' => 'products'],function (){
     Route::namespace('\App\Http\Controllers\API')->group(function (){
-        Route::get('/{catId}','ProductController@index');
+        Route::get('/','ProductController@index');
         Route::get('/show/{id}','ProductController@show');
         Route::post('/','ProductController@store');
         Route::post('/{id}','ProductController@update');

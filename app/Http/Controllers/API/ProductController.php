@@ -16,17 +16,15 @@ use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
-    public function index($catId)
+    public function index()
     {
 
         $title = request()->get('title');
+        $catId =  request()->get('catId');
         if ($catId == 0) {
             $products = Product::orderBy('created_at', 'desc')->where('title','LIKE','%'.$title.'%')->paginate(100);
         } else {
-            $products = Product::orderBy('created_at', 'desc')->where('category_id', $catId)->where('title','LIKE','%'.$title.'%')->paginate(100);
-        }
-        if($catId > 0){
-            return $catId;
+            $products = Product::orderBy('created_at', 'desc')->where('category', $catId)->where('title','LIKE','%'.$title.'%')->paginate(100);
         }
         return response()->json($products, 200);
     }
