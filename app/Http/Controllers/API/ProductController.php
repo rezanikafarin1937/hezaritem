@@ -21,8 +21,8 @@ class ProductController extends Controller
 
         $title = request()->get('title');
         $catId =  request()->get('catId');
-        // $cities =  request()->get('cities');
-        // return $cities;
+        $cities =  request()->get('cities');
+        return response()->json($cities[0]);
 
         if ($catId == 0) {
             $products = Product::orderBy('created_at', 'desc')->where('title','LIKE','%'.$title.'%')->paginate(100);
