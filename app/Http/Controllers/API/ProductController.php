@@ -22,6 +22,7 @@ class ProductController extends Controller
         $title = request()->get('title');
         $catId =  request()->get('catId');
         $cities =  request()->get('cities');
+        $arr = explode(",",$cities);
         return response()->json($cities[0]);
 
         if ($catId == 0) {
