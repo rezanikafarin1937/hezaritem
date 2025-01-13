@@ -26,7 +26,7 @@ class ProductController extends Controller
         return response()->json($cities[0]);
 
         if ($catId == 0) {
-            $products = Product::orderBy('created_at', 'desc')->where('title','LIKE','%'.$title.'%')->paginate(100);
+            $products = Product::orderBy('created_at', 'desc')->whereIn('city',$arr)->where('title','LIKE','%'.$title.'%')->paginate(100);
         } else {
             $products = Product::orderBy('created_at', 'desc')->where('category', $catId)->where('title','LIKE','%'.$title.'%')->paginate(100);
         }
