@@ -22,13 +22,18 @@ class ProductController extends Controller
         $title = request()->get('title');
         $catId =  request()->get('catId');
         $cities =  request()->get('cities');
-        $arr = explode(",",$cities);
-        return response()->json($cities[0]);
+        $isAllRecords = sizeof($cities) == 1 && $cities[0] == 0 && $catId == 0;
+        // ->where('title','LIKE','%'.$title.'%')
 
-        if ($catId == 0) {
-            $products = Product::orderBy('created_at', 'desc')->whereIn('city',$arr)->where('title','LIKE','%'.$title.'%')->paginate(100);
-        } else {
-            $products = Product::orderBy('created_at', 'desc')->where('category', $catId)->where('title','LIKE','%'.$title.'%')->paginate(100);
+        if ($isAllRecords) {
+            $products = Product::orderBy('created_at', 'desc')->where('title','LIKE','%'.$title.'%')->paginate(100);
+        } else if($cities[0] != 0 && $catId == 0) {
+            $products = Product::orderBy('created_at', 'desc')->where('title','LIKE','%'.$title.'%')->whereIn('city',$cities)->paginate(100);
+        } else if($cities[0] == 0 && $catId > 0){
+            $products = Product::orderBy('created_at', 'desc')->where('title','LIKE','%'.$title.'%')->where('category',$catId)->paginate(100);
+        } else if($cities[0] != 0 && $catId != 0){
+            $products = Product::orderBy('created_at', 'desc')->where('title','LIKE','%'.$title.'%')->whereIn('city',$cities)->where('category',$catId)->paginate(100);
+
         }
         return response()->json($products, 200);
     }
