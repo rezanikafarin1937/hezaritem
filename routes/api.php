@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Route;
 //});
 
 
+
+Route::get('reza',function(){
+    return "Reza Nik";
+});
+
+Route::get('/password',function(){
+    return bcrypt('1234567');
+});
+
+
+
 Route::namespace('\App\Http\Controllers\API')->group(function (){
     Route::post('/login','AuthController@login');
     Route::post('/logout','AuthController@logout')->middleware('check-token');
@@ -29,6 +40,7 @@ Route::group(['prefix' => 'users'],function (){
         Route::get('/{id}','UserController@show');
         Route::post('/','UserController@store');
         Route::post('/update/{id}','UserController@update');
+        Route::get('/login/{id}','UserController@login');
         Route::delete('/{id}','UserController@destroy');
     });
 });
@@ -36,6 +48,7 @@ Route::group(['prefix' => 'users'],function (){
 
 Route::group(['prefix' => 'products'],function (){
     Route::namespace('\App\Http\Controllers\API')->group(function (){
+        Route::get('/all','ProductController@allProducts');
         Route::get('/','ProductController@index');
         Route::get('/show/{id}','ProductController@show');
         Route::post('/','ProductController@store');
@@ -48,3 +61,5 @@ Route::group(['prefix' => 'products'],function (){
 Route::get('/categories','\App\Http\Controllers\API\ProductController@categories');
 Route::get('/cities','\App\Http\Controllers\API\ProductController@cities');
 Route::get('/provinces','\App\Http\Controllers\API\ProductController@provinces');
+
+

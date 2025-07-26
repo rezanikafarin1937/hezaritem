@@ -38,6 +38,29 @@ class UserController extends Controller
     {
         //
     }
+    
+    public function login($id){
+        try {
+            $user =  User::findOrFail($id);
+            $data = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'avatar' => $user->avatar,
+                'mobile' => $user->mobile,
+                'type' => $user->type,
+                'city' => $user->city,
+                'address' => $user->address,
+                'email' => $user->email,
+                'products' => $user->products,
+                'api_token' => $user->api_token,
+            ];
+            return response()->json($data, 200);
+        } catch (\Exception $e) {
+            return response(['message' => $e->getMessage()], 404);
+        }
+
+    }
+
     public function store(StoreRequest $request)
     {
         $user = User::create([

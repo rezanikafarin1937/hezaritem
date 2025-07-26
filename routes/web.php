@@ -9,12 +9,13 @@ Route::get('/',function(){
 
 Route::get('/userall',function(){
     $users =  User::all();
-    dd($users);
+    // dd($users);
+    return $users;
 });
 
-Route::get('/password',function(){
-    return bcrypt('1234567');
-});
+// Route::get('/password',function(){
+//     return bcrypt('1234567');
+// });
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,6 @@ Route::get('/password',function(){
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
 

@@ -14,8 +14,15 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
+
 class ProductController extends Controller
 {
+
+    public function  allProducts(){
+        return Product::all();
+    }
+
+
     public function index()
     {
 
@@ -23,12 +30,10 @@ class ProductController extends Controller
         $catId =  request()->get('catId');
         $cities =  request()->get('cities');
         $isAllRecords = sizeof($cities) == 1 && $cities[0] == 0 && $catId == 0;
-        // ->where('title','LIKE','%'.$title.'%')
-
         if ($isAllRecords) {
             $products = Product::orderBy('created_at', 'desc')->where('title','LIKE','%'.$title.'%')->paginate(100);
         } else if($cities[0] != 0 && $catId == 0) {
-            $products = Product::orderBy('created_at', 'desc')->where('title','LIKE','%'.$title.'%')->whereIn('city',$cities)->paginate(100);
+            $products = Product::orderBy('created_at', 'desc')->whereIn('city',$cities)->where('title','LIKE','%'.$title.'%')->paginate(100);
         } else if($cities[0] == 0 && $catId > 0){
             $products = Product::orderBy('created_at', 'desc')->where('title','LIKE','%'.$title.'%')->where('category',$catId)->paginate(100);
         } else if($cities[0] != 0 && $catId != 0){
@@ -50,13 +55,31 @@ class ProductController extends Controller
     {
         //
     }
+
+
+    // public function store1(\App\Http\Requests\Product\StoreRequest $request){
+    //     $product = Product::create([
+    //         'user_id' => $request->user_id,
+    //         'title' => $request->title,
+    //         'price' => $request->price,
+    //         'category' => $request->category,
+    //         'discount' => $request->discount,
+    //         'description' => $request->description,
+    //         'return' => $request->return,
+    //         'shipping_cost' => $request->shipping_cost,
+    //     ]);
+    //     return response($product, 201);
+
+    // }
+
+
     public function store(\App\Http\Requests\Product\StoreRequest $request)
     {
         $product = Product::create([
             'user_id' => $request->user_id,
             'title' => $request->title,
             'price' => $request->price,
-            'category_id' => $request->category,
+            'category' => $request->category,
             'discount' => $request->discount,
             'description' => $request->description,
             'return' => $request->return,
@@ -145,7 +168,7 @@ class ProductController extends Controller
     public function update(\App\Http\Requests\Product\UpdateRequest $request, $id)
     {
         $product =  Product::findOrFail($id);
-        $data = $request->only(['title', 'shipping_cost', 'return', 'description', 'price', 'image', 'images']);
+        $data = $request->only(['title', 'shipping_cost', 'return', 'description', 'price', 'category','discount','return','image', 'images']);
 
         if ($request->idDeleteImages) {
             $i = 0;
@@ -206,8 +229,17 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+        // پاک کردن اطلاعات محصول 
         $product = Product::findOrFail($id);
         $product->delete();
+        
+        //  پاک کردن عکس های محصول
+        $folder = public_path('product_image') . '/' . $id;
+        if (File::exists($folder)) {
+            File::deleteDirectory($folder);
+        }
+
         return response(null, 204);
     }
+
 }
